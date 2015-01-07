@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.files       = ['lib/swat_ui.rb']
 
   s.add_dependency('swat-capybara', '~> 0.0.0')
-  s.add_dependency('firebase-ruby', '~> 0.2.2')
+  s.add_dependency('firebase', '~> 0.2.2')
 
   s.homepage    = 'http://tw.coming.soon'
   s.license     = 'MIT'
