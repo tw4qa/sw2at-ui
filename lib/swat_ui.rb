@@ -3,6 +3,7 @@ module Swat
 
   module UI
     require 'swat/ui/config'
+    require 'swat/ui/rspec_setup'
 
     def self.setup(rspec_config, opts)
       @config = Config.new(rspec_config, opts)
