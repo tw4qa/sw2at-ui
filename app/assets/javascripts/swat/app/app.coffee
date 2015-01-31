@@ -1,23 +1,24 @@
 #= require_self
 #
-#= require_tree swat/app/controllers
+#= require_tree ./controllers
 
 App = angular.module 'SWAT', [
-
+  'ngRoute'
+  'ui.router'
 ]
 
 
-App.config ($urlRouterProvider, $stateProvider) ->
-  $urlRouterProvider.otherwise("/dashboard");
-  $stateProvider.state("dashboard",
-    url: "/dashboard"
-    views:
-      content:
-        templateUrl: "dashboard.html"
-        controller: 'DashboardCtrl'
-      rightBar:
-        templateUrl: "dashboard_info.html"
-  )
+#App.config ($urlRouterProvider, $stateProvider) ->
+#  $urlRouterProvider.otherwise("/dashboard");
+#  $stateProvider.state("dashboard",
+#    url: "/dashboard"
+#    views:
+#      content:
+#        templateUrl: "dashboard.html"
+#        controller: 'DashboardCtrl'
+#      rightBar:
+#        templateUrl: "dashboard_info.html"
+#  )
 
 App.config ($httpProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
