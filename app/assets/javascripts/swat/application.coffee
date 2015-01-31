@@ -11,7 +11,7 @@
 # about supported directives.
 #
 #= require_tree .
-#= require angular
-#= require angular-ui-router
+#= require swat/angular
+#= require swat/angular-ui-router
 
 console.log 'S.W.A.T. initialized!'
