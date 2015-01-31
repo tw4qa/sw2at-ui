@@ -1,6 +1,6 @@
 angular.module("SWAT").factory "TestCaseService", ($resource) ->
 
-  $resource "/swat/api/tests", { id: "@id" },
+  $resource "/swat/api/test_cases", { id: "@id" },
     query:
       method: 'GET'
       isArray: true
