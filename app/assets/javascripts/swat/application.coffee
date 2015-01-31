@@ -11,7 +11,7 @@
 # about supported directives.
 #
 #= require_tree .
-#= require ./vendor/bower_components/angular/angular.js
-#= require ./vendor/bower_components/angular-ui-router/angular-ui-router.js
+#= require angular
+#= require angular-ui-router
 
 console.log 'S.W.A.T. initialized!'
