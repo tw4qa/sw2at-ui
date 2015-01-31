@@ -1,6 +1,7 @@
 #= require_self
 #
 #= require_tree ./controllers
+#= require_tree ./services
 
 App = angular.module 'SWAT', [
   'ngRoute'
