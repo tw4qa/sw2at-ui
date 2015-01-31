@@ -1,0 +1,30 @@
+doctype html
+html lang="en" ng-app="GreenLight"
+  head
+    meta charset="utf-8"
+    title
+      - unless yield(:title).to_s.empty?
+        = yield(:title)
+      - else
+        | S.W.A.T.
+    = yield(:head)
+
+    = csrf_meta_tags
+
+    - unless request.xhr?
+      = stylesheet_link_tag 'application', media: 'all'
+
+    meta name="viewport" content="width=device-width, initial-scale=1"
+
+  body
+    #swat ng-controller='RootCtrl'
+      #container
+        header
+          = yield(:header)
+        nav
+          = yield(:nav)
+        #content
+          = yield
+        div.push
+      footer#footer
+        span SWAT

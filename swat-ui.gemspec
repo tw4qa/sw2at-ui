@@ -8,9 +8,15 @@ Gem::Specification.new do |s|
   s.email       = 'vetal.tarasenko@gmail.com'
   s.files       = ['lib/swat_ui.rb']
 
-  s.add_dependency('rails', '~> 4.1.1')
+
   s.add_dependency('swat-capybara', '~> 0.0.0')
+
+  s.add_dependency('rails', '~> 4.1.1')
+
   s.add_dependency('firebase', '~> 0.2.2')
+  s.add_dependency('slim-rails')
+  s.add_dependency('sass-rails')
+  s.add_dependency('coffee-rails')
 
   s.homepage    = 'http://tw.coming.soon'
   s.license     = 'MIT'
