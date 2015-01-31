@@ -3,8 +3,8 @@
 #= require_tree ./controllers
 
 App = angular.module 'SWAT', [
-  'ngRoute'
-  'ui.router'
+#  'ngRoute'
+#  'ui.router'
 ]
 
 
