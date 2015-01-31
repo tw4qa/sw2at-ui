@@ -12,7 +12,8 @@ html lang="en" ng-app="GreenLight"
     = csrf_meta_tags
 
     - unless request.xhr?
-      = stylesheet_link_tag 'application', media: 'all'
+      = stylesheet_link_tag 'swat/application'
+      = javascript_include_tag 'swat/application'
 
     meta name="viewport" content="width=device-width, initial-scale=1"
 
