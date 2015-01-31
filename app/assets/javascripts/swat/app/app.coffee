@@ -20,9 +20,9 @@ App = angular.module 'SWAT', [
 #        templateUrl: "dashboard_info.html"
 #  )
 
-App.config ($httpProvider) ->
-  authToken = $("meta[name=\"csrf-token\"]").attr("content")
-  $httpProvider.defaults.headers.common["X-CSRF-Token"] = authToken
-
+#App.config ($httpProvider) ->
+#  authToken = $("meta[name=\"csrf-token\"]").attr("content")
+#  $httpProvider.defaults.headers.common["X-CSRF-Token"] = authToken
+#
 
 
