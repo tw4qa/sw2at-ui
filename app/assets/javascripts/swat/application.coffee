@@ -10,8 +10,7 @@
 # Read Sprockets README (https:#github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
-#= require_tree .
-#= require swat/angular
-#= require swat/angular-ui-router
+#= require swat/vendor/bower_components/angular/angular
+#= require swat/vendor/bower_components/angular-ui-router/release/angular-ui-router
 
 console.log 'S.W.A.T. initialized!'
