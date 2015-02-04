@@ -5,6 +5,7 @@
 
 
 App = angular.module 'SWAT', [
+  'ngResource'
   'ngRoute'
   'ui.router'
 ]
