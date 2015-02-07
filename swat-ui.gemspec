@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('swat-capybara', '~> 0.0.0')
 
-  s.add_dependency('rails', '~> 4.1.1')
+  s.add_dependency('rails')
 
   s.add_dependency('firebase', '~> 0.2.2')
   s.add_dependency('slim-rails')
