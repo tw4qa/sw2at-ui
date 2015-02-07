@@ -1,2 +1,6 @@
 h1
   | {{ title }}
+
+ul.cases ng-if="cases"
+  li.case ng-repeat="case in cases"
+    | {{ case }}
