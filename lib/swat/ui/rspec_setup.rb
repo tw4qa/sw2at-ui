@@ -8,14 +8,13 @@ module Swat
         end
 
         def collect
-          fork do
-            return unless branch_valid?
-            data = @example.metadata
-            data[:taken] = @time
-            data[:branch] = current_branch
-            data[:user] = user
-            fire_client.push(:test_cases_stats, data)
-          end
+          return unless branch_valid?
+          return unless user_valid?
+          data = @example.metadata
+          data[:taken] = @time
+          data[:branch] = current_branch
+          data[:user] = user
+          fire_client.push(:test_cases_stats, data)
         end
 
         private
@@ -32,12 +31,17 @@ module Swat
         end
 
         def user
-          `whoami`.gsub("\n",'')
+          @u ||= `whoami`.gsub("\n",'')
         end
 
         def branch_valid?
           Swat::UI.config.options[:collect_branch] == current_branch
         end
+
+        def user_valid?
+          Swat::UI.config.options[:collect_user] && Swat::UI.config.options[:collect_user] == user
+        end
+
       end
 
 
