@@ -3,10 +3,19 @@ module Swat
     module RspecSetup
       class StatsCollector
 
-        def collect(example, time)
-          data = example.metadata
-          data[:taken] = time
-          fire_client.push(:test_cases_stats, data)
+        def initialize(example, time)
+          @example, @time = example, time
+        end
+
+        def collect
+          fork do
+            return unless branch_valid?
+            data = @example.metadata
+            data[:taken] = @time
+            data[:branch] = current_branch
+            data[:user] = user
+            fire_client.push(:test_cases_stats, data)
+          end
         end
 
         private
@@ -17,9 +26,17 @@ module Swat
         end
 
         def current_branch
-          `git branch | grep '\''*'\'' | awk '\''{print $2}'\''`.gsub("\n",'')
+          @cb ||= `git branch | grep '\''*'\'' | awk '\''{print $2}'\''`.gsub("\n",'')
         rescue
           nil
+        end
+
+        def user
+          `whoami`.gsub("\n",'')
+        end
+
+        def branch_valid?
+          Swat::UI.config.options[:collect_branch] == current_branch
         end
       end
 
@@ -31,7 +48,7 @@ module Swat
 
         after(:each) do |example|
           taken =  (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now) - @sw_test_started_at
-          StatsCollector.new.collect(example, taken) if Swat::UI.config.options[:collect]
+          StatsCollector.new(example, taken).collect if Swat::UI.config.options[:collect]
           #puts "'#{example.description}' taken #{Time.at(taken).strftime('%M:%S')}"
         end
 
