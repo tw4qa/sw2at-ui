@@ -9,7 +9,6 @@ module Swat
 
         def collect
           return unless branch_valid?
-          return unless user_valid?
           data = @example.metadata
           data[:taken] = @time
           data[:branch] = current_branch
@@ -36,10 +35,6 @@ module Swat
 
         def branch_valid?
           Swat::UI.config.options[:collect_branch] == current_branch
-        end
-
-        def user_valid?
-          Swat::UI.config.options[:collect_user] && Swat::UI.config.options[:collect_user] == user
         end
 
       end
