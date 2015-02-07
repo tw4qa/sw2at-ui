@@ -20,7 +20,7 @@ module Swat
 
         def fire_client
           require 'firebase'
-          Firebase::Client.new(Swat::UI.config.options[:firebase])
+          @fb ||= Firebase::Client.new(Swat::UI.config.options[:firebase])
         end
 
         def current_branch
@@ -34,7 +34,8 @@ module Swat
         end
 
         def branch_valid?
-          Swat::UI.config.options[:collect_branch] == current_branch
+          Swat::UI.config.options[:collect_branch].nil? ||
+            Swat::UI.config.options[:collect_branch] == current_branch
         end
 
       end
