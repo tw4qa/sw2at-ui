@@ -9,11 +9,23 @@ module Swat
 
         def collect
           return unless branch_valid?
-          data = @example.metadata
-          data[:taken] = @time
-          data[:branch] = current_branch
-          data[:user] = user
+          data = {
+            taken: @time,
+            branch: current_branch,
+            user: user,
+            taken: @time,  
+            decription: @example.description,
+            full_decription: @example.full_description,               
+            file_path: @example.file_path,
+            line_number: @example.line_number,
+          }
           fire_client.push(:test_cases_stats, data)
+        rescue Exception => ex
+          puts ex.message
+        end
+
+        def self.now
+          (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
         end
 
         private
@@ -43,11 +55,11 @@ module Swat
 
       def init_ui(options = {})
         before(:each) do |example|
-          @sw_test_started_at = (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
+          @sw_test_started_at = StatsCollector.now
         end
 
         after(:each) do |example|
-          taken =  (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now) - @sw_test_started_at
+          taken =  StatsCollector.now - @sw_test_started_at rescue -1
           StatsCollector.new(example, taken).collect if Swat::UI.config.options[:collect]
           #puts "'#{example.description}' taken #{Time.at(taken).strftime('%M:%S')}"
         end
