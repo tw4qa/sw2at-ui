@@ -3,21 +3,21 @@ module Swat
     module RspecSetup
       class StatsCollector
 
-        def initialize(example, time)
-          @example, @time = example, time
+        def initialize(example)
+          @example = example
         end
 
         def collect
           return unless branch_valid?
           data = {
-            taken: @time,
             branch: current_branch,
             user: user,
-            taken: @time,  
             decription: @example.description,
             full_decription: @example.full_description,               
             file_path: @example.file_path,
-            line_number: @example.line_number,
+            location: @example.location,
+            status: @example.execution_result.status,
+            run_time: @example.execution_result.run_time,           
           }
           fire_client.push(:test_cases_stats, data)
         rescue Exception => ex
@@ -59,8 +59,7 @@ module Swat
         end
 
         after(:each) do |example|
-          taken =  StatsCollector.now - @sw_test_started_at rescue -1
-          StatsCollector.new(example, taken).collect if Swat::UI.config.options[:collect]
+          StatsCollector.new(example).collect if Swat::UI.config.options[:collect]
           #puts "'#{example.description}' taken #{Time.at(taken).strftime('%M:%S')}"
         end
 
