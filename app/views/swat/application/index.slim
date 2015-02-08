@@ -1,6 +1,11 @@
-h1
-  | {{ title }}
+= content_for :header do
+  h1
+    | {{ title }}
 
-ul.cases ng-if="cases"
-  li.case ng-repeat="case in cases"
-    | {{ case }}
+div layout="row" layout-wrap=''
+  div flex="100"
+    ul.cases ng-if="cases"
+      li.case ng-repeat="case in cases"
+        | {{ case.full_description }}
+
+
