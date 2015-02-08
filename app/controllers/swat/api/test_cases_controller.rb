@@ -8,9 +8,6 @@ module Swat
       private
 
       def test_cases
-        #require 'find'
-        #folder = [Rails.root, 'spec/features']*'/'
-        #Find.find(folder).select{|f|f.ends_with?('_spec.rb')}.map{|f| f.gsub(folder+'/','') }
         TestCase.all
       end
     end
