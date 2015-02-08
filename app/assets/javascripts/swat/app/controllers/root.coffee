@@ -23,7 +23,7 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
 
     avg =
       run_time: $scope.avg(items, 'run_time')
-      success: $scope.avg(_.map(items, (c)-> c.status = (if c.status=='success' then 1 else 0) ), 'status')
+      success: $scope.avg(_.map(items, (c)-> c.status = (if c.statusIndex=='success' then 1 else 0) ), 'statusIndex')
 
     stats =
       last: last
@@ -38,10 +38,11 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
     sum/cases.length
 
   $scope.sum = (cases, attr)->
-    cases.reduce(
-      (a,b)-> a[attr]+b[attr],
-      0
-    )
+    sum = 0
+    for case in cases
+      sum = sum + case[attr]
+
+    sum
 
   $scope.case = (json)->
     json.revision = new Date(json.revision)
