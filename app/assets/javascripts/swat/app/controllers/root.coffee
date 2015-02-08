@@ -3,10 +3,11 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
   $scope.init = ->
     $scope.title = 'S.W.A.T.'
     console.log('Root is ready to go!')
-    cases = TestCaseService.query()
-    console.log(cases)
-    $scope.cases = $scope.analyzeCases(cases)
-    console.log($scope.cases)
+    TestCaseService.query((cases)->
+      console.log(cases)
+      $scope.cases = $scope.analyzeCases(cases)
+      console.log($scope.cases)
+    )
 
   $scope.analyzeCases = (casesList)->
     groups = _.groupBy(casesList, 'full_description')
