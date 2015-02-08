@@ -2,8 +2,8 @@
   h2
     | {{ title }}
 
-div flex=''
-  md-button class="md-raised md-primary" ng-click="init()"
+div.main flex=''
+  md-button.reload class="md-button md-raised md-primary" ng-click="init()"
     | Reload
 
   md-list#cases ng-if="cases"
