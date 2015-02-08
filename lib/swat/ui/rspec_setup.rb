@@ -18,6 +18,7 @@ module Swat
             location: @example.location,
             status: status,
             exception: @example.exception,
+            revision: revision,
             run_time: @time
           }
           TestCase.push(data)
@@ -48,6 +49,10 @@ module Swat
         def branch_valid?
           Swat::UI.config.options[:collect_branch].nil? ||
             Swat::UI.config.options[:collect_branch] == current_branch
+        end
+
+        def revision
+          $swat_stats_revision ||= self.now
         end
 
       end

@@ -4,5 +4,5 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
     $scope.title = 'S.W.A.T.'
     console.log('Root is ready to go!')
     $scope.cases = TestCaseService.query()
-
+    console.log($scope.cases)
   $scope.init()
