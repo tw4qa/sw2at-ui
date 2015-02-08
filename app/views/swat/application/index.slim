@@ -16,8 +16,6 @@ div.main flex=''
             | {{ stats.last.minutes }}
           .status ng-class="stats.last.status"
             | {{ stats.last.status }}
-          .date
-            | {{ stats.last.revision }}
         md-tile-left flex="20"
           .run-time
             | {{ stats.short.minutes }} - {{ stats.long.minutes }}
@@ -26,3 +24,6 @@ div.main flex=''
             | {{ stats.avg.minutes }}
           .status ng-class="stats.avg.status"
             | {{ stats.avg.success }}%
+        md-tile-left flex="20"
+          .date
+            | {{ stats.last.revision }}
