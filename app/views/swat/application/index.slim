@@ -4,8 +4,8 @@
 
 div flex=''
   md-list#cases ng-if="cases"
-    md-item.case ng-repeat="case in cases | orderBy:run_time"
-      md-item-content
+    md-item ng-repeat="case in cases | orderBy:run_time"
+      md-item-content.case
         md-tile-left.description flex="40"
           | {{ case.full_description }}
         md-tile-content flex="60"
