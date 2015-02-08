@@ -18,14 +18,14 @@ html lang="en" ng-app="SWAT"
 
   body
     #swat ng-controller='RootCtrl'
-      #container.md-whiteframe-z1
+      #container
         header
           md-toolbar.md-accent
             = yield(:header)
         nav
           = yield(:nav)
-        #content layout="row" layout-wrap=''
-          md-content
+        #content.md-whiteframe-z1 layout="row" layout-wrap=''
+          md-content flex="100"
             = yield
         div.push
       footer#footer

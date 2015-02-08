@@ -3,13 +3,13 @@
     | {{ title }}
 
 div flex=''
-  md-list ng-if="cases"
+  md-list#cases ng-if="cases"
     md-item ng-repeat="case in cases"
       md-item-content
-        md-tile-left
+        md-tile-left.description flex="40"
           | {{ case.full_description }}
-        md-tile-content
+        md-tile-content flex="60"
           .run-time
             | {{ case.run_time }}
-          .status
+          .status ng-class="case.status"
             | {{ case.status }}
