@@ -1,12 +1,9 @@
 = content_for :header do
-  h1
+  h2
     | {{ title }}
 
-div layout="row" layout-wrap=''
-  div flex="100"
-    md-list ng-if="cases"
-      md-item ng-repeat="case in cases"
-        md-item-content
-          | {{ case.full_description }}
-
-
+div flex=''
+  md-list ng-if="cases"
+    md-item ng-repeat="case in cases"
+      md-item-content
+        | {{ case.full_description }}
