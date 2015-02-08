@@ -6,4 +6,10 @@ div flex=''
   md-list ng-if="cases"
     md-item ng-repeat="case in cases"
       md-item-content
-        | {{ case.full_description }}
+        md-tile-left
+          | {{ case.full_description }}
+        md-tile-content
+          .run-time
+            | {{ case.run_time }}
+          .status
+            | {{ case.status }}
