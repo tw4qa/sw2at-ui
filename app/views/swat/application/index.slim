@@ -4,12 +4,23 @@
 
 div flex=''
   md-list#cases ng-if="cases"
-    md-item ng-repeat="case in cases | orderBy:'run_time'"
+    md-item ng-repeat="(name, stats) in cases | orderBy:'run_time'"
       md-item-content.case
         md-tile-left.description flex="40"
-          | {{ case.full_description }}
+          | {{ name }}
         md-tile-content flex="60"
-          .run-time
-            | {{ case.run_time }}
-          .status ng-class="case.status"
-            | {{ case.status }}
+          div flex="30"
+            .run-time
+              | {{ stats.last.minutes }}
+            .status ng-class="stats.last.status"
+              | {{ stats.last.status }}
+
+          div flex="30"
+            .run-time
+              | {{ stats.short.minutes }} - {{ stats.long.minutes }}
+
+          div flex="30"
+            .run-time
+              | {{ stats.avg.minutes }}
+            .status ng-class="stats.avg.status"
+              | {{ stats.avg.status }}%
