@@ -15,7 +15,7 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
     angular.forEach(groups, $scope.analyzeCase)
 
 
-  $scope.analyzeCase = (g, values)->
+  $scope.analyzeCase = (values, g)->
     items = _.map(values, $scope.case)
     last = _.max(items, (c)-> c.revision )
     long = _.max(items, (c)-> c.run_time )
