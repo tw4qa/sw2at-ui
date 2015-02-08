@@ -23,7 +23,7 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
 
     avg =
       run_time: $scope.avg(items, 'run_time')
-      success: $scope.avg(_.map(items, (c)-> c.statusIndex = (if c.status=='success' then 1 else 0) ), 'statusIndex')
+      success: $scope.avg(_.map(items, (c)-> c.statusIndex = (if c.status=='success' then 1 else 0); c ), 'statusIndex')
 
     stats =
       last: last
