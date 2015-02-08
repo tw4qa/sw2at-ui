@@ -4,10 +4,10 @@
 
 div flex=''
   md-list#cases ng-if="cases"
-    md-item ng-repeat="(name, stats) in cases | orderBy:'run_time'"
+    md-item ng-repeat="stats in cases | orderBy:'run_time'"
       md-item-content.case
         md-tile-left.description flex="40"
-          | {{ name }}
+          | {{ stats.last.full_description }}
         md-tile-content flex="60"
           div flex="30"
             .run-time

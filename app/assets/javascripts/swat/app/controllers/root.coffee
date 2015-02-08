@@ -5,32 +5,33 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
     console.log('Root is ready to go!')
     TestCaseService.query((cases)->
       console.log(cases)
-      $scope.cases = $scope.analyzeCases(cases)
+      $scope.cases = []
+      $scope.analyzeCases(cases)
       console.log($scope.cases)
     )
 
   $scope.analyzeCases = (casesList)->
     groups = _.groupBy(casesList, 'full_description')
-    for group in groups
+    angular.forEach(groups, $scope.analyzeCase)
 
-      items = _.map(group[1], $scope.case)
-      last = _.max(items, (c)-> c.revision )
-      long = _.max(items, (c)-> c.run_time )
-      short = _.max(items, (c)-> -c.run_time )
 
-      avg =
-        run_time: $scope.avg(items, 'run_time')
-        success: $scope.avg(_.map(items, (c)-> c.status = (if c.status=='success' then 1 else 0) ), 'status')
+  $scope.analyzeCase = (g, values)->
+    items = _.map(values, $scope.case)
+    last = _.max(items, (c)-> c.revision )
+    long = _.max(items, (c)-> c.run_time )
+    short = _.max(items, (c)-> -c.run_time )
 
-      stats =
-        last: last
-        long: long
-        short: short
-        avg: avg
+    avg =
+      run_time: $scope.avg(items, 'run_time')
+      success: $scope.avg(_.map(items, (c)-> c.status = (if c.status=='success' then 1 else 0) ), 'status')
 
-      group[1] = stats
+    stats =
+      last: last
+      long: long
+      short: short
+      avg: avg
 
-    groups
+    $scope.cases.push stats
 
   $scope.avg = (cases, attr)->
     sum = $scope.sum(cases, attr)
