@@ -39,8 +39,8 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
 
   $scope.sum = (cases, attr)->
     sum = 0
-    for case in cases
-      sum = sum + case[attr]
+    for c in cases
+      sum = sum + c[attr]
 
     sum
 
