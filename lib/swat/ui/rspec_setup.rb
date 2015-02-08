@@ -3,8 +3,8 @@ module Swat
     module RspecSetup
       class StatsCollector
 
-        def initialize(example)
-          @example = example
+        def initialize(example, time)
+          @example, @time = example, time
         end
 
         def collect
@@ -16,8 +16,9 @@ module Swat
             full_decription: @example.full_description,               
             file_path: @example.file_path,
             location: @example.location,
-            status: @example.execution_result.status,
-            run_time: @example.execution_result.run_time,           
+            status: status,
+            exception: @example.exception,
+            run_time: @time
           }
           fire_client.push(:test_cases_stats, data)
         rescue Exception => ex
@@ -29,6 +30,10 @@ module Swat
         end
 
         private
+
+        def status
+          @example.exception ? :failed : :success
+        end
 
         def fire_client
           require 'firebase'
@@ -59,7 +64,8 @@ module Swat
         end
 
         after(:each) do |example|
-          StatsCollector.new(example).collect if Swat::UI.config.options[:collect]
+          time = StatsCollector.now - @sw_test_started_at
+          StatsCollector.new(example, time).collect if Swat::UI.config.options[:collect]
           #puts "'#{example.description}' taken #{Time.at(taken).strftime('%M:%S')}"
         end
 
