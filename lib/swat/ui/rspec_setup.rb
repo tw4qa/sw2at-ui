@@ -13,7 +13,7 @@ module Swat
             branch: current_branch,
             user: user,
             decription: @example.description,
-            full_decription: @example.full_description,               
+            full_description: @example.full_description,
             file_path: @example.file_path,
             location: @example.location,
             status: status,
