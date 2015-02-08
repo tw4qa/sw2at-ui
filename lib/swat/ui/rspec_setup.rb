@@ -52,7 +52,7 @@ module Swat
         end
 
         def revision
-          $swat_stats_revision ||= self.now
+          $swat_stats_revision ||= self.class.now
         end
 
       end
