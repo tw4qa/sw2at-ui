@@ -46,6 +46,7 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
   $scope.case = (json)->
     json.revision = new Date(json.revision)
     json.minutes = json.run_time.toFixed(2)
+    json
 
   $scope.init()
 
