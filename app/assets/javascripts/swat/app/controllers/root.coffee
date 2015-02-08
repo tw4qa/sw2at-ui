@@ -21,9 +21,10 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope, TestCaseServi
     long = _.max(items, (c)-> c.run_time )
     short = _.max(items, (c)-> -c.run_time )
 
+    suc = $scope.sum(_.map(items, (c)-> c.statusIndex = (if c.status=='success' then 1 else 0); c ), 'statusIndex')
     avg =
       run_time: $scope.avg(items, 'run_time')
-      success: $scope.avg(_.map(items, (c)-> c.statusIndex = (if c.status=='success' then 1 else 0); c ), 'statusIndex')
+      success: (values.count-suc)/values.count*100
 
     stats =
       last: last
