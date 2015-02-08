@@ -20,7 +20,7 @@ module Swat
             exception: @example.exception,
             run_time: @time
           }
-          fire_client.push(:test_cases_stats, data)
+          TestCase.push(data)
         rescue Exception => ex
           puts ex.message
         end
@@ -33,11 +33,6 @@ module Swat
 
         def status
           @example.exception ? :failed : :success
-        end
-
-        def fire_client
-          require 'firebase'
-          @fb ||= Firebase::Client.new(Swat::UI.config.options[:firebase])
         end
 
         def current_branch

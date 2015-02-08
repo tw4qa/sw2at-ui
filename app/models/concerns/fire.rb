@@ -4,7 +4,7 @@ module Fire
   module ClassMethods
 
     def all
-      fire_client.get collection
+      fire_client.get(collection).body
     end
 
     def push(attrs)
