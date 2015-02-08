@@ -4,8 +4,9 @@
 
 div layout="row" layout-wrap=''
   div flex="100"
-    ul.cases ng-if="cases"
-      li.case ng-repeat="case in cases"
-        | {{ case.full_description }}
+    md-list ng-if="cases"
+      md-item ng-repeat="case in cases"
+        md-item-content
+          | {{ case.full_description }}
 
 

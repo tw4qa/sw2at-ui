@@ -18,13 +18,15 @@ html lang="en" ng-app="SWAT"
 
   body
     #swat ng-controller='RootCtrl'
-      #container md-content=""
+      #container
         header
-          = yield(:header)
+          md-toolbar.md-accent
+            = yield(:header)
         nav
           = yield(:nav)
         #content
-          = yield
+          md-content
+            = yield
         div.push
       footer#footer
         span
