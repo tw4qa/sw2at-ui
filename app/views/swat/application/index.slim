@@ -3,6 +3,9 @@
     | {{ title }}
 
 div flex=''
+  md-button class="md-raised md-primary" ng-click="init()"
+    | Reload
+
   md-list#cases ng-if="cases"
     md-item ng-repeat="stats in cases | orderBy:'run_time'"
       md-item-content.case
