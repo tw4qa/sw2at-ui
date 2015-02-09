@@ -1,0 +1,5 @@
+app/assets/javascripts/bower_components/*/*.gzip
+app/assets/javascripts/bower_components/*/*.md
+app/assets/javascripts/bower_components/*/*.txt
+app/assets/javascripts/bower_components/*/*.json
+app/assets/javascripts/bower_components/*/*.map
