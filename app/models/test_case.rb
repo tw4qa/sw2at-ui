@@ -5,7 +5,7 @@ class TestCase
 
     def query(opts)
       ns  = Namespace.all
-      selected_ns = namespaces(ns, opts)
+      selected_ns = namespaces(ns.clone, opts)
 
       return all if selected_ns == ns
 
