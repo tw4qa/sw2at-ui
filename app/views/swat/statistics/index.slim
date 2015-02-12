@@ -35,7 +35,6 @@ div layout="column"
                 div flex="10" ng-if="revisionEnabled(ns)"
                   md-checkbox ng-model="ns.value" aria-label="ns"
                     | {{ ns.name | date : 'short' }}
-                  /| {{ ns.user }}-{{ ns.branch }}
 
   div  ng-if="!namespaces"
     div layout-align="center center"
@@ -49,7 +48,7 @@ div layout="column"
             | Reload Tests
         div
           md-list#cases ng-if="cases"
-            md-item ng-repeat="stats in cases | orderBy:'run_time'"
+            md-item ng-repeat="stats in cases | orderBy:'avg.run_time'"
               md-item-content.case
                 md-tile-left.description flex="40"
                   | {{ stats.last.full_description }}
