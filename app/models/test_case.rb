@@ -4,7 +4,12 @@ class TestCase
   class  << self
 
     def query(opts)
-      namespaces(opts).map do |n|
+      ns  = Namespace.all
+      selected_ns = namespaces(ns, opts)
+
+      return all if selected_ns == ns
+
+      selected_ns.map do |n|
         all_in_namespace(Namespace.encrypt_namespace(n))
       end.flatten
     end
@@ -25,8 +30,7 @@ class TestCase
       fire_client.get(build_namespace(namespace)).body.values
     end
 
-    def namespaces(opts)
-      ns  = Namespace.all
+    def namespaces(ns, opts)
       str_date_opt = opts[:revision].map{|d| Namespace.date_to_str(Namespace.str_to_date(d)) } rescue []
 
       ns.select!{|n| opts[:branch].include? n[:branch] } unless opts[:branch].blank?
