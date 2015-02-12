@@ -32,8 +32,9 @@ div layout="column"
           md-item
             div layout="" flex="" layout-wrap=""
               div flex="10" ng-repeat="ns in namespaces.revisions"
-                md-checkbox ng-model="ns.value" aria-label="ns"
+                md-checkbox ng-model="ns.value" aria-label="ns" ng-show="revisionEnabled(ns)"
                   | {{ ns.name | date : 'short' }}
+                  /| {{ ns.user }}-{{ ns.branch }}
 
   div  ng-if="!namespaces"
     div layout-align="center center"

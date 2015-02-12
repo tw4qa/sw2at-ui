@@ -20,6 +20,11 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope,
       $scope.namespaces = new NamespaceAnalyzer(namespaces).analyze()
     )
 
+  $scope.revisionEnabled = (ns)->
+    selectedBranch = _.select($scope.namespaces.branches, (n)-> n.branch == ns.branch )[0].value
+    selectedUser = _.select($scope.namespaces.users, (n)-> n.user == ns.user )[0].value
+    selectedBranch || selectedUser
+
   $scope.currentSelection = ->
     return {} unless $scope.namespaces
     new NamespaceAnalyzer().currentSelection($scope.namespaces)
