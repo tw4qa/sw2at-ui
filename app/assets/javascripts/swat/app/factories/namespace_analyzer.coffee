@@ -10,7 +10,7 @@ angular.module("SWAT").factory "NamespaceAnalyzer",  ->
       res
 
     prepareList = (items, field)->
-      _.uniq(_.map(items, (ns)-> { name: ns[field], value: false, full: ns }), (ns)-> ns[field] )
+      _.uniq(_.map(items, (ns)-> { name: ns[field], value: false, full: ns }), (ns)-> ns.name )
 
 
     currentSelection: (data)->
