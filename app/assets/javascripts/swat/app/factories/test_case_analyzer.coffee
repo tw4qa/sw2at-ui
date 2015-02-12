@@ -22,7 +22,8 @@ angular.module("SWAT").factory "TestCaseAnalyzer",  ->
         long: long
         short: short
         avg: avg
-        count: items.length
+        total: items.length
+        successful: suc
 
     avg: (cases, attr)->
       sum = @sum(cases, attr)

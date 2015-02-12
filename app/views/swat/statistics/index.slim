@@ -63,8 +63,7 @@ div layout="column"
                   .run-time
                     | {{ stats.avg.minutes }}
                   .status ng-class="stats.avg.status"
-                    | {{ stats.avg.success }}%
-                    | [ {{ stats.count }} ]
+                    | {{ stats.avg.success }}% [ {{ stats.total }} / {{ stats.successful }}   ]
                 md-tile-left flex="15"
                   .date
                     | {{ stats.last.revision }}
