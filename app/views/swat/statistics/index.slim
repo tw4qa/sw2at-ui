@@ -34,7 +34,7 @@ div layout="column"
               div ng-repeat="ns in namespaces.revisions"
                 div flex="10" ng-if="revisionEnabled(ns)"
                   md-checkbox ng-model="ns.value" aria-label="ns"
-                  | {{ ns.name | date : 'short' }}
+                    | {{ ns.name | date : 'short' }}
                   /| {{ ns.user }}-{{ ns.branch }}
 
   div  ng-if="!namespaces"
