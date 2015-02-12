@@ -1,6 +1,7 @@
 #= require_self
 #
 #= require_tree ./services
+#= require_tree ./factories
 #= require_tree ./controllers
 
 
@@ -8,6 +9,7 @@ App = angular.module 'SWAT', [
   'ngResource'
   'ngRoute'
   'ui.router'
+  'ngMaterial'
 ]
 
 

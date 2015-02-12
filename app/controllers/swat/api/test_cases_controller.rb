@@ -8,7 +8,7 @@ module Swat
       private
 
       def test_cases
-        TestCase.all
+        TestCase.query(HashWithIndifferentAccess[JSON.parse(params[:options])])
       end
     end
   end

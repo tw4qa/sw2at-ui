@@ -4,15 +4,24 @@ module Fire
   module ClassMethods
 
     def all
-      fire_client.get(collection).body.values
+      body = fire_client.get(collection).body
+      body ? body.values : []
     end
 
     def push(attrs)
       fire_client.push collection, attrs
     end
 
+    def push_to(namespace, attrs)
+      fire_client.push(build_namespace(namespace), attrs)
+    end
+
     def collection
       self.to_s
+    end
+
+    def build_namespace(namespace)
+      [collection, namespace]*'/'
     end
 
     def fire_client

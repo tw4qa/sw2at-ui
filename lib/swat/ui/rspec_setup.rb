@@ -10,24 +10,32 @@ module Swat
         def collect
           return unless branch_valid?
           data = {
-            branch: current_branch,
-            user: user,
-            decription: @example.description,
-            full_description: @example.full_description,
-            file_path: @example.file_path,
-            location: @example.location,
-            status: status,
-            exception: @example.exception,
-            revision: revision,
-            run_time: @time
+              branch: current_branch,
+              user: user,
+              decription: @example.description,
+              full_description: @example.full_description,
+              file_path: @example.file_path,
+              location: @example.location,
+              status: status,
+              exception: @example.exception,
+              revision: revision,
+              run_time: @time
           }
-          TestCase.push(data)
+          TestCase.add_to_namespace(current_namespace, data)
         rescue Exception => ex
           puts ex.message
         end
 
         def self.now
           (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
+        end
+
+        def current_namespace
+          {
+              branch: current_branch,
+              user: user,
+              revision: revision,
+          }
         end
 
         private
@@ -48,11 +56,19 @@ module Swat
 
         def branch_valid?
           Swat::UI.config.options[:collect_branch].nil? ||
-            Swat::UI.config.options[:collect_branch] == current_branch
+              Swat::UI.config.options[:collect_branch] == current_branch
         end
 
         def revision
-          $swat_stats_revision ||= self.class.now
+          unless $swat_stats_revision
+            $swat_stats_revision = self.class.now
+            Namespace.add(
+                branch: current_branch,
+                user: user,
+                revision: $swat_stats_revision
+            )
+          end
+          $swat_stats_revision
         end
 
       end
