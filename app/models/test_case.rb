@@ -4,14 +4,14 @@ class TestCase
   class  << self
 
     def query(opts)
-      ns  = Namespace.all
-      selected_ns = namespaces(ns.clone, opts)
+      all_cases = all
+      str_date_opt = opts[:revision].map{|d| Namespace.reformat_date(d) } rescue []
 
-      return all if selected_ns == ns
+      all_cases.select!{|n| opts[:branch].include? n['branch'] } unless opts[:branch].blank?
+      all_cases.select!{|n| opts[:user].include? n['user'] } unless opts[:user].blank?
+      all_cases.select!{|n| str_date_opt.include? Namespace.reformat_date(n['revision']) } unless opts[:revision].blank?
 
-      selected_ns.map do |n|
-        all_in_namespace(Namespace.encrypt_namespace(n))
-      end.flatten
+      all_cases
     end
 
     def add_to_namespace(namespace_opts, object)

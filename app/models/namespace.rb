@@ -35,6 +35,10 @@ class Namespace
       DateTime.parse(str, DATE_MASK)
     end
 
+    def reformat_date(str)
+      Namespace.date_to_str(Namespace.str_to_date(str))
+    end
+
   end
 
 end

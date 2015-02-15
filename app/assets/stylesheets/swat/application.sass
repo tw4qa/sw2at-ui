@@ -3,45 +3,100 @@
  *= require_self
  */
 
+$greyBg: #9f9f9f
+$greenMain: greenyellow
+
 body
-  //color: lightgrey
-  //background: #4B4B4B
+  background: $greyBg
 
-header
-  md-toolbar
-    background: rgb(61, 61, 61)
-  color: white
-  h2
+#swat
+  font-size: 13px
+
+  h1, h2, h3
     text-align: center
+    color: $greenMain
 
-.main
-  padding: 10px
+  button
+    background-color: rgb(178, 227, 103)
+    color: rgb(78, 70, 70)
+    margin-bottom: 5px
 
-md-button.reload
-  background: rgb(141, 229, 90)
-  color: white
+  md-checkbox.md-default-theme.md-checked
+    .md-icon
+      background-color: darken($greenMain,18)
 
-#content
-  margin-top: 25px
-  background: rgb(240, 240, 240)
+  md-toolbar
+    background: rgb(75, 78, 74)
 
-#container
-  padding: 20px
-  margin: 10px
-  background: #ffffff
+  header
+    md-toolbar
+      background: #000000
+    color: white
+    h2
+      text-align: center
+      sub
+        font-size: 12px
 
-  #cases
-    .case
-      padding: 15px
+  .main
+    padding: 10px
 
-      .description
-        color: #747474
+  md-button.reload
+    background: rgb(141, 229, 90)
+    color: white
 
-      .run-time
-        color: #1e69e2
+  #subheader
+    min-height: 34px
+    h3
+      margin: 5px
 
-      .status
-        &.failed
-          color: red
-        &.success
-          color: #0a804c
+  #content
+    margin-top: 25px
+    background: rgb(240, 240, 240)
+
+  #container
+    padding: 0px 15px 15px 15px
+    background: $greyBg
+
+    #cases
+      md-item
+        &:nth-child(odd)
+          .case
+            background: #f2fcef
+            &:hover
+              background: darken(#f2fcef, 5)
+
+      .case
+        &:hover
+          background: darken(#f2fcef, 5)
+
+        padding: 5px 0px 6px 16px
+
+        .description
+          color: #747474
+
+        .run-time
+          color: #1e69e2
+
+        .status
+          &.failed
+            color: red
+          &.success
+            color: #0a804c
+
+  .tests-stats
+    background: lighten($greyBg, 10)
+
+    .search-form, .search-results
+      md-whiteframe
+        background: #ffffff
+
+      md-checkbox.revision
+        width: 120px
+        margin: 9px 21px 0px 16px
+
+  #summary
+    h3
+      width: 100%
+      background-color: $greyBg
+    padding-left: 14px
+

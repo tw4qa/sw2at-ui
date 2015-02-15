@@ -82,7 +82,6 @@ module Swat
         after(:each) do |example|
           time = StatsCollector.now - @sw_test_started_at
           StatsCollector.new(example, time).collect if Swat::UI.config.options[:collect]
-          #puts "'#{example.description}' taken #{Time.at(taken).strftime('%M:%S')}"
         end
 
       end
