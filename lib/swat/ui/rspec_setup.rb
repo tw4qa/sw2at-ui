@@ -80,7 +80,7 @@ module Swat
         end
 
         after(:each) do |example|
-          time = StatsCollector.now - @sw_test_started_at
+          time = StatsCollector.now - @sw_test_started_at rescue 0
           StatsCollector.new(example, time).collect if Swat::UI.config.options[:collect]
         end
 
