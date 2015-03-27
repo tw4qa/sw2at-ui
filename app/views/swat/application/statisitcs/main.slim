@@ -4,7 +4,7 @@
 
 div.main flex=''
   md-button.reload class="md-button md-raised md-primary" ng-click="init()"
-    | Reload
+    | Reload Reports
 
   /md-list#cases ng-if="cases"
     md-item ng-repeat="stats in cases | orderBy:'run_time'"
