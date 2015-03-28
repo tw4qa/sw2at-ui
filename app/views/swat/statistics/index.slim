@@ -38,7 +38,7 @@
       div layout="row" flex=""
         md-list flex="100"
           md-item layout-margin="" layout-padding=""
-            strong Revision
+            strong Select Revision
           md-item
             div layout="" flex="" layout-wrap=""
               div ng-repeat="ns in namespaces.revisions"
@@ -55,7 +55,7 @@
       div layout="column" flex="50" flex-order="2" layout-margin=""
         div
           md-button.reload class="md-button md-primary" ng-click="initTestCases()"
-            | Reload Tests
+            | Reload Tests Results
         div
           md-list#cases ng-if="cases"
             md-item ng-repeat="stats in cases.groups | orderBy:'avg.run_time'"
