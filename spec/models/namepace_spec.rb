@@ -14,6 +14,12 @@ describe Namespace do
 
     it 'should query data' do
       expect(Namespace.all).to eq([])
+
+      ns = { branch: 'b', revision: DateTime.parse('21/03/1990 10:00'), user: 'me' }
+
+      Namespace.add(ns)
+
+      expect(Namespace.all).to eq([ns])
     end
 
   end
