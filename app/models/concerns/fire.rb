@@ -31,4 +31,5 @@ module Fire
 
   end
 
+  extend ClassMethods
 end

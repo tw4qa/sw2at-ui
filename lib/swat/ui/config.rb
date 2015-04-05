@@ -5,7 +5,7 @@ module Swat
     class Config
 
       def initialize(rspec_config, opts = {})
-        @options = DEFAULT_OPTIONS.merge opts
+        @options = opts
         rspec_config.extend RspecSetup
       end
 

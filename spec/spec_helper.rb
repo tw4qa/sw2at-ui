@@ -11,6 +11,12 @@ require Swat::Engine.root.join 'app/models/test_case'
 
 RSpec.configure do |config|
 
+  config.before :all do
+    Swat::UI.setup({}, {firebase: ENV['TEST_FIREBASE_URL']})
+  end
 
+  def clean_firebase
+    Fire.fire_client.delete('/')
+  end
 
 end
