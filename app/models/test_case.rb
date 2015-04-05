@@ -1,7 +1,7 @@
 class TestCase
   include Fire
 
-  class  << self
+  class << self
 
     def query(opts)
       all_cases = all

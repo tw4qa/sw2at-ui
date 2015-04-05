@@ -9,6 +9,12 @@ Gem::Specification.new do |s|
   s.files       = ['lib/swat_ui.rb']
 
 
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rails'
+  s.add_development_dependency 'combustion', '~> 0.3.1'
+
+  s.test_files = Dir["spec/**/*"]
+
   s.add_dependency('swat-capybara', '~> 0.0.0')
 
   s.add_dependency('rails')
