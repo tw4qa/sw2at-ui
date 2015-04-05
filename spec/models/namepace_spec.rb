@@ -9,7 +9,7 @@ describe Namespace do
   context 'Data & Firebase API' do
 
     before :each do
-      clean_firebase
+      clean_firebase!
     end
 
     it 'should query data' do

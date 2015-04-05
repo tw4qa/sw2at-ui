@@ -15,8 +15,8 @@ RSpec.configure do |config|
     Swat::UI.setup({}, {firebase: ENV['TEST_FIREBASE_URL']})
   end
 
-  def clean_firebase
-    Fire.fire_client.delete('/')
+  def clean_firebase!
+    Fire.drop!
   end
 
 end

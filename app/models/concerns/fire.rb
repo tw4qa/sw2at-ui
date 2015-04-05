@@ -29,6 +29,10 @@ module Fire
       @fb ||= Firebase::Client.new(Swat::UI.config.options[:firebase])
     end
 
+    def drop!
+      fire_client.delete(?/)
+    end
+
   end
 
   extend ClassMethods
