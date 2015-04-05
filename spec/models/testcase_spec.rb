@@ -11,10 +11,10 @@ describe TestCase do
     before :each do
       clean_firebase!
       @namespace_1 = { branch: ?b, user: 'me', revision: DateTime.parse('21/03/1990 10:00') }
-      @namespace_2 = { branch: ?b, user: 'u', revision: DateTime.parse('21/03/1990 10:00') }
+      @namespace_2 = { branch: ?r, user: 'yu', revision: DateTime.parse('21/03/1990 10:00') }
     end
 
-    it 'should query data' do
+    it 'should manage data' do
       expect(TestCase.all).to eq([])
       expect(Namespace.all).to eq([])
 
@@ -40,6 +40,10 @@ describe TestCase do
       expect(TestCase.all_in_namespace(Namespace.encrypt_namespace @namespace_2)).to eq([
         { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
       ])
+
+      Namespace.remove_branch(?r)
+      expect(Namespace.all).to eq([@namespace_1])
+      expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
     end
 
   end

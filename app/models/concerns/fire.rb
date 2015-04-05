@@ -4,8 +4,21 @@ module Fire
   module ClassMethods
 
     def all
-      body = fire_client.get(collection).body
+      body = get
       body ? body.values : []
+    end
+
+    def all_with_fire_ids
+      body = get
+      res = []
+      (body||{}).each do |id, v|
+        res << v.merge(fire_id: id)
+      end
+      res
+    end
+
+    def get
+      fire_client.get(collection).body
     end
 
     def push(attrs)
@@ -18,6 +31,10 @@ module Fire
 
     def collection
       self.to_s
+    end
+
+    def delete(element)
+      fire_client.delete([ collection, element ]*'/')
     end
 
     def build_namespace(namespace)

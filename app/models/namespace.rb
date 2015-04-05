@@ -13,9 +13,30 @@ class Namespace
     end
 
     def add(opts)
-       push(value: encrypt_namespace(opts))
+      push(value: encrypt_namespace(opts))
     end
 
+    def remove_by &condition
+      namespaces = all_with_fire_ids
+      namespaces.select{|ns|
+        condition.(decrypt_namespace(ns['value']))
+      }.each do |ns|
+        TestCase.delete(ns['value'])
+        delete(ns[:fire_id])
+      end
+    end
+
+    def remove_revision revision
+      remove_by{ |ns| ns[:revision] == revision }
+    end
+
+    def remove_branch branch
+      remove_by{ |ns| ns[:branch] == branch }
+    end
+
+    def remove_user user
+      remove_by{ |ns| ns[:user] == user }
+    end
 
     def encrypt_namespace(opts)
       revision = opts[:revision].is_a?(String) ? str_to_date(opts[:revision]) : opts[:revision]
