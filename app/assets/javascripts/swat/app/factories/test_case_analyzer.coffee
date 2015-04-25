@@ -11,7 +11,7 @@ angular.module("SWAT").factory "TestCaseAnalyzer",  ->
 
     analyzeCase: (values, g)=>
       items = _.map(values, @case)
-      last = _.max(items, (c)-> c.revision )
+      last = _.max(items, (c)-> c.time )
       long = _.max(items, (c)-> c.run_time )
       short = _.max(items, (c)-> -c.run_time )
 
@@ -48,7 +48,7 @@ angular.module("SWAT").factory "TestCaseAnalyzer",  ->
       (@sum(items, 'statusIndex')/items.length*100).toFixed(2)
 
     case: (json)->
-      json.revision = new Date(json.revision)
+      json.time = new Date(json.time)
       json.minutes = json.run_time.toFixed(2)
       json.statusIndex = (if json.status=='success' then 1 else 0)
       json
