@@ -16,11 +16,11 @@ describe TestCase do
 
     it 'should manage data' do
       expect(TestCase.all).to eq([])
-      expect(Namespace.all).to eq([])
+      expect(Revision.all).to eq([])
 
-      Namespace.add(@namespace_1)
-      Namespace.add(@namespace_2)
-      expect(Namespace.all).to eq([@namespace_1, @namespace_2])
+      Revision.add(@namespace_1)
+      Revision.add(@namespace_2)
+      expect(Revision.all).to eq([@namespace_1, @namespace_2])
 
       TestCase.add_to_namespace(@namespace_1, { 'value' =>  1 })
       TestCase.add_to_namespace(@namespace_1, { 'value' =>  2 })
@@ -34,15 +34,15 @@ describe TestCase do
         { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
         { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
       ])
-      expect(TestCase.all_in_namespace(Namespace.encrypt_namespace @namespace_1)).to eq([
+      expect(TestCase.all_in_namespace(Revision.encrypt_namespace @namespace_1)).to eq([
         { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }
       ])
-      expect(TestCase.all_in_namespace(Namespace.encrypt_namespace @namespace_2)).to eq([
+      expect(TestCase.all_in_namespace(Revision.encrypt_namespace @namespace_2)).to eq([
         { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
       ])
 
-      Namespace.remove_branch(?r)
-      expect(Namespace.all).to eq([@namespace_1])
+      Revision.remove_branch(?r)
+      expect(Revision.all).to eq([@namespace_1])
       expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
     end
 

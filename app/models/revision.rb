@@ -1,4 +1,4 @@
-class Namespace
+class Revision
   include Fire
   SEPARATOR = ':::'
   DATE_MASK = '%m-%d-%Y_%I-%M'
@@ -57,7 +57,7 @@ class Namespace
     end
 
     def reformat_date(str)
-      Namespace.date_to_str(Namespace.str_to_date(str))
+      Revision.date_to_str(Revision.str_to_date(str))
     end
 
   end
