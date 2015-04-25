@@ -18,7 +18,7 @@ module Swat
               location: @example.location,
               status: status,
               exception: @example.exception,
-              revision: revision,
+              time: time,
               run_time: @time
           }
           TestCase.add_to_namespace(current_namespace, data)
@@ -34,7 +34,7 @@ module Swat
           {
               branch: current_branch,
               user: user,
-              revision: revision,
+              time: time,
           }
         end
 
@@ -59,16 +59,16 @@ module Swat
               Swat::UI.config.options[:collect_branch] == current_branch
         end
 
-        def revision
-          unless $swat_stats_revision
-            $swat_stats_revision = self.class.now
+        def time
+          unless $swat_stats_time
+            $swat_stats_time = self.class.now
             Namespace.add(
                 branch: current_branch,
                 user: user,
-                revision: $swat_stats_revision
+                time: $swat_stats_time
             )
           end
-          $swat_stats_revision
+          $swat_stats_time
         end
 
       end

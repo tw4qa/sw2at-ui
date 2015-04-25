@@ -26,8 +26,8 @@ class Revision
       end
     end
 
-    def remove_revision revision
-      remove_by{ |ns| ns[:revision] == revision }
+    def remove_by_time time
+      remove_by{ |ns| ns[:time] == time }
     end
 
     def remove_branch branch
@@ -39,17 +39,17 @@ class Revision
     end
 
     def encrypt_namespace(opts)
-      revision = opts[:revision].is_a?(String) ? str_to_date(opts[:revision]) : opts[:revision]
-      [ opts[:branch], date_to_str(revision), opts[:user] ]*SEPARATOR
+      time = opts[:time].is_a?(String) ? str_to_date(opts[:time]) : opts[:time]
+      [ opts[:branch], date_to_str(time), opts[:user] ]*SEPARATOR
     end
 
     def decrypt_namespace(name)
       b, r, u = name.split(SEPARATOR)
-      { branch: b, revision: DateTime.strptime(r, DATE_MASK), user: u }
+      { branch: b, time: DateTime.strptime(r, DATE_MASK), user: u }
     end
 
-    def date_to_str(revision)
-      revision.strftime(DATE_MASK)
+    def date_to_str(time)
+      time.strftime(DATE_MASK)
     end
 
     def str_to_date(str)

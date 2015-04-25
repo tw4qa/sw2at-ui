@@ -10,8 +10,8 @@ describe TestCase do
 
     before :each do
       clean_firebase!
-      @namespace_1 = { branch: ?b, user: 'me', revision: DateTime.parse('21/03/1990 10:00') }
-      @namespace_2 = { branch: ?r, user: 'yu', revision: DateTime.parse('21/03/1990 10:00') }
+      @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00') }
+      @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:00') }
     end
 
     it 'should manage data' do
