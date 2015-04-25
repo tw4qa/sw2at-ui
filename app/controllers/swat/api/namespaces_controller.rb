@@ -8,7 +8,7 @@ module Swat
       private
 
       def namespaces
-        Namespace.all
+        Revision.all
       end
     end
   end
