@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'swat-ui'
-  s.version     = '0.0.0'
+  s.version     = Swat::UI::VERSION
   s.date        = '2014-11-20'
   s.summary     = 'Swat UI'
   s.description = 'Tool for end-to-end tests'

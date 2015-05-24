@@ -1,3 +1,5 @@
 module Swat
-  VERSION = "0.0.1"
+  module UI
+    VERSION = "0.0.2"
+  end
 end
