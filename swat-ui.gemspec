@@ -1,3 +1,5 @@
+require 'swat/ui/version'
+
 Gem::Specification.new do |s|
   s.name        = 'swat-ui'
   s.version     = Swat::UI::VERSION

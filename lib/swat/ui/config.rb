@@ -1,5 +1,6 @@
 module Swat
   module UI
+    require 'swat/ui/version'
     require 'swat/ui/rspec_setup'
 
     class Config
