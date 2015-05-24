@@ -23,7 +23,7 @@ class TestCase
     def all_in_namespace(namespace_opts)
       spaces = spaces_by(namespace_opts)
       spaces.map do |space|
-        fire_client.get(full_collection(space)).body.values
+        fire_client.get(full_collection(space)).body.try(:values) || []
       end.flatten
     end
 
