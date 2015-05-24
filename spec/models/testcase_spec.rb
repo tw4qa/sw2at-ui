@@ -12,9 +12,51 @@ describe TestCase do
       clean_firebase!
       @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00') }
       @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:00') }
+      add_data
     end
 
-    it 'should manage data' do
+    context 'Data management' do
+
+      it 'query correctly' do
+        expect(TestCase.all).to eq([
+           { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+           { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+        expect(TestCase.all_in_namespace(@namespace_1)).to eq([
+            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }
+        ])
+        expect(TestCase.all_in_namespace(@namespace_2)).to eq([
+            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+      end
+
+      it 'should delete branches' do
+        Revision.remove_branch(?r)
+        expect(Revision.all).to eq([@namespace_1])
+        expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
+      end
+
+      it 'should delete users' do
+        Revision.remove_user('yu')
+        expect(Revision.all).to eq([@namespace_1])
+        expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
+      end
+
+      it 'should delete times' do
+        Revision.remove_by_time('21/03/1990 10:00')
+        expect(Revision.all).to eq([])
+        expect(TestCase.all).to eq([])
+      end
+
+      it 'should delete branches' do
+        Revision.remove_branch(?b)
+        expect(Revision.all).to eq([@namespace_2])
+        expect(TestCase.all).to eq([{ 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }])
+      end
+
+    end
+
+    def add_data
       expect(TestCase.all).to eq([])
       expect(Revision.all).to eq([])
 
@@ -29,22 +71,8 @@ describe TestCase do
       TestCase.add_to_namespace(@namespace_2, { 'value' =>  4 })
       TestCase.add_to_namespace(@namespace_2, { 'value' =>  5 })
       TestCase.add_to_namespace(@namespace_2, { 'value' =>  6 })
-
-      expect(TestCase.all).to eq([
-        { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
-        { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
-      ])
-      expect(TestCase.all_in_namespace(Revision.encrypt_namespace @namespace_1)).to eq([
-        { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }
-      ])
-      expect(TestCase.all_in_namespace(Revision.encrypt_namespace @namespace_2)).to eq([
-        { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
-      ])
-
-      Revision.remove_branch(?r)
-      expect(Revision.all).to eq([@namespace_1])
-      expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
     end
+
 
   end
 end

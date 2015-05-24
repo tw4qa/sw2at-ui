@@ -50,6 +50,7 @@ describe Revision do
       Revision.remove_branch(?a)
       expect(Revision.all).to eq([ns2, ns3])
     end
+
   end
 
 end

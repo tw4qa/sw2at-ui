@@ -16,25 +16,18 @@ class Revision
       push(value: encrypt_namespace(opts))
     end
 
-    def remove_by &condition
-      namespaces = all_with_fire_ids
-      namespaces.select{|ns|
-        condition.(decrypt_namespace(ns['value']))
-      }.each do |ns|
-        TestCase.delete(ns['value'])
-        delete(ns[:fire_id])
-      end
-    end
-
     def remove_by_time time
+      TestCase.remove_by(time: time)
       remove_by{ |ns| ns[:time] == time }
     end
 
     def remove_branch branch
+      TestCase.remove_by(branch: branch)
       remove_by{ |ns| ns[:branch] == branch }
     end
 
     def remove_user user
+      TestCase.remove_by(user: user)
       remove_by{ |ns| ns[:user] == user }
     end
 
@@ -58,6 +51,24 @@ class Revision
 
     def reformat_date(str)
       Revision.date_to_str(Revision.str_to_date(str))
+    end
+
+    def summary
+      all_revisions = all
+      [:branch, :user, :time].each_with_object({}) do |key, res|
+        res[key] = all_revisions.map{|r| r[key] }
+      end
+    end
+
+    private
+
+    def remove_by &condition
+      namespaces = all_with_fire_ids
+      namespaces.select{|ns|
+        condition.(decrypt_namespace(ns['value']))
+      }.each do |ns|
+        delete(ns[:fire_id])
+      end
     end
 
   end

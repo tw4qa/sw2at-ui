@@ -194,7 +194,6 @@ PLATFORMS
 
 DEPENDENCIES
   combustion (~> 0.3.1)
-  rails
   rspec
   swat-capybara!
   swat-ui!

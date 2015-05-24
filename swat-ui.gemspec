@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
 
 
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rails'
   s.add_development_dependency 'combustion', '~> 0.3.1'
 
   s.test_files = Dir["spec/**/*"]

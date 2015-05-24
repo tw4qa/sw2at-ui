@@ -3,41 +3,65 @@ class TestCase
 
   class << self
 
-    def query(opts)
-      all_cases = all
-      str_date_opt = opts[:time].map{|d| Revision.reformat_date(d) } rescue []
-
-      all_cases.select!{|n| opts[:branch].include? n['branch'] } unless opts[:branch].blank?
-      all_cases.select!{|n| opts[:user].include? n['user'] } unless opts[:user].blank?
-      all_cases.select!{|n| str_date_opt.include? Revision.reformat_date(n['time']) } unless opts[:time].blank?
-
-      all_cases
+    def query(namespace_opts)
+      all_in_namespace(namespace_opts)
     end
 
     def add_to_namespace(namespace_opts, object)
-      push_to(Revision.encrypt_namespace(namespace_opts), object)
+      push_to(encrypt_testcase_namespace(namespace_opts), object)
     end
 
     def all(namespace=nil)
       if namespace
         all_in_namespace(namespace)
       else
-        super().map(&:values).flatten(1)
+        response = super()
+        response.map(&:values).flatten.map(&:values).flatten.map(&:values).flatten
       end
     end
 
-    def all_in_namespace(namespace)
-      fire_client.get(build_namespace(namespace)).body.values
+    def all_in_namespace(namespace_opts)
+      spaces = spaces_by(namespace_opts)
+      spaces.map do |space|
+        fire_client.get(full_collection(space)).body.values
+      end.flatten
     end
 
-    def namespaces(ns, opts)
-      str_date_opt = opts[:time].map{|d| Revision.date_to_str(Revision.str_to_date(d)) } rescue []
+    def remove_by(namespace_opts)
+      spaces_by(namespace_opts).each do |sp|
+        fire_client.delete(full_collection(sp))
+      end
+    end
 
-      ns.select!{|n| opts[:branch].include? n[:branch] } unless opts[:branch].blank?
-      ns.select!{|n| opts[:user].include? n[:user] } unless opts[:user].blank?
-      ns.select!{|n| str_date_opt.include? Revision.date_to_str(n[:time]) } unless opts[:time].blank?
+    private
 
-      ns
+    def spaces_by(namespace_opts)
+      summary = Revision.summary
+
+      branches = affected(summary, namespace_opts, :branch)
+      users = affected(summary, namespace_opts, :user)
+      times = affected(summary, namespace_opts, :time)
+
+      branches.map{|b|
+        users.map{|u|
+          times.map{|t|
+            encrypt_testcase_namespace(branch: b, user: u, time: t)
+          }
+        }
+      }.flatten.uniq
+    end
+
+    def full_collection(space)
+       [ collection, space ]*?/
+    end
+
+    def affected(summary, opts, key)
+      summary[key].select{|x| opts[key] ? x==opts[key] : true  }.uniq
+    end
+
+    def encrypt_testcase_namespace(opts)
+      time = opts[:time].is_a?(String) ? str_to_date(opts[:time]) : opts[:time]
+      [ opts[:branch], opts[:user], Revision.date_to_str(time) ]*?/
     end
 
   end

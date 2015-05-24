@@ -5,25 +5,3 @@
 div.main flex=''
   md-button.reload class="md-button md-raised md-primary" ng-click="init()"
     | Reload
-
-  /md-list#cases ng-if="cases"
-    md-item ng-repeat="stats in cases | orderBy:'run_time'"
-      md-item-content.case
-        md-tile-left.description flex="40"
-          | {{ stats.last.full_description }}
-        md-tile-left flex="15"
-          .run-time
-            | {{ stats.last.minutes }}
-          .status ng-class="stats.last.status"
-            | {{ stats.last.status }}
-        md-tile-left flex="15"
-          .run-time
-            | {{ stats.short.minutes }} - {{ stats.long.minutes }}
-        md-tile-left flex="15"
-          .run-time
-            | {{ stats.avg.minutes }}
-          .status ng-class="stats.avg.status"
-            | {{ stats.avg.success }}%
-        md-tile-left flex="15"
-          .date
-            | {{ stats.last.revision }}
