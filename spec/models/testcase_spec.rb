@@ -11,7 +11,7 @@ describe TestCase do
     before :each do
       clean_firebase!
       @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00') }
-      @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:00') }
+      @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01') }
 
       expect(TestCase.all).to eq([])
       expect(Revision.all).to eq([])
@@ -53,6 +53,9 @@ describe TestCase do
 
         expect(TestCase.query( time: DateTime.parse('21/03/1990 10:00') )).to eq([
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+        ])
+
+        expect(TestCase.query( time: DateTime.parse('21/03/1990 10:01') )).to eq([
            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
 
@@ -100,7 +103,7 @@ describe TestCase do
           { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
 
-        expect(TestCase.query( time: [ DateTime.parse('21/03/1990 10:00') ] )).to eq([
+        expect(TestCase.query( time: [ DateTime.parse('21/03/1990 10:00'), DateTime.parse('21/03/1990 10:01') ] )).to eq([
              { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
              { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
@@ -120,6 +123,7 @@ describe TestCase do
 
       it 'should delete times' do
         Revision.remove_by_time('21/03/1990 10:00')
+        Revision.remove_by_time('21/03/1990 10:01')
         expect(Revision.all).to eq([])
         expect(TestCase.all).to eq([])
       end

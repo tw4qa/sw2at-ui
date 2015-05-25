@@ -35,8 +35,10 @@ class TestCase
 
     private
 
-    def spaces_by(namespace_opts)
+    def spaces_by(opts)
       summary = Revision.summary
+
+      namespace_opts = normalize_opts(opts)
 
       branches = affected(summary, namespace_opts, :branch)
       users = affected(summary, namespace_opts, :user)
@@ -71,6 +73,37 @@ class TestCase
         opts_value ? summary_value == opts_value : true
       end
     end
+
+    def time_value_str(time_value)
+      if time_value.is_a?(Array)
+        time_value.map{|tv| tv.is_a?(Date) ? Revision.date_to_str(tv) : tv }
+      else
+        time_value.is_a?(Date) ? Revision.date_to_str(time_value) : time_value
+      end
+    end
+
+    def time_date_value(time_value)
+      if time_value.is_a?(Array)
+        time_value.map{|tv| tv.is_a?(String) ? Revision.str_to_date(tv) : tv }
+      else
+        time_value.is_a?(String) ? Revision.str_to_date(time_value) : time_value
+      end
+    end
+
+    def symbol_value(time_value)
+      if time_value.is_a?(Array)
+        time_value.map &:to_sym
+      else
+        time_value.to_sym
+      end
+    end
+
+    def normalize_opts(opts)
+      namespace_opts = opts.clone
+      namespace_opts[:time] = time_date_value(namespace_opts[:time]) if namespace_opts[:time]
+      namespace_opts
+    end
+
 
   end
 
