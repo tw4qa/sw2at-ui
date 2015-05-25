@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    swat-ui (0.0.2)
+    swat-ui (0.0.3)
       coffee-rails
       firebase (~> 0.2.2)
       rails

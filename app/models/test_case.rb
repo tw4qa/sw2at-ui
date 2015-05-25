@@ -56,12 +56,20 @@ class TestCase
     end
 
     def affected(summary, opts, key)
-      summary[key].select{|x| opts[key] ? x==opts[key] : true  }.uniq
+      summary[key].select{|x| affected_value?(opts[key], x)  }.uniq
     end
 
     def encrypt_testcase_namespace(opts)
       time = opts[:time].is_a?(String) ? str_to_date(opts[:time]) : opts[:time]
       [ opts[:branch], opts[:user], Revision.date_to_str(time) ]*?/
+    end
+
+    def affected_value?(opts_value, summary_value)
+      if opts_value.is_a?(Array)
+        opts_value ? opts_value.include?(summary_value) : true
+      else
+        opts_value ? summary_value == opts_value : true
+      end
     end
 
   end

@@ -44,12 +44,14 @@ describe TestCase do
             { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
 
+        # Single Options
+
         expect(TestCase.query({})).to eq([
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
 
-        expect(TestCase.query( time: '21/03/1990 10:00' )).to eq([
+        expect(TestCase.query( time: DateTime.parse('21/03/1990 10:00') )).to eq([
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
@@ -68,6 +70,39 @@ describe TestCase do
 
         expect(TestCase.query( branch: ?r )).to eq([
            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
+        # Array options
+
+        expect(TestCase.query( branch: [ ?r, ?b ])).to eq([
+             { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+             { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
+        expect(TestCase.query( user: [ 'yu', 'me' ])).to eq([
+            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
+        expect(TestCase.query( user: [ 'me' ] )).to eq([
+           { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+        ])
+
+        expect(TestCase.query( branch: [ ?b ] )).to eq([
+           { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+        ])
+
+        expect(TestCase.query( user: [ 'yu' ] )).to eq([
+             { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
+        expect(TestCase.query( branch: [ ?r ] )).to eq([
+          { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
+        expect(TestCase.query( time: [ DateTime.parse('21/03/1990 10:00') ] )).to eq([
+             { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+             { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
       end
 
