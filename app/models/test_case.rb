@@ -68,7 +68,7 @@ class TestCase
 
     def affected_value?(opts_value, summary_value)
       if opts_value.is_a?(Array)
-        opts_value ? opts_value.include?(summary_value) : true
+        opts_value.empty? || opts_value.include?(summary_value)
       else
         opts_value ? summary_value == opts_value : true
       end
