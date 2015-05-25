@@ -99,7 +99,10 @@ class TestCase
     end
 
     def normalize_opts(opts)
-      namespace_opts = opts.clone
+      namespace_opts = opts.each_with_object({}) do |(k, v), res|
+        res[k.to_sym]  = v
+      end
+
       namespace_opts[:time] = time_date_value(namespace_opts[:time]) if namespace_opts[:time]
       namespace_opts
     end
