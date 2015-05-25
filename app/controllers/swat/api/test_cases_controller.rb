@@ -8,7 +8,12 @@ module Swat
       private
 
       def test_cases
-        TestCase.query(HashWithIndifferentAccess[JSON.parse(params[:options])])
+        opts = HashWithIndifferentAccess[JSON.parse(params[:options])]
+        if !opts.empty?
+          TestCase.query(opts)
+        else
+          []
+        end
       end
     end
   end
