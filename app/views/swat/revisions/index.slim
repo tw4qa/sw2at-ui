@@ -7,6 +7,8 @@
 
   .list ng-if="namespaces"
     p.revision ng-repeat="revision in namespaces"
+      | {{ revision }}
+    /a
       .branch
         | {{ revision.branch }}
       .time
