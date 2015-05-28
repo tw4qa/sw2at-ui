@@ -1,32 +1,12 @@
 console.log 'Root C. initialized'
 angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope,
-    TestCaseService, TestCaseAnalyzer, NamespaceService, NamespaceAnalyzer) ->
+    TestCaseService, TestCaseAnalyzer, NamespaceService) ->
 
   $scope.init = ->
     $scope.initNamespaces()
 
-  $scope.initTestCases = ->
-    $scope.cases = null
-    console.log($scope.currentSelection())
-    TestCaseService.query({options: $scope.currentSelection()}, (cases)->
-      $scope.cases = (new TestCaseAnalyzer(cases)).analyze()
-      console.log($scope.cases)
-    )
-
   $scope.initNamespaces = ->
-    NamespaceService.query((namespaces)->
-      console.log(namespaces)
-      $scope.namespaces = new NamespaceAnalyzer(namespaces).analyze()
-    )
-
-  $scope.timeEnabled = (ns)->
-    selectedBranch = _.select($scope.namespaces.branches, (n)-> n.name == ns.full.branch )[0].value
-    selectedUser = _.select($scope.namespaces.users, (n)-> n.name == ns.full.user )[0].value
-    selectedBranch || selectedUser
-
-  $scope.currentSelection = ->
-    return {} unless $scope.namespaces
-    new NamespaceAnalyzer().currentSelection($scope.namespaces)
+    NamespaceService.query((namespaces)-> $scope.namespaces = namespaces )
 
   $scope.init()
 
