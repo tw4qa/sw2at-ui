@@ -2,5 +2,15 @@
   span
     | Revisions
 
-.tests-stats layout="column"
+#revisions-container
+  .controls
+
+  .list ng-if="revisions"
+    p.revision ng-repeat="revision in revisions"
+      .branch
+        | {{ revision.branch }}
+      .time
+        | {{ revision.time }}
+      .user
+        | {{ revision.user }}
 
