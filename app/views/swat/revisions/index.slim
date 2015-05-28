@@ -6,7 +6,7 @@
   .controls
 
   .list ng-if="revisions"
-    p.revision ng-repeat="revision in revisions"
+    p.revision ng-repeat="revision in namespaces"
       .branch
         | {{ revision.branch }}
       .time
