@@ -5,7 +5,7 @@
 #revisions-container
   .controls
 
-  .list ng-if="revisions"
+  .list ng-if="namespaces"
     p.revision ng-repeat="revision in namespaces"
       .branch
         | {{ revision.branch }}
