@@ -77,7 +77,7 @@ describe TestCase do
 
         # Array options
 
-        expect(TestCase.query( branch: [ ?r, ?b ])).to eq([
+        expect(TestCase.query( branch: [ ?r, ?b ], time: []) ).to eq([
              { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
              { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
@@ -91,7 +91,7 @@ describe TestCase do
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
         ])
 
-        expect(TestCase.query( branch: [ ?b ] )).to eq([
+        expect(TestCase.query( branch: [ ?b ], time: [] )).to eq([
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
         ])
 
@@ -107,6 +107,17 @@ describe TestCase do
              { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
              { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
+
+
+        expect(TestCase.query( user: [ 'me' ],  branch: [ ?b ] )).to eq([
+             { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+        ])
+
+        expect(TestCase.query( user: [ 'me' ],  branch: [ ?b, ?r ] )).to eq([
+            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
+        ])
+
+        expect(TestCase.query( user: [ 'me' ],  branch: [ ?r ] )).to eq([])
       end
 
       it 'should delete branches' do
