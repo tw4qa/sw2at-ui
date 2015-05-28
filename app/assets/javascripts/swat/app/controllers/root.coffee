@@ -3,7 +3,6 @@ angular.module("SWAT").controller "RootCtrl", ($rootScope, $scope,
     TestCaseService, TestCaseAnalyzer, NamespaceService, NamespaceAnalyzer) ->
 
   $scope.init = ->
-    $scope.initTestCases()
     $scope.initNamespaces()
 
   $scope.initTestCases = ->
