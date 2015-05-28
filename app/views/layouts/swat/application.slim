@@ -20,15 +20,15 @@ html lang="en" ng-app="SWAT"
     #swat ng-controller='RootCtrl'
       #container
         header
-          md-toolbar
-            = yield(:header)
+          = render partial:  'swat/shared/header'
+          #subheader
+            = yield(:subheader)
         nav
           = yield(:nav)
-        #content.md-whiteframe-z1 layout="row" layout-wrap=''
-          md-content flex="100"
-            = yield
+        #content
+          = yield
         div.push
       footer#footer
-        span
+        = render partial:  'swat/shared/footer'
 
   = javascript_include_tag 'swat/application'
