@@ -1,20 +1,19 @@
 class Revision
   include Fire
-  SEPARATOR = ':::'
-  DATE_MASK = '%m-%d-%Y_%I-%M'
+  extend Crypto
 
   class  << self
 
     def all
       resp = super()
-      resp.map(&:values).flatten.map do |ns|
+      resp.map(&:values).map(&:first).flatten.map do |ns|
         decrypt_namespace(ns['id'])
       end
     end
 
     def add(opts)
       id = encrypt_namespace(opts)
-      fire_client.push(full_collection(id), id: id)
+      fire_client.push(full_collection(id), opts.merge(id: id)) if fire_client.get(full_collection(id)).body.nil?
     end
 
     def remove_by_time time
@@ -32,27 +31,6 @@ class Revision
       remove_by{ |ns| ns[:user] == user }
     end
 
-    def encrypt_namespace(opts)
-      time = opts[:time].is_a?(String) ? str_to_date(opts[:time]) : opts[:time]
-      [ opts[:branch], date_to_str(time), opts[:user] ]*SEPARATOR
-    end
-
-    def decrypt_namespace(name)
-      b, r, u = name.split(SEPARATOR)
-      { branch: b, time: DateTime.strptime(r, DATE_MASK), user: u }
-    end
-
-    def date_to_str(time)
-      time.strftime(DATE_MASK)
-    end
-
-    def str_to_date(str)
-      DateTime.parse(str, DATE_MASK)
-    end
-
-    def reformat_date(str)
-      Revision.date_to_str(Revision.str_to_date(str))
-    end
 
     def summary
       all_revisions = all

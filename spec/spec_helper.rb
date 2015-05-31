@@ -6,6 +6,7 @@ require 'rails'
 require 'swat_ui'
 
 require Swat::Engine.root.join 'app/models/concerns/fire'
+require Swat::Engine.root.join 'app/models/concerns/crypto'
 require Swat::Engine.root.join 'app/models/revision'
 require Swat::Engine.root.join 'app/models/test_case'
 

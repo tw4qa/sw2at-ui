@@ -1,5 +1,6 @@
 class TestCase
   include Fire
+  extend Crypto
 
   class << self
 
@@ -62,8 +63,8 @@ class TestCase
     end
 
     def encrypt_testcase_namespace(opts)
-      time = opts[:time].is_a?(String) ? str_to_date(opts[:time]) : opts[:time]
-      [ opts[:branch], opts[:user], Revision.date_to_str(time) ]*?/
+      time = str_to_date(opts[:time])
+      [ opts[:branch], opts[:user], date_to_str(time) ]*?/
     end
 
     def affected_value?(opts_value, summary_value)
@@ -76,17 +77,17 @@ class TestCase
 
     def time_value_str(time_value)
       if time_value.is_a?(Array)
-        time_value.map{|tv| tv.is_a?(Date) ? Revision.date_to_str(tv) : tv }
+        time_value.map{|tv| tv.is_a?(Date) ? date_to_str(tv) : tv }
       else
-        time_value.is_a?(Date) ? Revision.date_to_str(time_value) : time_value
+        date_to_str(time_value)
       end
     end
 
     def time_date_value(time_value)
       if time_value.is_a?(Array)
-        time_value.map{|tv| tv.is_a?(String) ? Revision.str_to_date(tv) : tv }
+        time_value.map{|tv| str_to_date(tv) }
       else
-        time_value.is_a?(String) ? Revision.str_to_date(time_value) : time_value
+        str_to_date(time_value)
       end
     end
 

@@ -60,17 +60,20 @@ module Swat
         end
 
         def time
-          unless $swat_stats_time
-            $swat_stats_time = self.class.now
+          unless $current_revision
+            $current_revision = current_revision
             Revision.add(
                 branch: current_branch,
                 user: user,
-                time: $swat_stats_time
+                time: $current_revision
             )
           end
-          $swat_stats_time
+          $current_revision
         end
 
+        def current_revision
+          ENV['SWAT_CURRENT_REVISION'] ? Time.parse(ENV['SWAT_CURRENT_REVISION']) : self.class.now
+        end
       end
 
     end
