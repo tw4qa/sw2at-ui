@@ -44,6 +44,13 @@ describe TestCase do
             { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
         ])
 
+        expect(Revision.revisions(@namespace_1)).to eq([
+            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }
+        ])
+        expect(Revision.revisions(@namespace_2)).to eq([
+            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
+        ])
+
         # Single Options
 
         expect(TestCase.query({})).to eq([

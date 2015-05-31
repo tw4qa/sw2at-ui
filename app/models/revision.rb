@@ -12,6 +12,10 @@ class Revision
       end
     end
 
+    def revisions(revision_opts)
+      TestCase.all_in_namespace(revision_opts)
+    end
+
     def add(opts)
       id = encrypt_namespace(opts)
       fire_client.push(full_collection(id), opts.merge(id: id)) if fire_client.get(full_collection(id)).body.nil?

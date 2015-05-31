@@ -29,6 +29,8 @@ describe Revision do
       Revision.add(ns2)
 
       expect(Revision.all).to eq([ns1, ns2])
+      expect(Revision.revisions(ns1)).to eq([])
+      expect(Revision.revisions(ns2)).to eq([])
 
       Revision.remove_by_time(ns1[:time])
       expect(Revision.all).to eq([ns2])
