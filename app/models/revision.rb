@@ -14,7 +14,7 @@ class Revision
 
     def add(opts)
       id = encrypt_namespace(opts)
-      fire_client.push(collection+?/+id, id: id)
+      fire_client.push(full_collection(id), id: id)
     end
 
     def remove_by_time time
@@ -68,8 +68,12 @@ class Revision
       namespaces.select{|ns|
         condition.(ns)
       }.each do |ns|
-        fire_client.delete(collection+?/+encrypt_namespace(ns))
+        fire_client.delete(full_collection(encrypt_namespace(ns)))
       end
+    end
+
+    def full_collection(encrypted_namespace)
+      collection+?/+encrypted_namespace
     end
 
   end
