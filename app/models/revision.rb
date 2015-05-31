@@ -7,13 +7,14 @@ class Revision
 
     def all
       resp = super()
-      resp.map do |ns|
-        decrypt_namespace(ns['value'])
+      resp.map(&:values).flatten.map do |ns|
+        decrypt_namespace(ns['id'])
       end
     end
 
     def add(opts)
-      push(value: encrypt_namespace(opts))
+      id = encrypt_namespace(opts)
+      fire_client.push(collection+?/+id, id: id)
     end
 
     def remove_by_time time
@@ -63,11 +64,11 @@ class Revision
     private
 
     def remove_by &condition
-      namespaces = all_with_fire_ids
+      namespaces = all
       namespaces.select{|ns|
-        condition.(decrypt_namespace(ns['value']))
+        condition.(ns)
       }.each do |ns|
-        delete(ns[:fire_id])
+        fire_client.delete(collection+?/+encrypt_namespace(ns))
       end
     end
 

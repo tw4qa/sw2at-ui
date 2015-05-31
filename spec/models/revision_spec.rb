@@ -46,7 +46,7 @@ describe Revision do
       Revision.add(ns3)
       Revision.add(ns4)
 
-      expect(Revision.all).to eq([ns1, ns2, ns3, ns4])
+      expect(Revision.all.sort_by(&:to_s)).to eq([ns1, ns2, ns3, ns4].sort_by(&:to_s))
       Revision.remove_branch(?a)
       expect(Revision.all).to eq([ns2, ns3])
     end
