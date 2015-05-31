@@ -10,6 +10,7 @@ class TestCase
 
     def add_to_namespace(namespace_opts, object)
       push_to(encrypt_testcase_namespace(namespace_opts), object)
+      Revision.add_case_result(namespace_opts, object)
     end
 
     def all(namespace=nil)

@@ -4,10 +4,11 @@ class Revision
 
   class  << self
     MAIN_FOLDER = 'main'
+    STATS_FOLDER = 'stats'
 
     def all
       resp = super()
-      resp.map{|x| x[MAIN_FOLDER] }.map(&:values).map(&:first).flatten.map do |ns|
+      resp.map{|x| x[MAIN_FOLDER] }.compact.map(&:values).map(&:first).flatten.map do |ns|
         decrypt_namespace(ns['id'])
       end
     end
@@ -19,6 +20,11 @@ class Revision
     def add(opts)
       id = encrypt_namespace(opts)
       fire_client.push(full_collection(id), opts.merge(id: id)) if fire_client.get(full_collection(id)).body.nil?
+    end
+
+    def add_case_result(namspace_opts, data)
+      id = encrypt_namespace(namspace_opts)
+      fire_client.push(full_collection(id, STATS_FOLDER), data)
     end
 
     def remove_by_time time
