@@ -3,10 +3,11 @@ class Revision
   extend Crypto
 
   class  << self
+    MAIN_FOLDER = 'main'
 
     def all
       resp = super()
-      resp.map(&:values).map(&:first).flatten.map do |ns|
+      resp.map{|x| x[MAIN_FOLDER] }.map(&:values).map(&:first).flatten.map do |ns|
         decrypt_namespace(ns['id'])
       end
     end
@@ -31,10 +32,9 @@ class Revision
       remove_by{ |ns| ns[:user] == user }
     end
 
-
     def summary
       all_revisions = all
-      [:branch, :user, :time].each_with_object({}) do |key, res|
+      [ :branch, :user, :time ].each_with_object({}) do |key, res|
         res[key] = all_revisions.map{|r| r[key] }
       end
     end
@@ -50,8 +50,8 @@ class Revision
       end
     end
 
-    def full_collection(encrypted_namespace)
-      collection+?/+encrypted_namespace
+    def full_collection(encrypted_namespace, folder = MAIN_FOLDER)
+      [ collection, encrypted_namespace, folder ]*Fire::LEVEL_SEPARATOR
     end
 
   end

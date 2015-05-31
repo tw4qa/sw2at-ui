@@ -1,6 +1,8 @@
 module Fire
   extend ActiveSupport::Concern
 
+  LEVEL_SEPARATOR = ?/
+
   module ClassMethods
 
     def all
