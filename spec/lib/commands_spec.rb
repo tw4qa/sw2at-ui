@@ -76,4 +76,14 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
       )
   end
 
+  it 'should build commands if threads are not set' do
+    cb = Swat::UI::RSpecCommands::CommandsBuilder.new({}, '06-01-2015_06-15')
+    expect(cb.thread_scenarios).to eq([
+      :clean=>"RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:drop",
+      :prepare=>
+        "RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:migrate",
+      :run=> 'TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=1 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=Full rspec'
+    ])
+  end
+
 end

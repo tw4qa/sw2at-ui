@@ -17,6 +17,9 @@ module Swat
 
         def initialize(conf_options, revision)
           @config = conf_options
+          unless @config[:threads]
+            @config[:threads] = [{ name: 'Full' }]
+          end
           @revision = revision
         end
 
