@@ -25,10 +25,6 @@ module Swat
           puts ex.message
         end
 
-        def self.now
-          (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
-        end
-
         def current_namespace
           {
               branch: current_branch,
@@ -69,19 +65,19 @@ module Swat
         end
 
         def current_revision
-          ENV['SWAT_CURRENT_REVISION'] ? Time.parse(ENV['SWAT_CURRENT_REVISION']) : self.class.now
+          RSpecCommands::CommandsBuilder.current_revision
         end
 
         def current_threads_count
-          ENV['SWAT_CURRENT_THREADS_COUNT'] ? ENV['SWAT_CURRENT_THREADS_COUNT'].to_i : 1
+          RSpecCommands::CommandsBuilder.current_threads_count
         end
 
         def current_thread_id
-          ENV['SWAT_CURRENT_THREAD_ID'].to_i
+          RSpecCommands::CommandsBuilder.current_thread_id
         end
 
         def current_thread_name
-          ENV['SWAT_CURRENT_THREAD_NAME'] || "Thread##{current_thread_id}"
+          RSpecCommands::CommandsBuilder.current_thread_name
         end
 
       end

@@ -47,6 +47,33 @@ module Swat
           thread_opts[:name] || "Thread##{index+1}"
         end
 
+        class << self
+          def current_revision
+            ENV[ENV_VARS.revision] ? Time.parse(ENV[ENV_VARS.revision]) : now
+          end
+
+          def current_threads_count
+            ENV[ENV_VARS.threads_count] || 1
+          end
+
+          def current_thread_name
+            ENV[ENV_VARS.thread_name]
+          end
+
+          def current_thread_id
+            ENV[ENV_VARS.thread_id].to_i
+          end
+
+          def current_scenarios
+            new(Swat::UI.config.options, current_revision).thread_scenarios
+          end
+
+          def now
+            (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
+          end
+
+        end
+
         private
 
         def run_command(thread_opts, index)
