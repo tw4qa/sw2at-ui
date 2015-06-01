@@ -43,6 +43,14 @@ module Swat
           }
         end
 
+        def full_thread_scenarios
+          thread_scenarios.map do |ts|
+            ts.map do |(action, command)|
+              "##{action}\n#{command}"
+            end.join "\n"
+          end*"\n===================\n"
+        end
+
         def thread_name(thread_opts, index)
           thread_opts[:name] || "Thread##{index+1}"
         end
