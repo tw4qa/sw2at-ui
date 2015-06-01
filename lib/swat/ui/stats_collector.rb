@@ -9,7 +9,7 @@ module Swat
 
         def collect_case
           return unless branch_valid?
-          TestCase.collect(current_namespace, @example)
+          TestCase.collect(current_namespace, @example, current_namespace.merge(thread_id: current_thread_id))
         rescue Exception => ex
           puts ex.message
           binding.pry
@@ -32,6 +32,7 @@ module Swat
               branch: current_branch,
               user: user,
               time: time,
+              threads_count: current_threads_count,
           }
         end
 
@@ -66,6 +67,14 @@ module Swat
 
         def current_revision
           ENV['SWAT_CURRENT_REVISION'] ? Time.parse(ENV['SWAT_CURRENT_REVISION']) : self.class.now
+        end
+
+        def current_threads_count
+          ENV['SWAT_CURRENT_THREADS_COUNT'] ? ENV['SWAT_CURRENT_THREADS_COUNT'].to_i : 1
+        end
+
+        def current_thread_id
+          ENV['SWAT_CURRENT_THREADS_ID'].to_i
         end
       end
 

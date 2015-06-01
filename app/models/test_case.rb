@@ -12,10 +12,8 @@ class TestCase
       push_to(encrypt_testcase_namespace(namespace_opts), object)
     end
 
-    def collect(namespace_opts, rspec_example)
+    def collect(namespace_opts, rspec_example, extras)
       data = {
-          branch: namespace_opts[:branch],
-          user: namespace_opts[:user],
           description: rspec_example.description,
           full_description: rspec_example.full_description,
           file_path: rspec_example.file_path,
@@ -24,7 +22,7 @@ class TestCase
           status: rspec_example.metadata[:execution_result].status,
           started_at: rspec_example.metadata[:execution_result].started_at,
           run_time: rspec_example.metadata[:execution_result].run_time
-      }
+      }.merge!(extras)
       add_to_namespace(namespace_opts, data)
     end
 

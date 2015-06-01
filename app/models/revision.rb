@@ -9,7 +9,8 @@ class Revision
     def all
       resp = super()
       resp.map do |x|
-        decrypt_namespace(x[MAIN_FOLDER]['id']).merge!(stats: x[STATS_FOLDER])
+        stats = x[STATS_FOLDER].values rescue nil
+        decrypt_namespace(x[MAIN_FOLDER]['id']).merge!(stats: stats)
       end
     end
 
@@ -27,7 +28,7 @@ class Revision
       data = thread_stats(rspec_notification)
       id = encrypt_namespace(namspace_opts)
       path = full_collection(id, STATS_FOLDER)
-      fire_client.set(path, data)
+      fire_client.push(path, data)
     end
 
     def remove_by_time time
