@@ -2,32 +2,31 @@ class Revision
   include Fire
   extend Crypto
 
-  class  << self
+  class << self
     MAIN_FOLDER = 'main'
     STATS_FOLDER = 'stats'
 
     def all
       resp = super()
-      resp.map{|x| x[MAIN_FOLDER] }.compact.map(&:values).map(&:first).flatten.map do |ns|
-        decrypt_namespace(ns['id'])
+      resp.map do |x|
+        decrypt_namespace(x[MAIN_FOLDER]['id']).merge!(stats: x[STATS_FOLDER])
       end
     end
 
-    def revisions(revision_opts)
+    def test_cases(revision_opts)
       TestCase.all_in_namespace(revision_opts)
     end
 
     def add(opts)
       id = encrypt_namespace(opts)
       path = full_collection(id)
-      fire_client.push(path, opts.merge(id: id)) if path_empty?(path)
+      fire_client.set(path, opts.merge(id: id))
     end
 
     def add_stats(namspace_opts, data)
       id = encrypt_namespace(namspace_opts)
       path = full_collection(id, STATS_FOLDER)
-      fire_client.delete(path)
-      fire_client.push(path, data)
+      fire_client.set(path, data)
     end
 
     def remove_by_time time
@@ -50,6 +49,10 @@ class Revision
       [ :branch, :user, :time ].each_with_object({}) do |key, res|
         res[key] = all_revisions.map{|r| r[key] }
       end
+    end
+
+    def calculate_stats(revision_opts)
+      current_test_cases = test_cases(revision_opts)
     end
 
     private
