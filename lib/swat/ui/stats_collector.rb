@@ -2,6 +2,7 @@ module Swat
   module UI
     module RspecSetup
       class StatsCollector
+        require 'swat/ui/rspec_commands'
 
         def initialize(example)
           @example = example

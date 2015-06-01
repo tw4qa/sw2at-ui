@@ -5,10 +5,15 @@ require 'pry'
 require 'rails'
 require 'swat_ui'
 
+# models
 require Swat::Engine.root.join 'app/models/concerns/fire'
 require Swat::Engine.root.join 'app/models/concerns/crypto'
 require Swat::Engine.root.join 'app/models/revision'
 require Swat::Engine.root.join 'app/models/test_case'
+
+# libs
+require Swat::Engine.root.join 'lib/swat/ui/rspec_commands'
+
 
 RSpec.configure do |config|
 
