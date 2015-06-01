@@ -31,7 +31,6 @@ module Swat
         end
 
         def stop(notification)
-          super
           binding.pry if $deb
         end
       end
