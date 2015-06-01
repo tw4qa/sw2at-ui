@@ -24,7 +24,7 @@ class Revision
     end
 
     def add_thread_stats(namspace_opts, rspec_notification)
-      thread_stats(rspec_notification)
+      data = thread_stats(rspec_notification)
       id = encrypt_namespace(namspace_opts)
       path = full_collection(id, STATS_FOLDER)
       fire_client.set(path, data)

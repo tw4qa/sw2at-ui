@@ -11,11 +11,11 @@ module Swat
         RSpec::Core::Formatters.register self, :example_started, :example_passed, :example_failed, :start, :stop
 
         def example_passed(notification)
-          StatsCollector.new(notification).collect_case if Swat::UI.config.options[:collect]
+          StatsCollector.new(notification.example).collect_case if Swat::UI.config.options[:collect]
         end
 
         def example_failed(notification)
-          StatsCollector.new(example).collect_case if Swat::UI.config.options[:collect]
+          StatsCollector.new(notification.example).collect_case if Swat::UI.config.options[:collect]
         end
 
         def stop(notification)
