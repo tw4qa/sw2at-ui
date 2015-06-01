@@ -59,7 +59,8 @@ module Swat
             Revision.add(
                 branch: current_branch,
                 user: user,
-                time: $current_revision
+                time: $current_revision,
+                threads_count: current_threads_count,
             )
           end
           $current_revision
