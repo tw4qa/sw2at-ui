@@ -4,6 +4,7 @@ module Swat
       require 'swat/ui/stats_collector'
       require 'rspec'
       require 'rspec/core/formatters'
+      require 'rspec/core/formatters/base_text_formatter'
 
       class Formatter < RSpec::Core::Formatters::BaseTextFormatter
 
