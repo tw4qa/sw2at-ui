@@ -81,7 +81,7 @@ module Swat
         end
 
         def current_thread_name
-          ENV['SWAT_CURRENT_THREAD_NAME'] || "Thread ##{current_thread_id}"
+          ENV['SWAT_CURRENT_THREAD_NAME'] || "Thread##{current_thread_id}"
         end
 
       end

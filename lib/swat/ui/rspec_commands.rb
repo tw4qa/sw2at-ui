@@ -39,6 +39,10 @@ module Swat
           }
         end
 
+        def thread_name(thread_opts, index)
+          thread_opts[:name] || "Thread##{index+1}"
+        end
+
         private
 
         def run_command(thread_opts, index)
@@ -47,7 +51,7 @@ module Swat
             ENV_VARS.revision => @revision,
             ENV_VARS.threads_count => threads_count,
             ENV_VARS.thread_id => index,
-            ENV_VARS.thread_name => thread_opts[:name],
+            ENV_VARS.thread_name => thread_name(thread_opts, index),
           })
 
           [ env_params, rspec_command(thread_opts) ].join(' ')
@@ -84,7 +88,10 @@ module Swat
         end
 
         def tag_opts(tags)
-          nil
+          return nil unless tags
+          ([tags].flatten).map do |tag_name|
+            [ '--tag', tag_name ]*' '
+          end*' '
         end
 
         def file_pattern_opts(pattern)
