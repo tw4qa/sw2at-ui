@@ -11,6 +11,7 @@ module Swat
           return unless branch_valid?
           TestCase.collect(current_namespace, @time, @example)
         rescue Exception => ex
+          binding.pry
           puts ex.message
         end
 
