@@ -2,6 +2,7 @@ module Fire
   extend ActiveSupport::Concern
 
   LEVEL_SEPARATOR = ?/
+  ROOT = ?/
 
   module ClassMethods
 
@@ -23,12 +24,16 @@ module Fire
       fire_client.get(collection).body
     end
 
-    def push(attrs)
-      fire_client.push collection, attrs
+    def push(object)
+      fire_client.push collection, object
     end
 
-    def push_to(namespace, attrs)
-      fire_client.push(build_namespace(namespace), attrs)
+    def path_empty?(full_path)
+      fire_client.get(full_path).body.nil?
+    end
+
+    def push_to(namespace, object)
+      fire_client.push(build_namespace(namespace), object)
     end
 
     def collection
@@ -36,11 +41,11 @@ module Fire
     end
 
     def delete(element)
-      fire_client.delete([ collection, element ]*'/')
+      fire_client.delete([ collection, element ]*LEVEL_SEPARATOR)
     end
 
     def build_namespace(namespace)
-      [collection, namespace]*'/'
+      [collection, namespace]*LEVEL_SEPARATOR
     end
 
     def fire_client
@@ -49,7 +54,7 @@ module Fire
     end
 
     def drop!
-      fire_client.delete(?/)
+      fire_client.delete(ROOT)
     end
 
   end

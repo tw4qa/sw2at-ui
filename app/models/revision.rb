@@ -19,12 +19,15 @@ class Revision
 
     def add(opts)
       id = encrypt_namespace(opts)
-      fire_client.push(full_collection(id), opts.merge(id: id)) if fire_client.get(full_collection(id)).body.nil?
+      path = full_collection(id)
+      fire_client.push(path, opts.merge(id: id)) if path_empty?(path)
     end
 
-    def add_case_result(namspace_opts, data)
+    def add_stats(namspace_opts, data)
       id = encrypt_namespace(namspace_opts)
-      fire_client.push(full_collection(id, STATS_FOLDER), data)
+      path = full_collection(id, STATS_FOLDER)
+      fire_client.delete(path)
+      fire_client.push(path, data)
     end
 
     def remove_by_time time
