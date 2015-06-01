@@ -9,6 +9,7 @@ module Swat
         print_debug if ENV['SWAT_DBG']
         @options = opts
         rspec_config.extend RspecSetup
+        rspec_config.formatter = Swat::UI::RspecSetup::Formatter
       end
 
       def options

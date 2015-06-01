@@ -23,7 +23,8 @@ class Revision
       fire_client.set(path, opts.merge(id: id))
     end
 
-    def add_stats(namspace_opts, data)
+    def add_thread_stats(namspace_opts, rspec_notification)
+      thread_stats(rspec_notification)
       id = encrypt_namespace(namspace_opts)
       path = full_collection(id, STATS_FOLDER)
       fire_client.set(path, data)
@@ -51,10 +52,6 @@ class Revision
       end
     end
 
-    def calculate_stats(revision_opts)
-      current_test_cases = test_cases(revision_opts)
-    end
-
     private
 
     def remove_by &condition
@@ -64,6 +61,14 @@ class Revision
       }.each do |ns|
         fire_client.delete(full_collection(encrypt_namespace(ns)))
       end
+    end
+
+    def thread_stats(rspec_notification)
+      data = {
+        total_examples: rspec_notification.examples.count,
+        failed_examples: rspec_notification.failed_examples.count,
+        formatted_fails: rspec_notification.fully_formatted_failed_examples,
+      }
     end
 
     def full_collection(encrypted_namespace, folder = MAIN_FOLDER)

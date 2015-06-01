@@ -8,41 +8,27 @@ module Swat
 
       class Formatter < RSpec::Core::Formatters::BaseTextFormatter
 
-
         RSpec::Core::Formatters.register self, :example_started, :example_passed, :example_failed, :start, :stop
 
-
-        def example_started(notification)
-        end
-
         def example_passed(notification)
-          binding.pry if $deb
+          StatsCollector.new(notification).collect_case if Swat::UI.config.options[:collect]
         end
 
         def example_failed(notification)
-          binding.pry if $deb
+          StatsCollector.new(example).collect_case if Swat::UI.config.options[:collect]
         end
 
-        def start(notification)
-          binding.pry if $deb
+        def stop(notification)
+          StatsCollector.new(notification).collect_thread if Swat::UI.config.options[:collect]
         end
 
-        def close(notification)
-          super
-          binding.pry if $deb
-        end
+        def start(notification); end
+
+        def example_started(notification); end
       end
 
       def init_ui(options = {})
-        before(:each) do |example|
-          @sw_test_started_at = StatsCollector.now
-        end
-
-        after(:each) do |example|
-          time = StatsCollector.now - @sw_test_started_at rescue 0
-          StatsCollector.new(example, time).collect if Swat::UI.config.options[:collect]
-        end
-
+        #self.formatter = Swat::UI::RspecSetup::Formatter
       end
 
     end

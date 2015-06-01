@@ -3,15 +3,24 @@ module Swat
     module RspecSetup
       class StatsCollector
 
-        def initialize(example, time)
-          @example, @time = example, time
+        def initialize(example)
+          @example = example
         end
 
-        def collect
+        def collect_case
           return unless branch_valid?
-          TestCase.collect(current_namespace, @time, @example)
+          TestCase.collect(current_namespace, @example)
         rescue Exception => ex
           puts ex.message
+          binding.pry
+        end
+
+        def collect_thread
+          return unless branch_valid?
+          Revision.add_thread_stats(current_namespace, @example)
+        rescue Exception => ex
+          puts ex.message
+          binding.pry
         end
 
         def self.now

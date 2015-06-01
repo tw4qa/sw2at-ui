@@ -12,8 +12,7 @@ class TestCase
       push_to(encrypt_testcase_namespace(namespace_opts), object)
     end
 
-    def collect(namespace_opts, time, rspec_example)
-      status = rspec_example.exception ? :failed : :success
+    def collect(namespace_opts, rspec_example)
       data = {
           branch: namespace_opts[:branch],
           user: namespace_opts[:user],
@@ -21,10 +20,10 @@ class TestCase
           full_description: rspec_example.full_description,
           file_path: rspec_example.file_path,
           location: rspec_example.location,
-          status: status,
           exception: rspec_example.exception,
-          time: time,
-          run_time: time
+          status: rspec_example.metadata[:execution_result].status,
+          started_at: rspec_example.metadata[:execution_result].started_at,
+          run_time: rspec_example.metadata[:execution_result].run_time
       }
       add_to_namespace(namespace_opts, data)
     end
