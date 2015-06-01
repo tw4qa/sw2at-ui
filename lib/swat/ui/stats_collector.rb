@@ -9,19 +9,7 @@ module Swat
 
         def collect
           return unless branch_valid?
-          data = {
-              branch: current_branch,
-              user: user,
-              decription: @example.description,
-              full_description: @example.full_description,
-              file_path: @example.file_path,
-              location: @example.location,
-              status: status,
-              exception: @example.exception,
-              time: time,
-              run_time: @time
-          }
-          TestCase.add_to_namespace(current_namespace, data)
+          TestCase.collect(current_namespace, @time, @example)
         rescue Exception => ex
           puts ex.message
         end
@@ -39,10 +27,6 @@ module Swat
         end
 
         private
-
-        def status
-          @example.exception ? :failed : :success
-        end
 
         def current_branch
           @cb ||= `git branch | grep '\''*'\'' | awk '\''{print $2}'\''`.gsub("\n",'')

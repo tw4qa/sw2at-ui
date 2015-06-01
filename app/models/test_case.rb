@@ -12,6 +12,24 @@ class TestCase
       push_to(encrypt_testcase_namespace(namespace_opts), object)
     end
 
+    def collect(namespace_opts, time, rspec_example)
+      status = rspec_example.exception ? :failed : :success
+      data = {
+          branch: current_branch,
+          user: user,
+          decription: rspec_example.description,
+          full_description: rspec_example.full_description,
+          file_path: rspec_example.file_path,
+          location: rspec_example.location,
+          status: status,
+          exception: rspec_example.exception,
+          time: time,
+          run_time: time
+      }
+      add_to_namespace(namespace_opts, data)
+    end
+
+
     def all(namespace=nil)
       if namespace
         all_in_namespace(namespace)
@@ -55,7 +73,7 @@ class TestCase
     end
 
     def full_collection(space)
-       [ collection, space ]*?/
+       [ collection, space ]*Fire::LEVEL_SEPARATOR
     end
 
     def affected(summary, opts, key)
@@ -64,7 +82,7 @@ class TestCase
 
     def encrypt_testcase_namespace(opts)
       time = str_to_date(opts[:time])
-      [ opts[:branch], opts[:user], date_to_str(time) ]*?/
+      [ opts[:branch], opts[:user], date_to_str(time) ]*Fire::LEVEL_SEPARATOR
     end
 
     def affected_value?(opts_value, summary_value)
