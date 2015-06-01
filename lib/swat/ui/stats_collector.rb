@@ -17,7 +17,7 @@ module Swat
 
         def collect_thread
           return unless branch_valid?
-          Revision.add_thread_stats(current_namespace, @example)
+          Revision.add_thread_stats(current_namespace, @example, thread_id: current_thread_id)
         rescue Exception => ex
           puts ex.message
           binding.pry

@@ -24,8 +24,8 @@ class Revision
       fire_client.set(path, opts.merge(id: id))
     end
 
-    def add_thread_stats(namspace_opts, rspec_notification)
-      data = thread_stats(rspec_notification)
+    def add_thread_stats(namspace_opts, rspec_notification, extras)
+      data = thread_stats(rspec_notification).merge(extras)
       id = encrypt_namespace(namspace_opts)
       path = full_collection(id, STATS_FOLDER)
       fire_client.push(path, data)
@@ -69,7 +69,7 @@ class Revision
         total_examples: rspec_notification.examples.count,
         failed_examples: rspec_notification.failed_examples.count,
         formatted_fails: rspec_notification.fully_formatted_failed_examples,
-        total_runtime: rspec_notification.examples.map(&:run_time).sum
+        total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.sum
       }
     end
 
