@@ -13,7 +13,7 @@ module Crypto
   end
 
   def date_to_str(time)
-    time.is_a?(Date) ? time.strftime(DATE_MASK) : time
+    (time.is_a?(Date) || time.is_a?(Time)) ? time.strftime(DATE_MASK) : time
   end
 
   def str_to_date(time)
