@@ -4,9 +4,9 @@ module Swat
       require 'swat/ui/stats_collector'
       require 'rspec'
       require 'rspec/core/formatters'
-      require 'rspec/core/formatters/base_text_formatter'
+      require 'rspec/core/formatters/base_formatter'
 
-      class Formatter < RSpec::Core::Formatters::BaseTextFormatter
+      class Formatter < RSpec::Core::Formatters::BaseFormatter
 
         RSpec::Core::Formatters.register self, :example_started, :example_passed, :example_failed, :start, :stop
 
@@ -28,7 +28,6 @@ module Swat
       end
 
       def init_ui(options = {})
-        #self.formatter = Swat::UI::RspecSetup::Formatter
       end
 
     end
