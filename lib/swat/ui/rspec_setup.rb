@@ -13,24 +13,22 @@ module Swat
 
 
         def example_started(notification)
-          super
         end
 
         def example_passed(notification)
-          super
           binding.pry if $deb
         end
 
         def example_failed(notification)
-          super
           binding.pry if $deb
         end
 
         def start(notification)
-          super
+          binding.pry if $deb
         end
 
-        def stop(notification)
+        def close(notification)
+          super
           binding.pry if $deb
         end
       end
