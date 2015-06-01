@@ -12,15 +12,16 @@ module Swat
           TestCase.collect(current_namespace, @example, current_namespace.merge(thread_id: current_thread_id))
         rescue Exception => ex
           puts ex.message
-          binding.pry
         end
 
         def collect_thread
           return unless branch_valid?
-          Revision.add_thread_stats(current_namespace, @example, thread_id: current_thread_id)
+          Revision.add_thread_stats(current_namespace, @example,
+            thread_id: current_thread_id,
+            thread_name: current_thread_name,
+          )
         rescue Exception => ex
           puts ex.message
-          binding.pry
         end
 
         def self.now
@@ -75,8 +76,13 @@ module Swat
         end
 
         def current_thread_id
-          ENV['SWAT_CURRENT_THREADS_ID'].to_i
+          ENV['SWAT_CURRENT_THREAD_ID'].to_i
         end
+
+        def current_thread_name
+          ENV['SWAT_CURRENT_THREAD_NAME'] || "Thread ##{current_thread_id}"
+        end
+
       end
 
     end

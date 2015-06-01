@@ -23,6 +23,9 @@ class TestCase
           started_at: rspec_example.metadata[:execution_result].started_at,
           run_time: rspec_example.metadata[:execution_result].run_time
       }.merge!(extras)
+      if rspec_example.respond_to?(:swat_logs)
+        data.merge(swat_logs: rspec_example.swat_logs)
+      end
       add_to_namespace(namespace_opts, data)
     end
 
