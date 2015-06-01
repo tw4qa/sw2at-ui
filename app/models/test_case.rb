@@ -15,8 +15,8 @@ class TestCase
     def collect(namespace_opts, time, rspec_example)
       status = rspec_example.exception ? :failed : :success
       data = {
-          branch: current_branch,
-          user: user,
+          branch: namespace_opts[:branch],
+          user: namespace_opts[:user],
           decription: rspec_example.description,
           full_description: rspec_example.full_description,
           file_path: rspec_example.file_path,
