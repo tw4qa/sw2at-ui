@@ -2,42 +2,35 @@ module Swat
   module UI
     module RspecSetup
       require 'swat/ui/stats_collector'
+      require 'rspec'
+      require 'rspec/core/formatters'
 
-      class Formatter
-        require 'rspec'
-        require 'rspec/core/formatters'
+      class Formatter < RSpec::Core::Formatters::BaseTextFormatter
+
 
         RSpec::Core::Formatters.register self, :example_started, :example_passed, :example_failed, :start, :stop
 
-        def initialize(output)
-          @output = output
-        end
 
         def example_started(notification)
-          puts 'example_started'
-          puts notification.inspect
+          super
         end
 
         def example_passed(notification)
-          puts 'example_passed'
-          puts notification.inspect
+          super
           binding.pry if $deb
         end
 
         def example_failed(notification)
-          puts 'example_failed'
-          puts notification.inspect
+          super
           binding.pry if $deb
         end
 
         def start(notification)
-          puts 'start'
-          puts notification.inspect
+          super
         end
 
         def stop(notification)
-          puts 'stop'
-          puts notification.inspect
+          super
           binding.pry if $deb
         end
       end
