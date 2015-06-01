@@ -69,7 +69,7 @@ class Revision
         total_examples: rspec_notification.examples.count,
         failed_examples: rspec_notification.failed_examples.count,
         formatted_fails: rspec_notification.fully_formatted_failed_examples,
-        total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.sum
+        total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.inject(:+)
       }
     end
 

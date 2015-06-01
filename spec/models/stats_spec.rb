@@ -14,8 +14,10 @@ describe 'Revision Stats' do
           })
       }
     end
-
   end
+
+  class RSpecThreadResultMock < OpenStruct; end
+
 
   before :each do
     clean_firebase!
@@ -46,6 +48,26 @@ describe 'Revision Stats' do
       {"description"=>"Z", "exception"=>"BadException", "run_time"=>4, "status"=>"failed", "thread_id"=>0},
       {"description"=>"O", "run_time"=>3, "status"=>"passed", "thread_id"=>0}
     ])
+    expect(Revision.test_cases(@namespace_2)).to eq([])
+
+    expect(Revision.all.first).to eq(@namespace_1)
+
+    Revision.add_thread_stats(@namespace_1,
+      RSpecThreadResultMock.new(
+        examples: [
+            RSpecExampleMock.new(description: 'X', run_time: 1, status: :passed),
+            RSpecExampleMock.new(description: 'y', run_time: 2, status: :failed)
+        ],
+        failed_examples: [ RSpecExampleMock.new(description: 'y', run_time: 2, status: :failed) ],
+        fully_formatted_failed_examples: 'Errors.'
+    ), extras)
+
+    expect(Revision.all.first).to eq({
+      :branch=> "b",
+      :time=> DateTime.parse('21/03/1990 10:00'),
+      :user=> "me",
+      :stats=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "total_examples"=>2, "total_runtime"=>3} ]
+    })
   end
 
 end
