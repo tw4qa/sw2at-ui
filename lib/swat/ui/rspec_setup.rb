@@ -4,6 +4,9 @@ module Swat
       require 'swat/ui/stats_collector'
 
       class Formatter
+        require 'rspec'
+        require 'rspec/core/formatters'
+
         RSpec::Core::Formatters.register self, :example_started, :example_passed, :example_failed, :start, :stop
 
         def initialize(output)
