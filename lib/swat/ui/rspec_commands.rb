@@ -12,6 +12,7 @@ module Swat
             db_env_number: 'TEST_ENV_NUMBER',
             thread_id: 'SWAT_CURRENT_THREAD_ID',
             thread_name: 'SWAT_CURRENT_THREAD_NAME',
+            rails_env: 'RAILS_ENV',
         })
 
         def initialize(conf_options, revision)
@@ -59,6 +60,7 @@ module Swat
 
         def prepare_command(thread_opts, index)
           env_params = build_params({
+              ENV_VARS.rails_env => 'test',
               ENV_VARS.db_env_number => index,
           })
 
@@ -67,6 +69,7 @@ module Swat
 
         def clean_command(thread_opts, index)
           env_params = build_params({
+              ENV_VARS.rails_env => 'test',
               ENV_VARS.db_env_number => index,
           })
 
