@@ -17,7 +17,7 @@ class TestCase
       data = {
           branch: namespace_opts[:branch],
           user: namespace_opts[:user],
-          decription: rspec_example.description,
+          description: rspec_example.description,
           full_description: rspec_example.full_description,
           file_path: rspec_example.file_path,
           location: rspec_example.location,
