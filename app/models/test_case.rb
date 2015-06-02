@@ -1,6 +1,6 @@
 class TestCase
   include Fire
-  extend Crypto
+  extend Converter
 
   class << self
 
@@ -86,30 +86,6 @@ class TestCase
         opts_value.empty? || opts_value.include?(summary_value)
       else
         opts_value ? summary_value == opts_value : true
-      end
-    end
-
-    def time_value_str(time_value)
-      if time_value.is_a?(Array)
-        time_value.map{|tv| tv.is_a?(Date) ? date_to_str(tv) : tv }
-      else
-        date_to_str(time_value)
-      end
-    end
-
-    def time_date_value(time_value)
-      if time_value.is_a?(Array)
-        time_value.map{|tv| str_to_date(tv) }
-      else
-        str_to_date(time_value)
-      end
-    end
-
-    def symbol_value(time_value)
-      if time_value.is_a?(Array)
-        time_value.map &:to_sym
-      else
-        time_value.to_sym
       end
     end
 

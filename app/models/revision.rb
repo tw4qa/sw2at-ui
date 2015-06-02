@@ -1,6 +1,6 @@
 class Revision
   include Fire
-  extend Crypto
+  extend Converter
 
   class << self
     MAIN_FOLDER = 'main'
