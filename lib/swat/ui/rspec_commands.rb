@@ -52,7 +52,7 @@ module Swat
         end
 
         def thread_name(thread_opts, index)
-          thread_opts[:name] || "Thread##{index+1}"
+          ?' + (thread_opts[:name] || "Thread##{index+1}") + ?'
         end
 
         class << self

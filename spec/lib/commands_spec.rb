@@ -22,7 +22,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
       clean: 'RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:drop',
       prepare: 'RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:migrate',
       run: ('TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 ' +
-        'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=Models ' +
+        'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=\'Models\' ' +
         'rspec spec/models')
     })
 
@@ -30,7 +30,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
        clean: 'RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:drop',
        prepare: 'RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:migrate',
        run: ('TEST_ENV_NUMBER=1 SWAT_CURRENT_REVISION=06-01-2015_06-15 ' +
-           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=1 SWAT_CURRENT_THREAD_NAME=Messaging ' +
+           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=1 SWAT_CURRENT_THREAD_NAME=\'Messaging\' ' +
            'rspec spec/features/messaging')
    })
 
@@ -38,7 +38,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
        clean: 'RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:drop',
        prepare: 'RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:migrate',
        run: ('TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 ' +
-           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME=TW ' +
+           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME=\'TW\' ' +
            'rspec --tag tw')
     })
 
@@ -46,7 +46,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
        clean: 'RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:drop',
        prepare: 'RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:migrate',
        run: ('TEST_ENV_NUMBER=3 SWAT_CURRENT_REVISION=06-01-2015_06-15 ' +
-           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=3 SWAT_CURRENT_THREAD_NAME=Thread#4 ' +
+           'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=3 SWAT_CURRENT_THREAD_NAME=\'Thread#4\' ' +
            'rspec --tag thread_4')
     })
 
@@ -56,22 +56,23 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:migrate",
          :run=>
-             "TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=Models rspec spec/models"},
+             "TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME='Models' rspec spec/models"
+        },
         {:clean=>"RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:drop",
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=1 rake db:migrate",
          :run=>
-             "TEST_ENV_NUMBER=1 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=1 SWAT_CURRENT_THREAD_NAME=Messaging rspec spec/features/messaging"},
+             "TEST_ENV_NUMBER=1 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=1 SWAT_CURRENT_THREAD_NAME='Messaging' rspec spec/features/messaging"},
         {:clean=>"RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:drop",
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:migrate",
          :run=>
-             "TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME=TW rspec --tag tw"},
+             "TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME='TW' rspec --tag tw"},
         {:clean=>"RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:drop",
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:migrate",
          :run=>
-             "TEST_ENV_NUMBER=3 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=3 SWAT_CURRENT_THREAD_NAME=Thread#4 rspec --tag thread_4"}
+             "TEST_ENV_NUMBER=3 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=3 SWAT_CURRENT_THREAD_NAME='Thread#4' rspec --tag thread_4"}
        ]
       )
   end
@@ -82,7 +83,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
       :clean=>"RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:drop",
       :prepare=>
         "RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=0 rake db:migrate",
-      :run=> 'TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=1 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=Full rspec'
+      :run=> 'TEST_ENV_NUMBER=0 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=1 SWAT_CURRENT_THREAD_ID=0 SWAT_CURRENT_THREAD_NAME=\'Full\' rspec'
     ])
   end
 
