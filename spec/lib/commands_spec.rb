@@ -7,7 +7,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
       threads: [
         { name: 'Models', file_pattern: 'spec/models' },
         { name: 'Messaging', file_pattern: 'spec/features/messaging' },
-        { name: 'TW', tags: [ 'tw' ] },
+        { name: 'TW', tags: [ 'tw', 'tw1' ] },
         { tags: 'thread_4' },
       ]
     }
@@ -39,7 +39,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
        prepare: 'RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:migrate',
        run: ('TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 ' +
            'SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME=\'TW\' ' +
-           'rspec --tag tw')
+           'rspec --tag tw --tag tw1')
     })
 
     expect(cb.thread_scenario(conf[:threads][3], 3)).to eq({
@@ -67,7 +67,7 @@ describe Swat::UI::RSpecCommands::CommandsBuilder do
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=2 rake db:migrate",
          :run=>
-             "TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME='TW' rspec --tag tw"},
+             "TEST_ENV_NUMBER=2 SWAT_CURRENT_REVISION=06-01-2015_06-15 SWAT_THREADS_COUNT=4 SWAT_CURRENT_THREAD_ID=2 SWAT_CURRENT_THREAD_NAME='TW' rspec --tag tw --tag tw1"},
         {:clean=>"RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:drop",
          :prepare=>
              "RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:create && RAILS_ENV=test TEST_ENV_NUMBER=3 rake db:migrate",
