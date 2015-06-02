@@ -11,37 +11,54 @@ module Fire
       body ? body.values : []
     end
 
-    def all_with_fire_ids
-      body = get
-      res = []
-      (body||{}).each do |id, v|
-        res << v.merge(fire_id: id)
-      end
-      res
-    end
+    # GET ---
 
     def get
       fire_client.get(collection).body
     end
 
-    def push(object)
-      fire_client.push collection, object
+    def get_from(namespace)
+      fire_client.get(build_namespace(namespace)).body
     end
 
-    def path_empty?(full_path)
-      fire_client.get(full_path).body.nil?
+    # PUSH ---
+
+    def push(object)
+      fire_client.push collection, object
     end
 
     def push_to(namespace, object)
       fire_client.push(build_namespace(namespace), object)
     end
 
-    def collection
-      self.to_s
-    end
+    # DELETE ---
 
     def delete(element)
       fire_client.delete([ collection, element ]*LEVEL_SEPARATOR)
+    end
+
+    def delete_from(namespace, element=nil)
+      fire_client.delete([ build_namespace(namespace), element ].compact*LEVEL_SEPARATOR)
+    end
+
+    # SET ---
+
+    def set(object)
+      fire_client.set collection, object
+    end
+
+    def set_to(namespace, object)
+      fire_client.set(build_namespace(namespace), object)
+    end
+
+    # Other
+
+    def path_empty?(full_path)
+      fire_client.get(full_path).body.nil?
+    end
+
+    def collection
+      self.to_s
     end
 
     def build_namespace(namespace)
@@ -54,7 +71,11 @@ module Fire
     end
 
     def drop!
-      fire_client.delete(ROOT)
+      fire_client.delete(root)
+    end
+
+    def root
+      ROOT
     end
 
   end

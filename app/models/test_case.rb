@@ -42,13 +42,13 @@ class TestCase
     def all_in_namespace(namespace_opts)
       spaces = spaces_by(namespace_opts)
       spaces.map do |space|
-        fire_client.get(full_collection(space)).body.try(:values) || []
+        get_from(space).try(:values) || []
       end.flatten
     end
 
     def remove_by(namespace_opts)
       spaces_by(namespace_opts).each do |sp|
-        fire_client.delete(full_collection(sp))
+        delete_from(sp)
       end
     end
 
@@ -70,10 +70,6 @@ class TestCase
           }
         }
       }.flatten.uniq
-    end
-
-    def full_collection(space)
-       [ collection, space ]*Fire::LEVEL_SEPARATOR
     end
 
     def affected(summary, opts, key)

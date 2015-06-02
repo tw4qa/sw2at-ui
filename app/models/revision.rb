@@ -20,15 +20,15 @@ class Revision
 
     def add(opts)
       id = encrypt_namespace(opts)
-      path = full_collection(id)
-      fire_client.set(path, opts.merge(id: id))
+      path = inner_folder(id)
+      set_to(path, opts.merge(id: id))
     end
 
     def add_thread_stats(namspace_opts, rspec_notification, extras)
       data = thread_stats(rspec_notification).merge(extras)
       id = encrypt_namespace(namspace_opts)
-      path = full_collection(id, STATS_FOLDER)
-      fire_client.push(path, data)
+      path = inner_folder(id, STATS_FOLDER)
+      push_to(path, data)
     end
 
     def remove_by_time time
@@ -60,7 +60,7 @@ class Revision
       namespaces.select{|ns|
         condition.(ns)
       }.each do |ns|
-        fire_client.delete(full_collection(encrypt_namespace(ns)))
+        delete_from(inner_folder(encrypt_namespace(ns)))
       end
     end
 
@@ -73,8 +73,8 @@ class Revision
       }
     end
 
-    def full_collection(encrypted_namespace, folder = MAIN_FOLDER)
-      [ collection, encrypted_namespace, folder ]*Fire::LEVEL_SEPARATOR
+    def inner_folder(encrypted_namespace, folder = MAIN_FOLDER)
+      [ encrypted_namespace, folder ]*Fire::LEVEL_SEPARATOR
     end
 
   end
