@@ -7,7 +7,7 @@ module Swat
 
       private
 
-      def namespaces
+      def revisions
         Revision.all
       end
     end
