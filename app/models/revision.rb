@@ -7,6 +7,14 @@ class Revision
     RESULTS_FOLDER = 'stats'
     THREADS_FOLDER = 'threads'
 
+    def query_one(revision_opts)
+      id = encrypt_namespace revision_opts
+      revision = get_from(id)
+      tests = test_cases(revision_opts)
+      revision[:tests] = tests
+      revision
+    end
+
     def all
       resp = super()
       resp.map do |x|

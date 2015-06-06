@@ -31,7 +31,18 @@ describe TestCase do
 
     context 'Data management' do
 
-      it 'query correctly' do
+      it 'should query revisions with tests' do
+         expect(Revision.query_one(@namespace_1)).to eq({
+              "main"=>
+               {"branch"=>"b",
+                "id"=>"b:::03-21-1990_10-00:::me",
+                "time"=>"1990-03-21T10:00:00.000+00:00",
+                "user"=>"me"},
+           :tests=>[{"value"=>1}, {"value"=>2}, {"value"=>3}]}
+         )
+      end
+
+      it 'should query correctly' do
         expect(TestCase.all).to eq([
            { 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 },
            { 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }
