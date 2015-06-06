@@ -10,8 +10,8 @@
   .list ng-if="revisions"
     p.revision ng-repeat="revision in revisions"
       | {{ revision }}
-    a href="#" ng-click="goToTests(revision)"
-      | Tests
+      a href="#" ng-click="goToTests(revision)"
+        | Tests
 
     /a
       .branch
