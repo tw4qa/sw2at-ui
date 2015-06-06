@@ -48,7 +48,7 @@ module Swat
             ts.map do |(action, command)|
               "##{action}\n#{command}"
             end.join "\n"
-          end*"\n===================\n"
+          end*"\n\n===================\n\n"
         end
 
         def thread_name(thread_opts, index)
