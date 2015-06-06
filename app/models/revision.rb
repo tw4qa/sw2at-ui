@@ -5,6 +5,7 @@ class Revision
   class << self
     MAIN_FOLDER = 'main'
     STATS_FOLDER = 'stats'
+    THREADS_FOLDER = 'threads'
 
     def all
       resp = super()
@@ -28,6 +29,13 @@ class Revision
       data = thread_stats(rspec_notification).merge(extras)
       id = encrypt_namespace(namspace_opts)
       path = inner_folder(id, STATS_FOLDER)
+      push_to(path, data)
+    end
+
+    def add_thread_bigining(namspace_opts, rspec_notification, extras)
+      data = thread_begining(rspec_notification).merge(extras)
+      id = encrypt_namespace(namspace_opts)
+      path = inner_folder(id, THREADS_FOLDER)
       push_to(path, data)
     end
 
@@ -70,6 +78,12 @@ class Revision
         failed_examples: rspec_notification.failed_examples.count,
         formatted_fails: rspec_notification.fully_formatted_failed_examples,
         total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.inject(:+)
+      }
+    end
+
+    def thread_begining(rspec_notification)
+      data = {
+          total_examples: rspec_notification.count,
       }
     end
 

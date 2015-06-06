@@ -4,20 +4,30 @@ module Swat
       class StatsCollector
         require 'swat/ui/rspec_commands'
 
-        def initialize(example)
-          @example = example
+        def initialize(notification)
+          @notification = notification
         end
 
         def collect_case
-          return unless branch_valid?
-          TestCase.collect(current_namespace, @example, current_namespace.merge(thread_id: current_thread_id))
+          return unless collection_available?
+          TestCase.collect(current_namespace, @notification, current_namespace.merge(thread_id: current_thread_id))
         rescue Exception => ex
           puts ex.message
         end
 
         def collect_thread
-          return unless branch_valid?
-          Revision.add_thread_stats(current_namespace, @example,
+          return unless collection_available?
+          Revision.add_thread_stats(current_namespace, @notification,
+            thread_id: current_thread_id,
+            thread_name: current_thread_name,
+          )
+        rescue Exception => ex
+          puts ex.message
+        end
+
+        def collect_thread_start
+          return unless collection_available?
+          Revision.add_thread_bigining(current_namespace, @notification,
             thread_id: current_thread_id,
             thread_name: current_thread_name,
           )
@@ -44,6 +54,10 @@ module Swat
 
         def user
           @u ||= `whoami`.gsub("\n",'')
+        end
+
+        def collection_available?
+          branch_valid?
         end
 
         def branch_valid?
