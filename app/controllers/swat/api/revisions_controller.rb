@@ -1,8 +1,8 @@
 module Swat
   module Api
-    class NamespacesController < Swat::ApplicationController
+    class RevisionsController < Swat::ApplicationController
       def index
-        render json: namespaces
+        render json: revisions
       end
 
       private
