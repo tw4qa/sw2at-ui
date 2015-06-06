@@ -17,7 +17,7 @@ module Swat
 
         def collect_thread
           return unless collection_available?
-          Revision.add_thread_stats(current_namespace, @notification,
+          Revision.add_thread_results(current_namespace, @notification,
             thread_id: current_thread_id,
             thread_name: current_thread_name,
           )
@@ -27,7 +27,7 @@ module Swat
 
         def collect_thread_start
           return unless collection_available?
-          Revision.add_thread_bigining(current_namespace, @notification,
+          Revision.add_revision_thread(current_namespace, @notification,
             thread_id: current_thread_id,
             thread_name: current_thread_name,
           )

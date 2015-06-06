@@ -10,8 +10,8 @@ describe TestCase do
 
     before :each do
       clean_firebase!
-      @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), stats: nil }
-      @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), stats: nil }
+      @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), results: nil, threads: nil }
+      @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), results: nil, threads: nil }
 
       expect(TestCase.all).to eq([])
       expect(Revision.all).to eq([])

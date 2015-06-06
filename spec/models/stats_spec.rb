@@ -21,8 +21,8 @@ describe 'Revision Stats' do
 
   before :each do
     clean_firebase!
-    @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), stats: nil }
-    @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), stats: nil }
+    @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), results: nil, threads: nil }
+    @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), results: nil, threads: nil }
 
     expect(TestCase.all).to eq([])
     expect(Revision.all).to eq([])
@@ -52,7 +52,7 @@ describe 'Revision Stats' do
 
     expect(Revision.all.first).to eq(@namespace_1)
 
-    Revision.add_thread_stats(@namespace_1,
+    Revision.add_thread_results(@namespace_1,
       RSpecThreadResultMock.new(
         examples: [
             RSpecExampleMock.new(description: 'X', run_time: 1, status: :passed),
@@ -66,7 +66,8 @@ describe 'Revision Stats' do
       :branch=> "b",
       :time=> DateTime.parse('21/03/1990 10:00'),
       :user=> "me",
-      :stats=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "total_examples"=>2, "total_runtime"=>3} ]
+      threads: nil,
+      :results=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "total_examples"=>2, "total_runtime"=>3} ]
     })
   end
 

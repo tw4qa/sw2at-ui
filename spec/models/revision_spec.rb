@@ -14,7 +14,7 @@ describe Revision do
 
     it 'should add and query' do
       expect(Revision.all).to eq([])
-      ns = { branch: 'b', time: DateTime.parse('21/03/1990 10:00'), user: 'me', stats: nil }
+      ns = { branch: 'b', time: DateTime.parse('21/03/1990 10:00'), user: 'me', results: nil, threads: nil }
 
       Revision.add(ns)
       expect(Revision.all).to eq([ns])
@@ -22,8 +22,8 @@ describe Revision do
 
     it 'should remove times' do
       expect(Revision.all).to eq([])
-      ns1 = { branch: 'b', time: DateTime.parse('21/03/1990 10:00'), user: 'me', stats: nil }
-      ns2 = { branch: 'b', time: DateTime.parse('22/03/1990 11:00'), user: 'me', stats: nil }
+      ns1 = { branch: 'b', time: DateTime.parse('21/03/1990 10:00'), user: 'me', results: nil, threads: nil }
+      ns2 = { branch: 'b', time: DateTime.parse('22/03/1990 11:00'), user: 'me', results: nil, threads: nil }
 
       Revision.add(ns1)
       Revision.add(ns2)
@@ -38,10 +38,10 @@ describe Revision do
 
     it 'should remove branches' do
       expect(Revision.all).to eq([])
-      ns1 = { branch: 'a', time: DateTime.parse('21/03/1990 10:00'), user: 'me', stats: nil }
-      ns2 = { branch: 'b', time: DateTime.parse('22/03/1990 11:00'), user: 'yu', stats: nil }
-      ns3 = { branch: 'c', time: DateTime.parse('21/03/1990 12:00'), user: 'yu', stats: nil }
-      ns4 = { branch: 'a', time: DateTime.parse('22/03/1990 11:00'), user: 'me', stats: nil }
+      ns1 = { branch: 'a', time: DateTime.parse('21/03/1990 10:00'), user: 'me', results: nil, threads: nil }
+      ns2 = { branch: 'b', time: DateTime.parse('22/03/1990 11:00'), user: 'yu', results: nil, threads: nil }
+      ns3 = { branch: 'c', time: DateTime.parse('21/03/1990 12:00'), user: 'yu', results: nil, threads: nil }
+      ns4 = { branch: 'a', time: DateTime.parse('22/03/1990 11:00'), user: 'me', results: nil, threads: nil }
 
       Revision.add(ns1)
       Revision.add(ns2)
