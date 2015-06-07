@@ -33,12 +33,12 @@ describe TestCase do
 
       it 'should query revisions with tests' do
          expect(Revision.query_one(@namespace_1)).to eq({
-              "main"=>
-               {"branch"=>"b",
-                "id"=>"b:::03-21-1990_10-00:::me",
-                "time"=>"1990-03-21T10:00:00.000+00:00",
-                "user"=>"me"},
-           :tests=>[{"value"=>1}, {"value"=>2}, {"value"=>3}]}
+            branch: "b",
+            time: "1990-03-21T10:00:00.000+00:00",
+            user: "me",
+            results: nil,
+            threads: nil,
+            tests: [{"value"=>1}, {"value"=>2}, {"value"=>3}]}
          )
       end
 

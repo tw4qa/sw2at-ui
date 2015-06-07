@@ -1,4 +1,48 @@
 h1 Revision
-| {{ revision }}
 
+table
+  tr
+    th Revision
+    th Branch
+    th User
+    th Status
+  tr
+    td
+      | {{ revision.time }}
+    td
+      | {{ revision.branch }}
+    td
+      | {{ revision.user }}
+    td
+      | {{ revision.status }}
+
+div ng-repeat="thread in revision.data.threads"
+  table
+    tr
+      th Thread
+      th Total
+      th Status
+    tr
+      td
+        | {{ thread.thread_name }}
+      td
+        | {{ thread.total_examples }}
+      td
+        | {{ thread.status }}
+
+  table
+    tr
+      th Test
+      th Location
+      th Duration
+      th Status
+    tr ng-repeat="test in revision.data.tests[thread.thread_id]"
+      td
+        | {{ test.full_description }}
+      td
+        | {{ test.location }}
+      td
+        | {{ test.run_time }}
+      td
+        | {{ test.status }}
 

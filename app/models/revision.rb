@@ -9,8 +9,8 @@ class Revision
 
     def query_one(revision_opts)
       id = encrypt_namespace revision_opts
-      revision = get_from(id)
-      tests = test_cases(revision_opts)
+      revision = prepare_response(get_from(id))
+      tests = test_cases(revision_opts).group_by{|t| t['thread_id'] }
       revision[:tests] = tests
       revision
     end
@@ -18,9 +18,7 @@ class Revision
     def all
       resp = super()
       resp.map do |x|
-        results = x[RESULTS_FOLDER].values rescue nil
-        threads = x[THREADS_FOLDER].values rescue nil
-        decrypt_namespace(x[MAIN_FOLDER]['id']).merge!(results: results, threads: threads)
+        prepare_response(x)
       end
     end
 
@@ -99,6 +97,12 @@ class Revision
 
     def inner_folder(encrypted_namespace, folder = MAIN_FOLDER)
       [ encrypted_namespace, folder ]*Fire::LEVEL_SEPARATOR
+    end
+
+    def prepare_response(resp)
+      results = resp[RESULTS_FOLDER].values rescue nil
+      threads = resp[THREADS_FOLDER].values rescue nil
+      decrypt_namespace(resp[MAIN_FOLDER]['id']).merge!(results: results, threads: threads)
     end
 
   end
