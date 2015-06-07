@@ -18,10 +18,8 @@ h2 Revisions
         td
           | {{ revision.data.user }}
         td
-          | {{ revision.data.time }}
+          | {{ revision.data.time | date: "yyyy/MM/dd mediumTime" }}
         td
           | {{ revision.status() }}
         td
-          /a href="#" ng-click="goToRevision(revision)"
-          a href="#" ui-sref="revision(revision.data)"
-            | GO
+          a href="#" ui-sref="revision(revision.data)" GO

@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency('slim-rails')
   s.add_dependency('sass-rails')
   s.add_dependency('coffee-rails')
+  s.add_dependency('bootstrap-sass', '~> 3.0.3.0')
 
   s.homepage    = 'http://tw.coming.soon'
   s.license     = 'MIT'
