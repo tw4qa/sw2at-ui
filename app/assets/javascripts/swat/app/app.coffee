@@ -26,7 +26,7 @@ App.config ($urlRouterProvider, $stateProvider) ->
     views:
       content:
         templateUrl:  "/swat/pages/revisions/show.html"
-        controller: 'RevisionsCtrl'
+        controller: 'RevisionCtrl'
   )
 
 

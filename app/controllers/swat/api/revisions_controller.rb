@@ -19,7 +19,7 @@ module Swat
       end
 
       def parse_revision_options
-        @options = HashWithIndifferentAccess[JSON.parse(params[:options])]
+        @options = params[:json_params] ? HashWithIndifferentAccess[JSON.parse(params[:json_params])] : params
       end
 
     end
