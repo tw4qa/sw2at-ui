@@ -58,6 +58,7 @@ describe 'Revision Stats' do
             RSpecExampleMock.new(description: 'X', run_time: 1, status: :passed),
             RSpecExampleMock.new(description: 'y', run_time: 2, status: :failed)
         ],
+        pending_examples: [],
         failed_examples: [ RSpecExampleMock.new(description: 'y', run_time: 2, status: :failed) ],
         fully_formatted_failed_examples: 'Errors.'
     ), extras)
@@ -67,7 +68,7 @@ describe 'Revision Stats' do
       :time=> DateTime.parse('21/03/1990 10:00'),
       :user=> "me",
       threads: nil,
-      :results=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "total_examples"=>2, "total_runtime"=>3} ]
+      :results=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "pending_examples"=>0, "total_examples"=>2, "total_runtime"=>3} ]
     })
   end
 
