@@ -20,7 +20,7 @@ h2 Revisions
         td
           | {{ revision.data.time }}
         td
-          | {{ revision.status() }}
+          | {{ revision.info.status }}
         td
           a href="#" ng-click="goToRevision(revision)"
             | GO

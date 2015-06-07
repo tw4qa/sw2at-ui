@@ -10,7 +10,7 @@ class Revision
     def query_one(revision_opts)
       id = encrypt_namespace revision_opts
       revision = prepare_response(get_from(id))
-      tests = test_cases(revision_opts)
+      tests = test_cases(revision_opts).group_by{|t| t['thread_id'] }
       revision[:tests] = tests
       revision
     end
