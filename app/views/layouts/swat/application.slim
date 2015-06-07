@@ -27,6 +27,8 @@ html lang="en" ng-app="SWAT"
           = yield(:nav)
         #content
           = yield
+          #ui-view ui-view="content"
+
         div.push
       footer#footer
         = render partial:  'swat/shared/footer'

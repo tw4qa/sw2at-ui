@@ -1,7 +1,4 @@
-= content_for :subheader do
-  span
-    | Revisions
-
+| LIST
 #revisions-container
   .controls
 
@@ -12,12 +9,3 @@
       | {{ revision }}
       a href="#" ng-click="goToRevision(revision)"
         | Tests
-
-    /a
-      .branch
-        | {{ revision.branch }}
-      .time
-        | {{ revision.time }}
-      .user
-        | {{ revision.user }}
-
