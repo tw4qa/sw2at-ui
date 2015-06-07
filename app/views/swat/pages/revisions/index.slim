@@ -23,5 +23,5 @@ h2 Revisions
           | {{ revision.status() }}
         td
           /a href="#" ng-click="goToRevision(revision)"
-          a href="#" ui-sref="revision(revision)"
+          a href="#" ui-sref="revision(revision.data)"
             | GO
