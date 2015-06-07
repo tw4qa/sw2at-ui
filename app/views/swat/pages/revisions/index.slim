@@ -1,11 +1,26 @@
-| LIST
+h2 Revisions
 #revisions-container
   .controls
 
   div ng-if="!revisions"
     | Loading
   .list ng-if="revisions"
-    p.revision ng-repeat="revision in revisions"
-      | {{ revision }}
-      a href="#" ng-click="goToRevision(revision)"
-        | Tests
+    table
+      tr
+        th Branch
+        th User
+        th Time
+        th Status
+        th Tests
+      tr.revision ng-repeat="revision in revisions"
+        td
+          | {{ revision.data.branch }}
+        td
+          | {{ revision.data.user }}
+        td
+          | {{ revision.data.time }}
+        td
+          | {{ revision.status() }}
+        td
+          a href="#" ng-click="goToRevision(revision)"
+            | GO
