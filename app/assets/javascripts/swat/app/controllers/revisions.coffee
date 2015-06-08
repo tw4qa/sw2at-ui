@@ -6,8 +6,6 @@ angular.module("SWAT").controller "RevisionsCtrl", ($rootScope, $scope, $state, 
 
   $scope.initRevisions = ->
     $scope.revisions = RevisionService.query()
-
-  $scope.goToRevision = (revision)->
-    $state.go('revision', revision.data)
+    console.log $scope.revisions
 
   $scope.init()

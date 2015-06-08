@@ -12,6 +12,7 @@ PATH
   remote: .
   specs:
     swat-ui (0.0.3)
+      bootstrap-sass (~> 3.0.3.0)
       coffee-rails
       firebase (~> 0.2.2)
       rails
@@ -58,6 +59,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.0)
+    bootstrap-sass (3.0.3.0)
+      sass (~> 3.2)
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -82,7 +85,7 @@ GEM
     erubis (2.7.0)
     execjs (2.4.0)
     ffi (1.9.8)
-    firebase (0.2.3)
+    firebase (0.2.4)
       httpclient
       json
     globalid (0.3.3)

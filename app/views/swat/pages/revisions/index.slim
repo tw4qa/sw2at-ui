@@ -5,7 +5,7 @@ h2 Revisions
   div ng-if="!revisions"
     | Loading
   .list ng-if="revisions"
-    table
+    table.table.table-bordered.table-hover
       tr
         th Branch
         th User
@@ -18,9 +18,8 @@ h2 Revisions
         td
           | {{ revision.data.user }}
         td
-          | {{ revision.data.time }}
+          | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
         td
           | {{ revision.info.status }}
         td
-          a href="#" ng-click="goToRevision(revision)"
-            | GO
+          a.btn.btn-default href="#" ui-sref="revision(revision.data)" GO
