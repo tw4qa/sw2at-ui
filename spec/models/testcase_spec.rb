@@ -38,7 +38,7 @@ describe TestCase do
             user: "me",
             results: nil,
             threads: nil,
-            tests: [{"value"=>1}, {"value"=>2}, {"value"=>3}]}
+            tests: { nil => [{"value"=>1}, {"value"=>2}, {"value"=>3}]} }
          )
       end
 
