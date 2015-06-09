@@ -5,9 +5,7 @@ angular.module("SWAT").controller "RevisionCtrl", ($rootScope, $scope, $state, $
     console.log($stateParams)
     console.log 'Swat Revision C initialized.'
     params = { branch: $stateParams.branch, user: $stateParams.user, time: $stateParams.time }
-    RevisionService.get(params, (res)->
-      $scope.revision = res
-    )
+    $scope.revision = RevisionService.get(params)
 
 
   $scope.init()

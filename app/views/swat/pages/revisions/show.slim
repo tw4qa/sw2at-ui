@@ -1,8 +1,18 @@
-div
-  div style=("padding-bottom: 14px;")
-    div style=("color: #a3a3a3; font-size: 15px; width: 137px; float: left;")  Branch:
-    strong
-      | {{revision.data.branch}}
+table.table
+  tr
+    th Revision
+    th Branch
+    th User
+    th Status
+  tr
+    td
+      | {{ revision.data.time }}
+    td
+      | {{ revision.data.branch }}
+    td
+      | {{ revision.data.user }}
+    td
+      | {{ revision.info.status }}
 
 div ng-repeat="thread in revision.data.threads"
   table class="table table-striped"
