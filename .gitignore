@@ -8,3 +8,15 @@ app/assets/javascripts/swat/bower_components/*/*/*.md
 app/assets/javascripts/swat/bower_components/*/*/*.txt
 app/assets/javascripts/swat/bower_components/*/*/*.json
 app/assets/javascripts/swat/bower_components/*/*/*.map
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+
+# ignore IDEA files
+.idea
+
+# ignore all config files
+/config/*.yml
+!/config/remote_syslog.yml
+
+# ignore logs
+/log/*.log
