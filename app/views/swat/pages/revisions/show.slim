@@ -1,36 +1,11 @@
-h1 Revision
-
-table
-  tr
-    th Revision
-    th Branch
-    th User
-    th Status
-  tr
-    td
-      | {{ revision.time }}
-    td
-      | {{ revision.branch }}
-    td
-      | {{ revision.user }}
-    td
-      | {{ revision.status }}
+div
+  div style=("padding-bottom: 14px;")
+    div style=("color: #a3a3a3; font-size: 15px; width: 137px; float: left;")  Branch:
+    strong
+      | {{revision.data.branch}}
 
 div ng-repeat="thread in revision.data.threads"
-  table
-    tr
-      th Thread
-      th Total
-      th Status
-    tr
-      td
-        | {{ thread.thread_name }}
-      td
-        | {{ thread.total_examples }}
-      td
-        | {{ thread.status }}
-
-  table
+  table class="table table-striped"
     tr
       th Test
       th Location
