@@ -8,13 +8,13 @@ table
     th Status
   tr
     td
-      | {{ revision.time }}
+      | {{ revision.data.time }}
     td
-      | {{ revision.branch }}
+      | {{ revision.data.branch }}
     td
-      | {{ revision.user }}
+      | {{ revision.data.user }}
     td
-      | {{ revision.status }}
+      | {{ revision.info.status }}
 
 div ng-repeat="thread in revision.data.threads"
   table
