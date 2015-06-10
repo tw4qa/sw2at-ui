@@ -5,22 +5,29 @@ module Swat
       class CommandsBuilder
         require 'ostruct'
 
-        attr_reader :config, :revision
+        attr_reader :config, :time, :revision_name
         ENV_VARS = OpenStruct.new({
-            revision: 'SWAT_CURRENT_REVISION',
-            threads_count: 'SWAT_THREADS_COUNT',
+            rails_env: 'RAILS_ENV',
             db_env_number: 'TEST_ENV_NUMBER',
+
+            time: 'SWAT_CURRENT_REVISION',
+            threads_count: 'SWAT_THREADS_COUNT',
             thread_id: 'SWAT_CURRENT_THREAD_ID',
             thread_name: 'SWAT_CURRENT_THREAD_NAME',
-            rails_env: 'RAILS_ENV',
+            branch: 'SWAT_CURRENT_BRANCH_NAME',
+            revision_name: 'SWAT_CURRENT_REVISION_NAME',
+            revision_time: 'SWAT_CURRENT_REVISION_TIME',
+
+            debug_mode: 'SWAT_DBG',
         })
 
-        def initialize(conf_options, revision)
+        def initialize(conf_options, time, name=nil)
           @config = conf_options
           unless @config[:threads]
             @config[:threads] = [{ name: 'Full' }]
           end
-          @revision = revision
+          @time = time
+          @name = name || @time
         end
 
         def threads_count
@@ -43,43 +50,73 @@ module Swat
           }
         end
 
-        def full_thread_scenarios
-          thread_scenarios.map do |ts|
-            ts.map do |(action, command)|
-              "##{action}\n#{command}"
-            end.join "\n"
-          end*"\n\n===================\n\n"
-        end
-
         def thread_name(thread_opts, index)
-          ?' + (thread_opts[:name] || "Thread##{index+1}") + ?'
+          (thread_opts[:name] || "Thread##{index+1}")
         end
 
         class << self
-          def current_revision
-            ENV[ENV_VARS.revision] ? Time.parse(ENV[ENV_VARS.revision]) : now
+          def current_revision_time
+            env[ENV_VARS.revision_time] ? Time.parse(env[ENV_VARS.revision_time]) : now
           end
 
           def current_threads_count
-            ENV[ENV_VARS.threads_count] || 1
+            env[ENV_VARS.threads_count] || 1
           end
 
           def current_thread_name
-            ENV[ENV_VARS.thread_name]
+            env[ENV_VARS.thread_name]
           end
 
           def current_thread_id
-            ENV[ENV_VARS.thread_id].to_i
+            env[ENV_VARS.thread_id].to_i
+          end
+
+          def current_revision_name
+            env[ENV_VARS.revision_name]
           end
 
           def current_scenarios
-            new(Swat::UI.config.options, current_revision).thread_scenarios
+            new(Swat::UI.config.options, current_revision_time).thread_scenarios
           end
 
           def now
             (Time.respond_to?(:now_without_mock_time) ? Time.now_without_mock_time : Time.now)
           end
 
+          def debug_mode?
+            !!env[ENV_VARS.debug_mode]
+          end
+
+          def current_branch
+            call_command(current_branch_command)
+          end
+
+          def current_user
+            call_command(current_user_command)
+          end
+
+          def env
+            ENV
+          end
+
+          private
+
+          def current_branch_command
+            "git branch | grep '\''*'\'' | awk '\''{print $2}'\''"
+          end
+
+          def current_user_command
+            'whoami'
+          end
+
+          def call_command(c)
+            `#{c}`.gsub("\n",'')
+          end
+
+        end
+
+        def env
+          self.class.env
         end
 
         private
@@ -87,7 +124,8 @@ module Swat
         def run_command(thread_opts, index)
           env_params = build_params({
             ENV_VARS.db_env_number => index,
-            ENV_VARS.revision => @revision,
+            ENV_VARS.revision_name => @name,
+            ENV_VARS.revision_time => @time,
             ENV_VARS.threads_count => threads_count,
             ENV_VARS.thread_id => index,
             ENV_VARS.thread_name => thread_name(thread_opts, index),
@@ -116,7 +154,7 @@ module Swat
 
         def build_params(params)
           params.to_a.map do |k, v|
-            [ k, v ]*?=
+            [ k, "'#{v}'" ]*?=
           end.join(' ')
         end
 

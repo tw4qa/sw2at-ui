@@ -40,6 +40,7 @@ module Swat
               branch: current_branch,
               user: user,
               time: time,
+              name: name,
               threads_count: current_threads_count,
           }
         end
@@ -47,13 +48,17 @@ module Swat
         private
 
         def current_branch
-          @cb ||= `git branch | grep '\''*'\'' | awk '\''{print $2}'\''`.gsub("\n",'')
+          @cb ||= RSpecCommands::CommandsBuilder.current_branch
         rescue
           nil
         end
 
         def user
-          @u ||= `whoami`.gsub("\n",'')
+          @u ||= RSpecCommands::CommandsBuilder.current_user
+        end
+
+        def name
+          @name ||= RSpecCommands::CommandsBuilder.current_revision_name
         end
 
         def collection_available?
@@ -68,18 +73,13 @@ module Swat
         def time
           unless $current_revision
             $current_revision = current_revision
-            Revision.add(
-                branch: current_branch,
-                user: user,
-                time: $current_revision,
-                threads_count: current_threads_count,
-            )
+            Revision.add(current_namespace.merge(threads_count: current_threads_count))
           end
           $current_revision
         end
 
         def current_revision
-          RSpecCommands::CommandsBuilder.current_revision
+          RSpecCommands::CommandsBuilder.current_revision_time
         end
 
         def current_threads_count
