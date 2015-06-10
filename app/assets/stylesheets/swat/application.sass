@@ -9,45 +9,31 @@ $greyBg: #9f9f9f
 $greenMain: greenyellow
 
 body
-  background: $greyBg
+  //background: $greyBg
 
 #swat
   font-size: 13px
 
+  #header-label
+    margin-top: 0
+    padding: 12px
+
   h1, h2, h3
     text-align: center
-    color: $greenMain
-
-  button
-    background-color: rgb(178, 227, 103)
-    color: rgb(78, 70, 70)
-    margin-bottom: 5px
-
-  md-checkbox.md-default-theme.md-checked
-    .md-icon
-      background-color: darken($greenMain,18)
-
-  md-toolbar
-    background: rgb(75, 78, 74)
+    //color: $greenMain
 
   header
-    md-toolbar
-      background: #000000
+    background-color: black
     color: white
     h2
+      color: $greenMain
       text-align: center
       sub
         font-size: 12px
 
-  .main
-    padding: 10px
-
-  md-button.reload
-    background: rgb(141, 229, 90)
-    color: white
 
   #subheader
-    min-height: 34px
+    //min-height: 34px
     h3
       margin: 5px
 
@@ -57,48 +43,8 @@ body
 
   #container
     padding: 0px 15px 15px 15px
-    background: $greyBg
+    //background: $greyBg
 
-    #cases
-      md-item
-        &:nth-child(odd)
-          .case
-            background: #f2fcef
-            &:hover
-              background: darken(#f2fcef, 5)
 
-      .case
-        &:hover
-          background: darken(#f2fcef, 5)
 
-        padding: 5px 0px 6px 16px
-
-        .description
-          color: #747474
-
-        .run-time
-          color: #1e69e2
-
-        .status
-          &.failed
-            color: red
-          &.success
-            color: #0a804c
-
-  .tests-stats
-    background: lighten($greyBg, 10)
-
-    .search-form, .search-results
-      md-whiteframe
-        background: #ffffff
-
-      md-checkbox.revision
-        width: 120px
-        margin: 9px 21px 0px 16px
-
-  #summary
-    h3
-      width: 100%
-      background-color: $greyBg
-    padding-left: 14px
 

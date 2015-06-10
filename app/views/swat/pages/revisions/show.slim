@@ -1,6 +1,6 @@
 h1 Revision
 
-table
+table.table.table-bordered.table-hover
   tr
     th Revision
     th Branch
@@ -17,7 +17,7 @@ table
       | {{ revision.info.status }}
 
 div ng-repeat="thread in revision.data.threads"
-  table
+  table.table.table-bordered.table-hover
     tr
       th Thread
       th Total
@@ -30,7 +30,7 @@ div ng-repeat="thread in revision.data.threads"
       td
         | {{ thread.status }}
 
-  table
+  table.table.table-bordered.table-hover
     tr
       th Test
       th Location
