@@ -18,8 +18,7 @@ namespace :swat do
     end
 
     def logged_command(scenario, command)
-      log_path = Rails.root.join("log/#{scenario[:name]}--#{scenario[:thread]}--#{command}".gsub(' ', '_'))
-      `#{scenario[command]} > #{ log_path }`
+      `#{scenario[command]}`
     end
   end
 
