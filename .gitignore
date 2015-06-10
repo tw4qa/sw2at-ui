@@ -8,3 +8,4 @@ app/assets/javascripts/swat/bower_components/*/*/*.md
 app/assets/javascripts/swat/bower_components/*/*/*.txt
 app/assets/javascripts/swat/bower_components/*/*/*.json
 app/assets/javascripts/swat/bower_components/*/*/*.map
+.idea/*

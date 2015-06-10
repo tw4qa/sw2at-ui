@@ -6,3 +6,5 @@
 #= require swat/bower_components/angular-aria/angular-aria.js
 #= require swat/bower_components/angular-material/angular-material.js
 #= require swat/bower_components/lodash/lodash.js
+#= require swat/bower_components/angular-bootstrap/ui-bootstrap.js
+#= require swat/bower_components/angular-bootstrap/ui-bootstrap-tpls.js
