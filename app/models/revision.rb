@@ -102,7 +102,11 @@ class Revision
     def prepare_response(resp)
       results = resp[RESULTS_FOLDER].values rescue nil
       threads = resp[THREADS_FOLDER].values rescue nil
-      decrypt_namespace(resp[MAIN_FOLDER]['id']).merge!(results: results, threads: threads)
+      main = resp[MAIN_FOLDER]
+      key = decrypt_namespace(main.delete('id'))
+      res = key.merge!(results: results, threads: threads)
+      res[:name] = main['name'] if main['name']
+      res
     end
 
   end

@@ -73,13 +73,17 @@ module Swat
         def time
           unless $current_revision
             $current_revision = current_revision
-            Revision.add(current_namespace.merge(threads_count: current_threads_count))
+            Revision.add(current_namespace.merge(threads_count: current_threads_count, name: current_revision_name))
           end
           $current_revision
         end
 
         def current_revision
           RSpecCommands::CommandsBuilder.current_revision_time
+        end
+
+        def current_revision_name
+          RSpecCommands::CommandsBuilder.current_revision_name
         end
 
         def current_threads_count
