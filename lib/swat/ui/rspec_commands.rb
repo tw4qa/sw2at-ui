@@ -44,6 +44,9 @@ module Swat
 
         def thread_scenario(thread_opts, index)
           {
+              index: index,
+              name: @name,
+              thread: thread_name(thread_opts, index),
               clean: clean_command(thread_opts, index),
               prepare: prepare_command(thread_opts, index),
               run: run_command(thread_opts, index),
@@ -140,7 +143,7 @@ module Swat
               ENV_VARS.db_env_number => index,
           })
 
-          [ env_params, rake_command('db:create'), '&&', env_params, rake_command('db:migrate') ].join(' ')
+          [ env_params, rake_command('db:setup'), '&&', env_params, rake_command('db:migrate') ].join(' ')
         end
 
         def clean_command(thread_opts, index)
@@ -149,7 +152,7 @@ module Swat
               ENV_VARS.db_env_number => index,
           })
 
-          [ env_params, rake_command('db:drop') ].join(' ')
+          [ env_params, rake_command('db:reset') ].join(' ')
         end
 
         def build_params(params)

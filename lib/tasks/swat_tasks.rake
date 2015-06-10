@@ -6,15 +6,20 @@ namespace :swat do
 
     task run: :environment do
       scenarios = Swat::UI::RSpecCommands::CommandsBuilder.current_scenarios
-      pp scenarios
       threads = scenarios.map do |scenario|
         Thread.new do
-          `#{scenario[:clean]}`
-          `#{scenario[:prepare]}`
-          `#{scenario[:run]}`
+          logged_command(scenario, :clean)
+          logged_command(scenario, :prepare)
+          logged_command(scenario, :run)
         end
       end
+
       threads.each(&:join)
+    end
+
+    def logged_command(scenario, command)
+      log_path = Rails.root.join("log/#{scenario[:name]}--#{scenario[:thread]}--#{command}".gsub(' ', '_'))
+      `#{scenario[command]} > #{ log_path }`
     end
   end
 
