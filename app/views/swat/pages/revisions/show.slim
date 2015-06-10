@@ -17,33 +17,28 @@ table.table.table-bordered.table-hover
     td
       | {{ revision.info.status }}
 
-div ng-repeat="thread in revision.data.threads"
-  table.table.table-bordered.table-hover
-    tr
-      th Thread
-      th Total
-      th Status
-    tr
-      td
-        | {{ thread.thread_name }}
-      td
-        | {{ thread.total_examples }}
-      td
-        | {{ thread.status }}
+div
+  tabset
+    tab ng-repeat="thread in revision.data.threads"
+      tab-heading ng-class="thread.status"
+        span
+          | {{ thread.thread_name }}
+        .total-examples
+          | {{ thread.total_examples }}
+      table.table.table-bordered.table-hover
+        tr
+          th Test
+          th Location
+          th Duration
+          th Status
+        tr ng-repeat="test in revision.data.tests[thread.thread_id]"
+          td
+            | {{ test.full_description }}
+          td
+            | {{ test.location }}
+          td
+            | {{ test.run_time }}
+          td
+            | {{ test.status }}
 
-  table.table.table-bordered.table-hover
-    tr
-      th Test
-      th Location
-      th Duration
-      th Status
-    tr ng-repeat="test in revision.data.tests[thread.thread_id]"
-      td
-        | {{ test.full_description }}
-      td
-        | {{ test.location }}
-      td
-        | {{ test.run_time }}
-      td
-        | {{ test.status }}
 
