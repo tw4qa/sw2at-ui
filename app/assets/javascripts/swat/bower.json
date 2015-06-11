@@ -1,11 +1,14 @@
 {
-  "name": "dsl-generated dependencies",
+  "name": "swat",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tw4qa/sw2at-ui",
+  "license": "MIT",
   "dependencies": {
-    "angular": "latest",
-    "angular-route": "latest",
-    "angular-ui-router": "latest",
-    "angular-resource": "latest",
-    "angular-material": "latest",
-    "lodash": "latest"
+    "angular-bootstrap": "~0.13.0",
+    "angular": "~1.4.0",
+    "angular-route": "1.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-resource": "~1.4.0",
+    "lodash": "~3.9.3"
   }
 }
