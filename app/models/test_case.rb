@@ -12,6 +12,10 @@ class TestCase
       push_to(encrypt_testcase_namespace(namespace_opts), object)
     end
 
+    def seconds_to_time(seconds)
+      Time.at(seconds).utc.strftime("%H:%M:%S")
+    end
+
     def collect(namespace_opts, rspec_example, extras)
       data = {
           description: rspec_example.description,
@@ -21,7 +25,7 @@ class TestCase
           exception: rspec_example.exception,
           status: rspec_example.metadata[:execution_result].status,
           started_at: rspec_example.metadata[:execution_result].started_at,
-          run_time: rspec_example.metadata[:execution_result].run_time
+          run_time: seconds_to_time(rspec_example.metadata[:execution_result].run_time)
       }.merge!(extras)
       if rspec_example.respond_to?(:swat_extras)
         data.merge(swat_extras: rspec_example.swat_extras)
