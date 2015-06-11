@@ -31,7 +31,7 @@ div
           th Location
           th Duration
           th Status
-        tr ng-repeat="test in revision.data.tests[thread.thread_id]"
+        tr ng-repeat="test in revision.data.tests[thread.thread_id]" ng-class="test.status"
           td
             | {{ test.full_description }}
           td
