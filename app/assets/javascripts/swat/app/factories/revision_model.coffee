@@ -6,7 +6,7 @@ angular.module("SWAT").factory "RevisionModel", ->
 
     prepareThreads: ->
       for thread in @data.threads
-        thread.tests = @data.tests[thread.thread_id]
+        thread.tests = @data.tests[thread.thread_id] if @data.tests
 
 angular.module("SWAT").factory "RevisionModelFactory", (RevisionModel, GlResponse)->
   (jsonResponse)->
