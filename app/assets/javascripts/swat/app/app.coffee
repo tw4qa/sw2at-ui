@@ -9,7 +9,7 @@ App = angular.module 'SWAT', [
   'ngResource'
   'ngRoute'
   'ui.router'
-  'ngMaterial'
+  'ui.bootstrap'
 ]
 
 App.config ($urlRouterProvider, $stateProvider) ->
