@@ -10,6 +10,14 @@ describe Revision do
 
     before :each do
       clean_firebase!
+      @calc = {
+          results: nil, threads: nil, threads_count: nil, status: {
+              :name=>"completed_passed",
+              :label=>"PASSED",
+              :completed=>true,
+              :failed=>false
+          }
+      }
     end
 
     it 'should add and query' do
@@ -17,7 +25,7 @@ describe Revision do
       ns = { branch: 'b', time: DateTime.parse('21/03/1990 10:00'), user: 'me', results: nil, threads: nil }
 
       Revision.add(ns)
-      expect(Revision.all).to eq([ns])
+      expect(Revision.all).to eq([ns.merge(@calc)])
     end
 
     it 'should remove times' do
@@ -28,12 +36,12 @@ describe Revision do
       Revision.add(ns1)
       Revision.add(ns2)
 
-      expect(Revision.all).to eq([ns1, ns2])
+      expect(Revision.all).to eq([ns1.merge(@calc), ns2.merge(@calc)])
       expect(Revision.test_cases(ns1)).to eq([])
       expect(Revision.test_cases(ns2)).to eq([])
 
       Revision.remove_by_time(ns1[:time])
-      expect(Revision.all).to eq([ns2])
+      expect(Revision.all).to eq([ns2.merge(@calc)])
     end
 
     it 'should remove branches' do
@@ -48,9 +56,9 @@ describe Revision do
       Revision.add(ns3)
       Revision.add(ns4)
 
-      expect(Revision.all.sort_by(&:to_s)).to eq([ns1, ns2, ns3, ns4].sort_by(&:to_s))
+      expect(Revision.all.sort_by(&:to_s)).to eq([ns1, ns2, ns3, ns4].map{|x|x.merge(@calc)}.sort_by(&:to_s))
       Revision.remove_branch(?a)
-      expect(Revision.all).to eq([ns2, ns3])
+      expect(Revision.all).to eq([ns2, ns3].map{|x|x.merge(@calc)})
     end
 
   end

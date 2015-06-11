@@ -21,15 +21,23 @@ describe 'Revision Stats' do
 
   before :each do
     clean_firebase!
-    @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), results: nil, threads: nil }
-    @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), results: nil, threads: nil }
+    @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00') }
+    @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01') }
+    @calc = {
+        results: nil, threads: nil, threads_count: nil, status: {
+            :name=>"completed_passed",
+            :label=>"PASSED",
+            :completed=>true,
+            :failed=>false
+        }
+    }
 
     expect(TestCase.all).to eq([])
     expect(Revision.all).to eq([])
 
     Revision.add(@namespace_1)
     Revision.add(@namespace_2)
-    expect(Revision.all).to eq([@namespace_1, @namespace_2])
+    expect(Revision.all).to eq([@namespace_1.merge(@calc), @namespace_2.merge(@calc)])
   end
 
   it 'should collect cases' do
@@ -50,7 +58,7 @@ describe 'Revision Stats' do
     ])
     expect(Revision.test_cases(@namespace_2)).to eq([])
 
-    expect(Revision.all.first).to eq(@namespace_1)
+    expect(Revision.all.first).to eq(@namespace_1.merge(@calc))
 
     Revision.add_thread_results(@namespace_1,
       RSpecThreadResultMock.new(
@@ -63,13 +71,13 @@ describe 'Revision Stats' do
         fully_formatted_failed_examples: 'Errors.'
     ), extras)
 
-    expect(Revision.all.first).to eq({
+    expect(Revision.all.first).to eq(@calc.merge({
       :branch=> "b",
       :time=> DateTime.parse('21/03/1990 10:00'),
       :user=> "me",
       threads: nil,
       :results=>[ {"failed_examples"=>1, "formatted_fails"=>"Errors.", "thread_id"=>0, "pending_examples"=>0, "total_examples"=>2, "total_runtime"=>3} ]
-    })
+    }))
   end
 
 end

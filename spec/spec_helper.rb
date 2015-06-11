@@ -8,6 +8,7 @@ require 'swat_ui'
 # models
 require Swat::Engine.root.join 'app/models/concerns/fire'
 require Swat::Engine.root.join 'app/models/concerns/converter'
+require Swat::Engine.root.join 'app/models/concerns/basic_stats_calculator'
 require Swat::Engine.root.join 'app/models/revision'
 require Swat::Engine.root.join 'app/models/test_case'
 

@@ -12,13 +12,21 @@ describe TestCase do
       clean_firebase!
       @namespace_1 = { branch: ?b, user: 'me', time: DateTime.parse('21/03/1990 10:00'), results: nil, threads: nil }
       @namespace_2 = { branch: ?r, user: 'yu', time: DateTime.parse('21/03/1990 10:01'), results: nil, threads: nil }
+      @calc = {
+          results: nil, threads: nil, threads_count: nil, status: {
+              :name=>"completed_passed",
+              :label=>"PASSED",
+              :completed=>true,
+              :failed=>false
+          }
+      }
 
       expect(TestCase.all).to eq([])
       expect(Revision.all).to eq([])
 
       Revision.add(@namespace_1)
       Revision.add(@namespace_2)
-      expect(Revision.all).to eq([@namespace_1, @namespace_2])
+      expect(Revision.all).to eq([@namespace_1, @namespace_2].map{|x|x.merge(@calc)})
 
       TestCase.add_to_namespace(@namespace_1, { 'value' =>  1 })
       TestCase.add_to_namespace(@namespace_1, { 'value' =>  2 })
@@ -33,13 +41,23 @@ describe TestCase do
 
       it 'should query revisions with tests' do
          expect(Revision.query_one(@namespace_1)).to eq({
-            branch: "b",
-            time: "1990-03-21T10:00:00.000+00:00",
-            user: "me",
-            results: nil,
-            threads: nil,
-            tests: { nil => [{"value"=>1}, {"value"=>2}, {"value"=>3}]} }
+            :branch=>"b",
+            :time=>Time.parse('Wed, 21 Mar 1990 10:00:00 +0000'),
+            :user=>"me",
+            :results=>nil,
+            :threads=>nil,
+            :threads_count=>nil,
+            :status=>{
+                :name=>"completed_passed",
+                :label=>"PASSED", :completed=>true, :failed=>false
+            },
+            :tests=>{
+                nil=>[ {"value"=>1}, {"value"=>2}, {"value"=>3} ]
+            }
+           }
          )
+
+
       end
 
       it 'should query correctly' do
@@ -140,13 +158,13 @@ describe TestCase do
 
       it 'should delete branches' do
         Revision.remove_branch(?r)
-        expect(Revision.all).to eq([@namespace_1])
+        expect(Revision.all).to eq([@namespace_1].map{|x|x.merge(@calc)})
         expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
       end
 
       it 'should delete users' do
         Revision.remove_user('yu')
-        expect(Revision.all).to eq([@namespace_1])
+        expect(Revision.all).to eq([@namespace_1].map{|x|x.merge(@calc)})
         expect(TestCase.all).to eq([{ 'value' =>  1 }, { 'value' =>  2 }, { 'value' =>  3 }])
       end
 
@@ -159,7 +177,7 @@ describe TestCase do
 
       it 'should delete branches' do
         Revision.remove_branch(?b)
-        expect(Revision.all).to eq([@namespace_2])
+        expect(Revision.all).to eq([@namespace_2].map{|x|x.merge(@calc)})
         expect(TestCase.all).to eq([{ 'value' =>  4 }, { 'value' =>  5 }, { 'value' =>  6 }])
       end
 
