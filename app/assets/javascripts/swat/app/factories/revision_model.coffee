@@ -2,17 +2,11 @@ angular.module("SWAT").factory "RevisionModel", ->
   class RevisionModel
     constructor: (@data) ->
       @prepareThreads()
-      @info =
-        status: @getStatus()
-
-    getStatus: ->
-      'perfect'
+      console.log(@data)
 
     prepareThreads: ->
       for thread in @data.threads
-        thread.result = _.select(@data.results, (r)-> r.thread_id == thread.thread_id)
-        thread.status = 'cool'
-
+        thread.tests = @data.tests[thread.thread_id] if @data.tests
 
 angular.module("SWAT").factory "RevisionModelFactory", (RevisionModel, GlResponse)->
   (jsonResponse)->

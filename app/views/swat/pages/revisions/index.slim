@@ -20,6 +20,6 @@ h2 Revisions
         td
           | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
         td
-          | {{ revision.info.status }}
+          | {{ revision.data.status.label }}
         td
           a.btn.btn-default href="#" ui-sref="revision(revision.data)" GO

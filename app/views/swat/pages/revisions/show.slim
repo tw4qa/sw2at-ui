@@ -20,11 +20,11 @@ table.table.table-bordered.table-hover
 div
   tabset
     tab ng-repeat="thread in revision.data.threads"
-      tab-heading ng-class="thread.status"
-        span
+      tab-heading
+        span.label.status title=" {{ thread.status.label }}" ng-class="thread.status.name"
           | {{ thread.thread_name }}
-        .total-examples
-          | {{ thread.total_examples }}
+        span.label.total-examples
+          | {{ thread.total_runned }}
       table.table.table-bordered.table-hover
         tr
           th Test

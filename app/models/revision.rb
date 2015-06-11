@@ -1,5 +1,6 @@
 class Revision
   include Fire
+  extend BasicStatsCalculator
   extend Converter
 
   class << self
@@ -12,6 +13,7 @@ class Revision
       revision = prepare_response(get_from(id))
       tests = test_cases(revision_opts).group_by{|t| t['thread_id'] }
       revision[:tests] = tests
+      calculate_detailed_stats(revision)
       revision
     end
 
@@ -104,8 +106,9 @@ class Revision
       threads = resp[THREADS_FOLDER].values rescue nil
       main = resp[MAIN_FOLDER]
       key = decrypt_namespace(main.delete('id'))
-      res = key.merge!(results: results, threads: threads)
+      res = key.merge!(results: results, threads: threads, threads_count: main['threads_count'])
       res[:name] = main['name'] if main['name']
+      calculate_basic_stats(res)
       res
     end
 
