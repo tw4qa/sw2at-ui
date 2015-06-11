@@ -1,37 +1,21 @@
 h1
   | Revision "{{ revision.data.name }}"
 
-table.table.table-bordered.table-hover
-  tr
-    th Revision
-    th Branch
-    th User
-    th Status
-  tr
-    td
-      | {{ revision.data.name }}
-    td
-      | {{ revision.data.branch }}
-    td
-      | {{ revision.data.user }}
-    td
-      | {{ revision.info.status }}
-
 div
   tabset
     tab ng-repeat="thread in revision.data.threads"
-      tab-heading ng-class="thread.status"
-        span
+      tab-heading
+        span.label.status title=" {{ thread.status.label }}" ng-class="thread.status.name"
           | {{ thread.thread_name }}
-        .total-examples
-          | {{ thread.total_examples }}
+        span.label.total-examples
+          | {{ thread.total_runned }}
       table.table.table-bordered.table-hover
         tr
           th Test
           th Location
           th Duration
           th Status
-        tr ng-repeat="test in revision.data.tests[thread.thread_id]"
+        tr ng-repeat="test in thread.tests"
           td
             | {{ test.full_description }}
           td
