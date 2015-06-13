@@ -79,7 +79,7 @@ module Swat
           end
 
           def current_scenarios
-            new(Swat::UI.config.options, current_revision_time).thread_scenarios
+            new(Swat::UI.config.options, current_revision_time, current_revision_name).thread_scenarios
           end
 
           def now
