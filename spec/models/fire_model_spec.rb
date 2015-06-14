@@ -115,9 +115,13 @@ describe 'Fire Models' do
       expect(Animal.take(rabbit_path_data)).to be_nil
 
       rabbit = Animal.new(rabbit_path_data.merge(name: 'Bunny', age: 2))
+      expect(rabbit.persisted?).to be_falsey
+
       rabbit.save
+      expect(rabbit.persisted?).to be_truthy
 
       loaded_rabbit = Animal.take(rabbit_path_data.merge(id: rabbit.id))
+      expect(loaded_rabbit.persisted?).to be_truthy
 
       expect(loaded_rabbit).to eq(rabbit)
 

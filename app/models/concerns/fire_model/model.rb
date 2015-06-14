@@ -11,38 +11,49 @@ module Fire
 
     def initialize(attrs={})
       data = self.class.prepare_hash(attrs)
-      data[:id] ||= self.class.next_id
+      unless data[:id]
+        data[:id] = self.class.next_id
+        @persisted = false
+      else
+        @persisted = true
+      end
       @original_data = data.clone
       super(data)
     end
+
+    # Record Methods
 
     def collection_name
       self.class.collection_name
     end
 
-    def path_values
-      self.class.path_keys.map{|pk|
-        path_value = send(pk)
-        raise PathValueMissingError.new(pk) if path_value.to_s.empty?
-        self.class.path_value_param(path_value)
-      }
-    end
-
     def save
       self.class.new(@original_data).delete if path_changed?
       self.class.connection.set(path, self.to_h)
+      @persisted = true
     end
 
     def delete
       self.class.connection.delete(path)
+      @persisted = false
+    end
+
+    def persisted?
+      @persisted
     end
 
     def path
       ([ collection_name ] + path_values) * LEVEL_SEPARATOR
     end
 
-    def ==(model_object)
-      self.to_h == model_object.to_h
+    # Data Methods
+
+    def path_values
+      self.class.path_keys.map do |pk|
+        path_value = send(pk)
+        raise PathValueMissingError.new(pk) if path_value.to_s.empty?
+        self.class.path_value_param(path_value)
+      end
     end
 
     def custom_data(hash=self.to_h)
@@ -59,6 +70,10 @@ module Fire
       self.class.prepare_hash(res)
     end
 
+    def path_changed?
+      @persisted && (path_data != path_data(@original_data))
+    end
+
     def has_data?(data)
       return true if data.empty?
       self.class.prepare_hash(data).each do |k, v|
@@ -67,8 +82,8 @@ module Fire
       true
     end
 
-    def path_changed?
-      path_data != path_data(@original_data)
+    def ==(model_object)
+      self.to_h == model_object.to_h
     end
 
     class << self
