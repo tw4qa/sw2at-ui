@@ -81,4 +81,5 @@ module Fire
   end
 
   extend ClassMethods
+  require_relative 'fire_model/model'
 end
