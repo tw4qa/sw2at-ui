@@ -65,6 +65,7 @@ describe 'Fire Models' do
     end
 
     tm = SomeModel.new(value: 1, name: 'a')
+
     expect(tm.has_data?(value: 1)).to be_truthy
     expect(tm.has_data?(value: 1, name: 'a')).to be_truthy
     expect(tm.has_data?('name' => 'a')).to be_truthy
@@ -167,6 +168,48 @@ describe 'Fire Models' do
 
         # Query by math condition
         expect(LibraryBook.query{|m| m.row_number % 5 == 0  }.map(&:name)).to eq([ 'Lord Of The Rings', 'Harry Potter' ])
+      end
+
+    end
+
+    context 'Updating' do
+
+      class Point < Fire::Model
+        has_path_keys(:x, :y)
+      end
+
+      it 'should update data' do
+        p1 = Point.create(x: 1, y: 1, value: 1)
+        p2 = Point.create(x: 1, y: 2, value: 2)
+        p3 = Point.create(x: 2, y: 1, value: 3)
+        p4 = Point.create(x: 1, y: 1, value: 4)
+
+        expect(Point.all.map(&:value).sort).to eq([ 1, 2, 3, 4 ].sort)
+
+        p1.value = 5
+        expect(p1.path_changed?).to be_falsey
+        p1.save
+
+        expect(Point.all.map(&:value).sort).to eq([ 5, 2, 3, 4 ].sort)
+
+        reloaded_point = Point.take(x: p2.x, y: p2.y, id: p2.id)
+        reloaded_point.value = 6
+
+        expect(reloaded_point.path_changed?).to be_falsey
+
+        reloaded_point.save
+
+        expect(Point.all.map(&:value).sort).to eq([ 5, 6, 3, 4 ].sort)
+
+        p1.delete
+
+        expect(Point.all.map(&:value).sort).to eq([ 6, 3, 4].sort)
+
+        p3.x = 4
+        expect(p3.path_changed?).to be_truthy
+        p3.save
+
+        expect(Point.all.map(&:value).sort).to eq([ 6, 3, 4].sort)
       end
 
     end

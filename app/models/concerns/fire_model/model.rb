@@ -10,8 +10,9 @@ module Fire
     cattr_accessor :global_fire_collection, :global_path_keys
 
     def initialize(attrs={})
-      data = HashWithIndifferentAccess[attrs]
+      data = self.class.prepare_hash(attrs)
       data[:id] ||= self.class.next_id
+      @original_data = data.clone
       super(data)
     end
 
@@ -28,6 +29,7 @@ module Fire
     end
 
     def save
+      self.class.new(@original_data).delete if path_changed?
       self.class.connection.set(path, self.to_h)
     end
 
@@ -43,12 +45,30 @@ module Fire
       self.to_h == model_object.to_h
     end
 
+    def custom_data(hash=self.to_h)
+      res = hash.to_a.select do |(k, v)|
+        !self.class.path_keys.include?(k)
+      end
+      self.class.prepare_hash(res)
+    end
+
+    def path_data(hash=self.to_h)
+      res = hash.to_a.select do |(k, v)|
+        self.class.path_keys.include?(k.to_sym)
+      end
+      self.class.prepare_hash(res)
+    end
+
     def has_data?(data)
       return true if data.empty?
-      HashWithIndifferentAccess[data].each do |k, v|
+      self.class.prepare_hash(data).each do |k, v|
         return false unless self.send(k) == v
       end
       true
+    end
+
+    def path_changed?
+      path_data != path_data(@original_data)
     end
 
     class << self
@@ -143,6 +163,10 @@ module Fire
       def path_value_param(raw_value)
         return raw_value.to_s+?_ if raw_value.is_a?(Numeric)
         raw_value.to_s.parameterize
+      end
+
+      def prepare_hash(hash)
+        HashWithIndifferentAccess[hash]
       end
 
       protected
