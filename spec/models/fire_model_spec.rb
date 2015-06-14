@@ -74,7 +74,7 @@ describe 'Fire Models' do
     ad.id = 'my_id'
     ad.street = 'Some Street'
     ad.number = 101
-    expect(ad.path).to eq('Address/ukraine/cherkasy/cherkasy/some-street/101/my_id')
+    expect(ad.path).to eq('Address/ukraine/cherkasy/cherkasy/some-street/101_/my_id')
   end
 
   context 'Persistence' do
@@ -83,7 +83,7 @@ describe 'Fire Models' do
       has_path_keys(:kingdom, :phylum, :subphylum, :class, :order, :family)
     end
 
-    let(:path_data) do
+    let(:rabbit_path_data) do
       {
           kingdom: 'Animalia',
           phylum: 'Chordata',
@@ -96,19 +96,44 @@ describe 'Fire Models' do
 
     it 'should query save object with path keys' do
       expect(Animal.all).to eq([])
-      expect(Animal.take(path_data)).to be_nil
+      expect(Animal.take(rabbit_path_data)).to be_nil
 
-      rabbit = Animal.new(path_data.merge(name: 'Bunny', age: 2))
+      rabbit = Animal.new(rabbit_path_data.merge(name: 'Bunny', age: 2))
       rabbit.save
 
-      loaded_rabbit = Animal.take(path_data)
+      loaded_rabbit = Animal.take(rabbit_path_data.merge(id: rabbit.id))
+
+      expect(loaded_rabbit).to eq(rabbit)
 
       expect(loaded_rabbit).to be_a(Animal)
-      expect(rabbit.age).to eq(2)
-      expect(rabbit.name).to eq('Bunny')
-      expect(rabbit.kingdom).to eq('Animalia')
+      expect(loaded_rabbit.age).to eq(2)
+      expect(loaded_rabbit.name).to eq('Bunny')
+      expect(loaded_rabbit.kingdom).to eq('Animalia')
 
-      expect(Animal.all).to eq([ rabbit ])
+      expect(Animal.all).to eq([ loaded_rabbit ])
+
+      loaded_rabbit.delete
+
+      expect(Animal.all).to eq([ ])
+    end
+
+
+    context 'Books' do
+
+      it 'should perform complex queries' do
+
+        class LibraryBook < Fire::Model
+          has_path_keys(:library, :floor, :row_number, :shelf)
+        end
+
+        LibraryBook.create(library: 'Shevchenko', floor: 1, row_number: 1, shelf: 10, name: 'Kobzar', author: 'T.G. Shevchenko')
+        LibraryBook.create(library: 'Shevchenko', floor: 1, row_number: 1, shelf: 15, name: 'Eneida', author: 'I. Kotlyrevskiy')
+        LibraryBook.create(library: 'Shevchenko', floor: 2, row_number: 1, shelf: 115, name: 'Lord Of The Rings', author: ' J.R.R. Tolkien')
+        LibraryBook.create(library: 'Skovoroda', floor: 1, row_number: 10, shelf: 34, name: 'Harry Potter', author: 'J.K. Rowling')
+
+        expect(LibraryBook.all.map(&:name)).to eq([ 'Kobzar', 'Eneida', 'Lord Of The Rings', 'Harry Potter' ])
+      end
+
     end
 
   end
