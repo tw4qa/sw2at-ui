@@ -10,7 +10,7 @@ module Fire
     cattr_accessor :global_fire_collection, :global_path_keys
 
     def initialize(data={})
-      unless data[:id]
+      if (!data[:id] && !data['id'])
         data[:id] = self.class.next_id
       end
       super(data)
@@ -28,9 +28,18 @@ module Fire
       }
     end
 
+    def save
+      self.class.connection.set(path, self.to_h)
+    end
+
     def path
       ([ collection_name ] + path_values) * LEVEL_SEPARATOR
     end
+
+    def ==(model_object)
+      self.to_h == model_object.to_h
+    end
+
 
     class << self
 
@@ -58,8 +67,31 @@ module Fire
       end
 
       def path_keys
-        own_path_keys = (self.global_path_keys || { })[default_collection_name] ||= []
         own_path_keys + default_path_keys
+      end
+
+      def own_path_keys
+        (self.global_path_keys || { })[default_collection_name] ||= []
+      end
+
+      # Querying
+
+      def all
+        response = connection.get(collection_name).body
+        return [] if response.nil?
+        result = response.values
+
+        own_path_keys.each do |k|
+          result = result.map(&:values).flatten
+        end
+
+        result.map{|data| new(data) }
+      end
+
+      def take(path_data)
+        path_object = new(path_data)
+        loaded_data = connection.get(path_object.path).body
+        loaded_data.nil? ? nil : new(loaded_data)
       end
 
       # Helpers

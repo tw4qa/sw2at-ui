@@ -77,4 +77,40 @@ describe 'Fire Models' do
     expect(ad.path).to eq('Address/ukraine/cherkasy/cherkasy/some-street/101/my_id')
   end
 
+  context 'Persistence' do
+
+    class Animal < Fire::Model
+      has_path_keys(:kingdom, :phylum, :subphylum, :class, :order, :family)
+    end
+
+    let(:path_data) do
+      {
+          kingdom: 'Animalia',
+          phylum: 'Chordata',
+          subphylum: 'Vertebrata',
+          class: 'Mammalia',
+          order: 'Lagomorpha',
+          family: 'Leporidae',
+      }
+    end
+
+    it 'should query save object with path keys' do
+      expect(Animal.all).to eq([])
+      expect(Animal.take(path_data)).to be_nil
+
+      rabbit = Animal.new(path_data.merge(name: 'Bunny', age: 2))
+      rabbit.save
+
+      loaded_rabbit = Animal.take(path_data)
+
+      expect(loaded_rabbit).to be_a(Animal)
+      expect(rabbit.age).to eq(2)
+      expect(rabbit.name).to eq('Bunny')
+      expect(rabbit.kingdom).to eq('Animalia')
+
+      expect(Animal.all).to eq([ rabbit ])
+    end
+
+  end
+
 end
