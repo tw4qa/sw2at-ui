@@ -1,9 +1,11 @@
 module Fire
   require 'ostruct'
   require 'firebase'
-  LEVEL_SEPARATOR = ?/
 
   class Model < OpenStruct
+
+    LEVEL_SEPARATOR = ?/
+
     cattr_accessor :firebase_path
     cattr_accessor :global_fire_collection, :global_path_keys
 
@@ -21,9 +23,13 @@ module Fire
     def path_values
       self.class.path_keys.map{|pk|
         path_value = send(pk)
-        raise PathValueMissingError.new(pk) unless path_value
-        path_value
+        raise PathValueMissingError.new(pk) if path_value.to_s.empty?
+        path_value.to_s.parameterize
       }
+    end
+
+    def path
+      ([ collection_name ] + path_values) * LEVEL_SEPARATOR
     end
 
     class << self
@@ -52,28 +58,14 @@ module Fire
       end
 
       def path_keys
-        own_path_keys = self.global_path_keys[default_collection_name] ||= []
-        default_path_keys + own_path_keys
+        own_path_keys = (self.global_path_keys || { })[default_collection_name] ||= []
+        own_path_keys + default_path_keys
       end
 
       # Helpers
 
       def next_id
         rand(36**8).to_s(36)
-      end
-
-      class FireModelError < StandardError; end
-
-      class NoFirebasePathSetError < FireModelError
-        def initialize
-          super 'Firebase path is not set!'
-        end
-      end
-
-      class PathValueMissingError < FireModelError
-        def initialize(key)
-          super "Required path key '#{ key }' is not set!"
-        end
       end
 
       private
@@ -86,6 +78,20 @@ module Fire
         [ :id ]
       end
 
+    end
+
+    class FireModelError < StandardError; end
+
+    class NoFirebasePathSetError < FireModelError
+      def initialize
+        super 'Firebase path is not set!'
+      end
+    end
+
+    class PathValueMissingError < FireModelError
+      def initialize(key)
+        super "Required path key '#{ key }' is not set!"
+      end
     end
 
   end

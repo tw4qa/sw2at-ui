@@ -10,8 +10,6 @@ describe 'Fire Models' do
     Fire.drop!
   end
 
-
-
   it 'should have a collection & connection' do
     fm = Fire::Model.new
     expect(fm.collection_name).to eq('Model')
@@ -40,28 +38,43 @@ describe 'Fire Models' do
     expect(sm3.collection_name).to eq('BestModel')
   end
 
-  it 'should build paths' do
+  it 'should build paths for simple subclasses' do
 
     class TestModel < Fire::Model
       in_collection 'ExampleModel'
-    end
-
-    class ProdModel < Fire::Model
-      in_collection 'ProductionModel'
-      has_path_keys(:server_name, :date)
     end
 
     tm = TestModel.new
     expect(tm.id).to be
     expect(tm.path_values.count).to eq(1)
 
-    tm.id = 'id-first'
-    expect(tm.to_h).to eq({ id: 'id-first' })
-    expect(tm.path_values).to eq([ 'id-first' ])
+    tm.id = 'id_first'
+    expect(tm.to_h).to eq({ id: 'id_first' })
+    expect(tm.path_values).to eq([ 'id_first' ])
+    expect(tm.path).to eq('ExampleModel/id_first')
 
-    tm = TestModel.new(id: 'id-second')
+    tm = TestModel.new(id: 'id_second')
     expect(tm.id).to be
-    expect(tm.path_values).to eq([ 'id-second' ])
+    expect(tm.path_values).to eq([ 'id_second' ])
+    expect(tm.path).to eq('ExampleModel/id_second')
+  end
+
+  it 'should build paths for subclasses with custom path keys' do
+
+    class Address < Fire::Model
+      has_path_keys(:country, :region, :city, :street, :number)
+    end
+
+    ad = Address.new(country: 'Ukraine', region: 'Cherkasy', city: 'Cherkasy')
+    expect(ad.id).to be
+    expect(->{
+      ad.path
+    }).to raise_error(Fire::Model::PathValueMissingError)
+
+    ad.id = 'my_id'
+    ad.street = 'Some Street'
+    ad.number = 101
+    expect(ad.path).to eq('Address/ukraine/cherkasy/cherkasy/some-street/101/my_id')
   end
 
 end
