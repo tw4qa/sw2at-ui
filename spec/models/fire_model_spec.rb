@@ -59,6 +59,21 @@ describe 'Fire Models' do
     expect(tm.path).to eq('ExampleModel/id_second')
   end
 
+  it 'should compare attributes' do
+
+    class SomeModel < Fire::Model
+    end
+
+    tm = SomeModel.new(value: 1, name: 'a')
+    expect(tm.has_data?(value: 1)).to be_truthy
+    expect(tm.has_data?(value: 1, name: 'a')).to be_truthy
+    expect(tm.has_data?('name' => 'a')).to be_truthy
+    expect(tm.has_data?(value: 2)).to be_falsey
+
+    expect(tm == SomeModel.new(tm.to_h)).to be_truthy
+  end
+
+
   it 'should build paths for subclasses with custom path keys' do
 
     class Address < Fire::Model
@@ -94,7 +109,7 @@ describe 'Fire Models' do
       }
     end
 
-    it 'should query save object with path keys' do
+    it 'should query save/delete object with path keys' do
       expect(Animal.all).to eq([])
       expect(Animal.take(rabbit_path_data)).to be_nil
 
@@ -118,9 +133,9 @@ describe 'Fire Models' do
     end
 
 
-    context 'Books' do
+    context 'Querying & Filtering' do
 
-      it 'should perform complex queries' do
+      it 'should perform complex queries & filters' do
 
         class LibraryBook < Fire::Model
           has_path_keys(:library, :floor, :row_number, :shelf)
@@ -128,10 +143,30 @@ describe 'Fire Models' do
 
         LibraryBook.create(library: 'Shevchenko', floor: 1, row_number: 1, shelf: 10, name: 'Kobzar', author: 'T.G. Shevchenko')
         LibraryBook.create(library: 'Shevchenko', floor: 1, row_number: 1, shelf: 15, name: 'Eneida', author: 'I. Kotlyrevskiy')
-        LibraryBook.create(library: 'Shevchenko', floor: 2, row_number: 1, shelf: 115, name: 'Lord Of The Rings', author: ' J.R.R. Tolkien')
-        LibraryBook.create(library: 'Skovoroda', floor: 1, row_number: 10, shelf: 34, name: 'Harry Potter', author: 'J.K. Rowling')
+        LibraryBook.create(library: 'Shevchenko', floor: 2, row_number: 15, shelf: 115, name: 'Lord Of The Rings', author: ' J.R.R. Tolkien')
+        LibraryBook.create(library: 'Skovoroda', floor: 1, row_number: 25, shelf: 34, name: 'Harry Potter', author: 'J.K. Rowling')
+        LibraryBook.create(library: 'Skovoroda', floor: 2, row_number: 12, shelf: 15, name: 'Hobbit', author: ' J.R.R. Tolkien')
 
-        expect(LibraryBook.all.map(&:name)).to eq([ 'Kobzar', 'Eneida', 'Lord Of The Rings', 'Harry Potter' ])
+        expect(LibraryBook.all.map(&:name)).to eq([ 'Kobzar', 'Eneida', 'Lord Of The Rings', 'Harry Potter', 'Hobbit' ])
+
+        # Query by library
+        expect(LibraryBook.query(library: 'Shevchenko').map(&:name)).to eq([ 'Kobzar', 'Eneida', 'Lord Of The Rings' ])
+        expect(LibraryBook.query(library: 'Skovoroda').map(&:name)).to eq([ 'Harry Potter', 'Hobbit' ])
+
+        # Query by library, floor
+        expect(LibraryBook.query(library: 'Shevchenko', floor: 1).map(&:name)).to eq([ 'Kobzar', 'Eneida' ])
+
+        # Query by library, floor, row
+        expect(LibraryBook.query(library: 'Shevchenko', floor: 1, row_number: 1).map(&:name)).to eq([ 'Kobzar', 'Eneida' ])
+
+        # Query by shelf
+        expect(LibraryBook.query(shelf: 15).map(&:name)).to eq([ 'Eneida', 'Hobbit' ])
+
+        # Query by author
+        expect(LibraryBook.query(author: ' J.R.R. Tolkien').map(&:name)).to eq([ 'Lord Of The Rings', 'Hobbit' ])
+
+        # Query by math condition
+        expect(LibraryBook.query{|m| m.row_number % 5 == 0  }.map(&:name)).to eq([ 'Lord Of The Rings', 'Harry Potter' ])
       end
 
     end

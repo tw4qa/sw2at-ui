@@ -23,7 +23,7 @@ module Fire
       self.class.path_keys.map{|pk|
         path_value = send(pk)
         raise PathValueMissingError.new(pk) if path_value.to_s.empty?
-        path_value_param(path_value)
+        self.class.path_value_param(path_value)
       }
     end
 
@@ -43,6 +43,13 @@ module Fire
       self.to_h == model_object.to_h
     end
 
+    def has_data?(data)
+      return true if data.empty?
+      HashWithIndifferentAccess[data].each do |k, v|
+        return false unless self.send(k) == v
+      end
+      true
+    end
 
     class << self
 
@@ -77,19 +84,43 @@ module Fire
         (self.global_path_keys || { })[default_collection_name] ||= []
       end
 
-      # Querying
+      # Record Methods
 
-      def all
-        response = connection.get(collection_name).body
+      def query(params={}, &filter_condition)
+        path_values, selected_keys = [], []
+
+        own_path_keys.each do |key|
+          if params[key]
+            path_values << path_value_param(params[key])
+            selected_keys << key
+          else
+            break
+          end
+        end
+
+        full_path = ([ collection_name ] + path_values) * LEVEL_SEPARATOR
+        response = connection.get(full_path).body
+
         return [] if response.nil?
         result = response.values
 
-        own_path_keys.each do
+        (own_path_keys - selected_keys).count.times do
           result = result.map(&:values).flatten.compact
         end
 
-        result.map{|data| new(data) }
+        filter = params.clone
+        selected_keys.each do |sk|
+          filter.delete(sk)
+        end
+
+        result.map{|data| new(data) }.select do |model_object|
+          not_filtered_by_attributes = model_object.has_data?(filter)
+          not_filtered_by_block = block_given? ? filter_condition.(model_object) : true
+          not_filtered_by_attributes && not_filtered_by_block
+        end
       end
+
+      alias_method :all, :query
 
       def take(path_data)
         path_object = new(path_data)
@@ -109,7 +140,12 @@ module Fire
         rand(36**8).to_s(36)
       end
 
-      private
+      def path_value_param(raw_value)
+        return raw_value.to_s+?_ if raw_value.is_a?(Numeric)
+        raw_value.to_s.parameterize
+      end
+
+      protected
 
       def default_collection_name
         name.demodulize
@@ -133,13 +169,6 @@ module Fire
       def initialize(key)
         super "Required path key '#{ key }' is not set!"
       end
-    end
-
-    private
-
-    def path_value_param(raw_value)
-      return raw_value.to_s+?_ if raw_value.is_a?(Numeric)
-      raw_value.to_s.parameterize
     end
 
   end
