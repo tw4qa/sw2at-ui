@@ -20,6 +20,7 @@ RSpec.configure do |config|
 
   config.before :all do
     Swat::UI.setup({}, {firebase: ENV['TEST_FIREBASE_URL']})
+    Fire::Model.firebase_path = (Swat::UI.config.options[:firebase])
   end
 
   def clean_firebase!
