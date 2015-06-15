@@ -11,6 +11,47 @@ html, body
 
   #container
     min-height: 100%
+    .revision
+      color: grey
+      padding-top: 9px
+      .revision-name
+        padding-left: 10px
+        color: black
+
+    table#test-cases
+      tr
+        &:hover
+          background: grey
+        td.status
+          font-weight: bold
+          text-transform: capitalize
+        td.command
+          margin: 0
+          padding: 0
+          input
+            width: 100%
+            height: 100%
+            padding-left: 10px
+            padding-right: 10px
+            margin: 0
+            border: none
+            font-weight: bold
+            background: black
+            color: red
+
+        &.failed
+          background: mistyrose
+          color: red
+          td.command
+            input
+              color: rgb(223, 96, 96)
+        &.passed
+          background: lightgreen
+          color: green
+          td.command
+            input
+              color: rgb(129, 192, 129)
+
 
   .push
     height: $footerSize
