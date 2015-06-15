@@ -20,6 +20,8 @@ div
           th Location
         tr ng-class="test.status" ng-repeat="test in thread.tests"
           td
+            strong
+              | {{ $index+1 }}. &nbsp;
             | {{ test.full_description }}
           td
             | {{ test.run_time |  number:0 }} sec

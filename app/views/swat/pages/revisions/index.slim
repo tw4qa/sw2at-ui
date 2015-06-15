@@ -12,8 +12,7 @@ h2 Revisions
         th Name
         th Time
         th Status
-        th Tests
-      tr.revision ng-repeat="revision in revisions | orderBy: 'data.time':reverse "
+      tr.revision ng-repeat="revision in revisions | orderBy: 'data.time':reverse" ui-sref="revision(revision.data)"
         td
           | {{ revision.data.branch }}
         td
@@ -24,5 +23,4 @@ h2 Revisions
           | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
         td
           | {{ revision.data.status.label }}
-        td
-          a.btn.btn-default href="#" ui-sref="revision(revision.data)" GO
+
