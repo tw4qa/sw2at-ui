@@ -8,3 +8,5 @@
 #= require swat/bower_components/lodash/lodash.js
 #= require swat/bower_components/angular-bootstrap/ui-bootstrap.js
 #= require swat/bower_components/angular-bootstrap/ui-bootstrap-tpls.js
+#= require swat/bower_components/ng-clip/src/ngClip
+#= require swat/bower_components/zeroclipboard/dist/ZeroClipboard.js

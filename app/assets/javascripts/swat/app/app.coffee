@@ -10,6 +10,7 @@ App = angular.module 'SWAT', [
   'ngRoute'
   'ui.router'
   'ui.bootstrap'
+  'ngClipboard'
 ]
 
 App.config ($urlRouterProvider, $stateProvider) ->
@@ -28,6 +29,9 @@ App.config ($urlRouterProvider, $stateProvider) ->
         templateUrl:  "/swat/pages/revisions/show.html"
         controller: 'RevisionCtrl'
   )
+App.config(['ngClipProvider', (ngClipProvider)->
+  ngClipProvider.setPath("assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")
+])
 
 
 

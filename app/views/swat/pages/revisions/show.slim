@@ -26,6 +26,7 @@ div
           td.status
             | {{ test.status }}
           td.command
-            input type="text" value="rspec {{ test.location }}" disabled="disabled"
+            input type="text" value="rspec {{ test.location }}" disabled="disabled" title="copy test"
+            a.fa.fa-copy.copy-icon clip-copy="'rspec ' + test.location"
 
 
