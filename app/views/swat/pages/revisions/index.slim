@@ -9,14 +9,17 @@ h2 Revisions
       tr
         th Branch
         th User
+        th Name
         th Time
         th Status
         th Tests
-      tr.revision ng-repeat="revision in revisions"
+      tr.revision ng-repeat="revision in revisions | orderBy: 'data.time':reverse "
         td
           | {{ revision.data.branch }}
         td
           | {{ revision.data.user }}
+        td
+          | {{ revision.data.name }}
         td
           | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
         td
