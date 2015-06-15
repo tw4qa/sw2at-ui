@@ -1,5 +1,8 @@
-h1
-  | Revision "{{ revision.data.name }}"
+h1.revision ng-if="revision.data"
+  span
+    | Revision
+  span.revision-name
+    | {{ revision.data.name }}
 
 div
   tabset
@@ -9,20 +12,20 @@ div
           | {{ thread.thread_name }}
         span.label.total-examples
           | {{ thread.total_runned }}
-      table.table.table-bordered.table-hover
+      table#test-cases.table.table-bordered.table-hover
         tr
           th Test
-          th Location
           th Duration
           th Status
-        tr ng-repeat="test in thread.tests"
+          th Location
+        tr ng-class="test.status" ng-repeat="test in thread.tests"
           td
             | {{ test.full_description }}
           td
-            | {{ test.location }}
-          td
-            | {{ test.run_time }}
-          td
+            | {{ test.run_time |  number:0 }} sec
+          td.status
             | {{ test.status }}
+          td.command
+            input type="text" value="rspec {{ test.location }}" disabled="disabled"
 
 
