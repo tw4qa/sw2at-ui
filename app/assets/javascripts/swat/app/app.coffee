@@ -30,7 +30,7 @@ App.config ($urlRouterProvider, $stateProvider) ->
         controller: 'RevisionCtrl'
   )
 App.config(['ngClipProvider', (ngClipProvider)->
-  ngClipProvider.setPath("assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")
+  ngClipProvider.setPath("/assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")
 ])
 
 
