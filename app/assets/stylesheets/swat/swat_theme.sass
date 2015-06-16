@@ -27,28 +27,51 @@ html, body
       float: left
       margin-left: 16px
 
-    .revision
-      color: grey
-      padding-top: 9px
-      float: left
-      width: 100%
-      .revision-name
-        padding-left: 10px
-        color: black
+    #revision-info
+      .revision
+        color: grey
+        padding-top: 9px
+        float: left
+        width: 100%
+        .revision-name
+          padding-left: 10px
+          color: black
+        .controls
+          float: right
+          .btn
+            background-color: rgb(124, 222, 124)
+            color: green
+            font-weight: bold
+            margin-right: 10px
+            &:hover
+              background-color: rgb(169, 222, 157)
+          .revisions
+          .reload
 
-    .total-examples
-      background: #E8E8E8
-      display: inline-block
-      padding: 6px
-      border-radius: 30px
-      color: #887171
-      font-weight: bold
-      text-align: center
-      margin-left: 10px
+
+      .total-examples
+        background: #E8E8E8
+        display: inline-block
+        padding: 6px
+        border-radius: 30px
+        color: #887171
+        font-weight: bold
+        text-align: center
+        margin-left: 10px
 
     #revisions-container
-      tr
-        cursor: pointer
+      .revisions-header
+        margin: 0
+        padding-right: 50px
+        padding-top: 8px
+      .list
+        padding: 13px
+
+      table.revisions-table
+        background: #ffffff
+        tr
+          cursor: pointer
+
 
     table#test-cases
       border-top: 0
@@ -58,12 +81,18 @@ html, body
         th
           border-top: 0
           background: #ffffff
+          &.command
+            width: $commandWidth
+          &.status
+            width: 100px
+          &.duration
+            width: 100px
+
         td.status
           font-weight: bold
           text-transform: capitalize
         td.command
           background: white
-          width: $commandWidth
           cursor: pointer
           margin: 0
           padding: 0
