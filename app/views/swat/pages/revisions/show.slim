@@ -1,24 +1,24 @@
-h1.revision ng-if="revision.data"
-  span
-    | Revision
+h1.revision
   span.revision-name
     | {{ revision.data.name }}
+  span.loader ng-class="{ true: 'invisible' }[(revisionPromise && revisionPromise.$resolved)]"
+  /.controls
 
 div
   tabset
-    tab ng-repeat="thread in revision.data.threads"
+    tab ng-repeat="tab in tabs" ng-click="reloadData()"
       tab-heading
-        span.label.status title=" {{ thread.status.label }}" ng-class="thread.status.name"
-          | {{ thread.thread_name }}
+        span.label.status title=" {{ tab.thread.status.label }}" ng-class="tab.thread.status.name"
+          | {{ tab.thread.thread_name }}
         span.label.total-examples
-          | {{ thread.total_runned }}
+          | {{ tab.thread.tests.length }} / {{ tab.thread.total_runned }}
       table#test-cases.table.table-bordered.table-hover
         tr
           th Test
           th Duration
           th Status
           th Location
-        tr ng-class="test.status" ng-repeat="test in thread.tests"
+        tr ng-class="test.status" ng-repeat="test in tab.thread.tests"
           td
             strong
               | {{ $index+1 }}. &nbsp;
@@ -27,8 +27,8 @@ div
             | {{ test.run_time |  number:0 }} sec
           td.status
             | {{ test.status }}
-          td.command
+          td.command clip-copy="'rspec ' + test.location"
             input type="text" value="rspec {{ test.location }}" disabled="disabled" title="copy test"
-            a.fa.fa-copy.copy-icon clip-copy="'rspec ' + test.location"
+            a.fa.fa-copy.copy-icon
 
 

@@ -1,6 +1,10 @@
 $footerSize: 45px
 $negativeFooterSize: -$footerSize
 
+$commandWidth: 400px
+$copyIconWidth: 30px
+$commandTextWidth: $commandWidth - $copyIconWidth
+
 html, body
   height: 100% !important
   min-height: 100%
@@ -11,12 +15,36 @@ html, body
 
   #container
     min-height: 100%
+
+    .invisible
+      opacity: 0
+
+    .loader
+      background: url('/assets/swat/loading-green.gif') no-repeat
+      width: 50px
+      height: 50px
+      display: inline-block
+      float: left
+      margin-left: 16px
+
     .revision
       color: grey
       padding-top: 9px
+      float: left
+      width: 100%
       .revision-name
         padding-left: 10px
         color: black
+
+    .total-examples
+      background: #E8E8E8
+      display: inline-block
+      padding: 6px
+      border-radius: 30px
+      color: #887171
+      font-weight: bold
+      text-align: center
+      margin-left: 10px
 
     #revisions-container
       tr
@@ -34,11 +62,13 @@ html, body
           font-weight: bold
           text-transform: capitalize
         td.command
-          width: 280px
+          background: white
+          width: $commandWidth
+          cursor: pointer
           margin: 0
           padding: 0
           input
-            width: 250px
+            width: $commandTextWidth
             margin-right: 5px
             height: 100%
             padding-left: 10px
@@ -65,16 +95,6 @@ html, body
 
   .push
     height: $footerSize
-
-  .total-examples
-    background: rgb(118, 204, 85)
-    display: inline-block
-    padding: 10px
-    border-radius: 30px
-    color: white
-    font-weight: bold
-    text-align: center
-    margin-left: 10px
 
 
   #footer 

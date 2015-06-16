@@ -152,7 +152,7 @@ module Swat
               ENV_VARS.db_env_number => index,
           })
 
-          [ env_params, rake_command('db:drop') ].join(' ')
+          [ env_params, rake_command('db:version') ].join(' ')
         end
 
         def build_params(params)

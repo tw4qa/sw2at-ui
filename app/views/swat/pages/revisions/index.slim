@@ -2,9 +2,9 @@ h2 Revisions
 #revisions-container
   .controls
 
-  div ng-if="!revisions"
+  div ng-if="!revisions || !revisions.$resolved"
     | Loading
-  .list ng-if="revisions"
+  .list ng-if="revisions.$resolved"
     table.table.table-bordered.table-hover
       tr
         th Branch
