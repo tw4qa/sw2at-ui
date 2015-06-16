@@ -11,8 +11,8 @@ module Fire
 
     def initialize(attrs={})
       data = self.class.prepare_hash(attrs)
-      unless data[:id]
-        data[:id] = self.class.next_id
+      unless data[id_key]
+        data[id_key] = self.class.next_id
         @persisted = false
       else
         @persisted = true
@@ -23,13 +23,17 @@ module Fire
 
     # Record Methods
 
+    def id_key
+      self.class.id_key
+    end
+
     def collection_name
       self.class.collection_name
     end
 
     def save
       self.class.new(@original_data).delete if path_changed?
-      self.class.connection.set(path, self.to_h)
+      self.class.connection.set(path, self.data)
       @persisted = true
     end
 
@@ -56,14 +60,14 @@ module Fire
       end
     end
 
-    def custom_data(hash=self.to_h)
+    def custom_data(hash=self.data)
       res = hash.to_a.select do |(k, v)|
         !self.class.path_keys.include?(k)
       end
       self.class.prepare_hash(res)
     end
 
-    def path_data(hash=self.to_h)
+    def path_data(hash=self.data)
       res = hash.to_a.select do |(k, v)|
         self.class.path_keys.include?(k.to_sym)
       end
@@ -83,7 +87,11 @@ module Fire
     end
 
     def ==(model_object)
-      self.to_h == model_object.to_h
+      self.data == model_object.data
+    end
+
+    def data
+      self.to_h
     end
 
     class << self
@@ -184,6 +192,10 @@ module Fire
         HashWithIndifferentAccess[hash]
       end
 
+      def id_key
+        :id
+      end
+
       protected
 
       def default_collection_name
@@ -191,7 +203,7 @@ module Fire
       end
 
       def default_path_keys
-        [ :id ]
+        [ id_key ]
       end
 
     end
