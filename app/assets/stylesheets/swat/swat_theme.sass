@@ -23,9 +23,13 @@ html, body
         cursor: pointer
 
     table#test-cases
+      border-top: 0
       tr
         &:hover
           background: grey
+        th
+          border-top: 0
+          background: #ffffff
         td.status
           font-weight: bold
           text-transform: capitalize
@@ -33,7 +37,8 @@ html, body
           margin: 0
           padding: 0
           input
-            width: 100%
+            width: 93%
+            margin-right: 5px
             height: 100%
             padding-left: 10px
             padding-right: 10px
@@ -78,6 +83,8 @@ html, body
 
 
   .nav-tabs
+    margin-left: 12px
+    margin-right: 12px
     span.label
       color: black
       font-size: 15px
@@ -90,5 +97,17 @@ html, body
         color: rgb(242, 40, 77)
       &.completed_passed
         color: rgb(61, 168, 83)
+
+  .tab-content
+    .tab-pane
+      padding: 12px
+      padding-top: 0
+
+  .copy-icon
+    font-size: 20px
+    display: inline-block
+    text-decoration: none
+    color: black
+    margin-left: 5px
 
 

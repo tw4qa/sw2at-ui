@@ -9,6 +9,8 @@
     "angular-route": "1.3",
     "angular-ui-router": "~0.2.15",
     "angular-resource": "~1.4.0",
-    "lodash": "~3.9.3"
+    "lodash": "~3.9.3",
+    "zeroclipboard": "~2.2.0",
+    "ng-clip": "~0.2.6"
   }
 }
