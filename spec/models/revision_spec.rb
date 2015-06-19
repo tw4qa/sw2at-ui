@@ -30,7 +30,7 @@ describe Revision do
     Revision::Thread.create(@params.merge(id: 2, status: 'failed'))
 
     revision = Revision.take(@params)
-    expect(revision.threads.count).to eq(2)
+    expect(revision.threads.count).to eq(1)
   end
 
   it 'should add a thread object' do
@@ -38,18 +38,23 @@ describe Revision do
 
     revision = Revision.take(@params)
 
-    revision.update_thread(id: 1, status: 'started')
-    revision.update_thread(id: 2, status: 'failed')
+    revision.add_to_threads(id: 1, status: 'started')
+    revision.add_to_threads(id: 2, status: 'failed')
 
     revision = Revision.take(@params)
 
-    expect(revision.threads.count).to eq(2)
-    expect(revision.threads.map(&:id)).to eq([1, 2])
-    expect(revision.threads.map(&:status)).to eq(['started', 'failed'])
+    expect(revision.nested_threads.count).to eq(2)
 
-    revision.update_thread(id: 1, status: 'passed')
+    expect(revision.nested_threads.map(&:id)).to eq([1, 2])
+    expect(revision.nested_threads.map(&:status)).to eq(['started', 'failed'])
 
-    expect(Revision.take(@params).threads.map(&:status)).to eq(['passed', 'failed'])
+    revision.add_to_threads(id: 1, status: 'passed')
+    thread = revision.nested_threads.last
+
+    thread.status = 'perfect'
+    thread.save
+
+    expect(Revision.take(@params).nested_threads.map(&:status)).to eq(['passed', 'perfect'])
   end
 
 end

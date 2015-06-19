@@ -1,6 +1,4 @@
-class TestCase
-  include Fire
-  extend Converter
+class TestCase < Fire::Model
 
   class << self
 

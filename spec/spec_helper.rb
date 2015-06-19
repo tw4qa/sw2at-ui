@@ -3,10 +3,10 @@ Bundler.setup
 
 require 'pry'
 require 'rails'
+require 'fire-model'
 require 'swat_ui'
 
 # models
-require Swat::Engine.root.join 'app/models/concerns/fire'
 require Swat::Engine.root.join 'app/models/concerns/converter'
 require Swat::Engine.root.join 'app/models/concerns/basic_stats_calculator'
 require Swat::Engine.root.join 'app/models/revision'
@@ -20,7 +20,7 @@ RSpec.configure do |config|
 
   config.before :all do
     Swat::UI.setup({}, {firebase: ENV['TEST_FIREBASE_URL']})
-    Fire::Model.firebase_path = (Swat::UI.config.options[:firebase])
+    Fire.setup(firebase_path: (Swat::UI.config.options[:firebase]))
   end
 
   def clean_firebase!
