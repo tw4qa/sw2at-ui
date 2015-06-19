@@ -27,4 +27,8 @@ RSpec.configure do |config|
     Fire.drop!
   end
 
+  def current_data
+    Fire.connection.get(?/).body
+  end
+
 end
