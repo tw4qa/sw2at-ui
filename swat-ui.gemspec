@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('rails')
 
-  s.add_dependency('firebase', '~> 0.2.2')
+  s.add_dependency 'fire-model', '~> 0.0.9'
   s.add_dependency('slim-rails')
   s.add_dependency('sass-rails')
   s.add_dependency('coffee-rails')

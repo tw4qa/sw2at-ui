@@ -23,7 +23,7 @@ PATH
     swat-ui (0.0.3)
       bootstrap-sass (~> 3.0.3.0)
       coffee-rails
-      firebase (~> 0.2.2)
+      fire-model (~> 0.0.9)
       rails
       sass-rails
       slim-rails
@@ -94,9 +94,6 @@ GEM
     erubis (2.7.0)
     execjs (2.4.0)
     ffi (1.9.8)
-    firebase (0.2.4)
-      httpclient
-      json
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     hike (1.2.3)
