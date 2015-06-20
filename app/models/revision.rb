@@ -10,6 +10,10 @@ class Revision < Fire::SingleNestedModel
     def initialize(args)
       super(extend_path_data(args))
     end
+
+    def threads_count
+      nested_main.threads_count.to_i
+    end
   end
 
   nested_in Revision::Root, folder: 'main', parent_values: true
