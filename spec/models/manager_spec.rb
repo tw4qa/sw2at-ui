@@ -16,10 +16,11 @@ describe RevisionManager do
       status = rev.nested_status
 
       expect(status.value).to be_nil
-      status.value = 'passed'
+      status.label = 'passed'
       status.save
 
-      expect(status.value).to eq('passed')
+      rev = Revision::Root.all.first
+      expect(rev.nested_status.label).to eq('passed')
     end
 
 
