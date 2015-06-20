@@ -26,8 +26,6 @@ describe RevisionManager do
     it 'should calculate basic status (completed_passed)' do
       rev = Revision::Root.all.first
 
-      status = RevisionStatusCalulator.new.global_status(rev)
-      expect(status).to eq({name: "completed_passed", label: "Passed", completed: true, failed: false})
       ts = RevisionStatusCalulator.new.thread_statuses(rev)
       expect(ts).to eq(
         [{:name=>"completed_passed",
@@ -39,6 +37,9 @@ describe RevisionManager do
           :completed=>true,
           :failed=>false}]
       )
+
+      status = RevisionStatusCalulator.new.global_status(rev)
+      expect(status).to eq({name: "completed_passed", label: "Passed", completed: true, failed: false})
     end
 
     it 'should calculate basic status (completed_failed)' do
@@ -50,8 +51,6 @@ describe RevisionManager do
 
       rev = Revision::Root.all.first
 
-      status = RevisionStatusCalulator.new.global_status(rev)
-      expect(status).to eq({name: "completed_failed", label: "Failed", completed: true, failed: true})
       ts = RevisionStatusCalulator.new.thread_statuses(rev)
       expect(ts).to eq(
         [{:name=>"completed_failed",
@@ -63,6 +62,9 @@ describe RevisionManager do
           :completed=>true,
           :failed=>false}]
       )
+
+      status = RevisionStatusCalulator.new.global_status(rev)
+      expect(status).to eq({name: "completed_failed", label: "Failed", completed: true, failed: true})
     end
 
     it 'should calculate basic status (in_progress_failed)' do
@@ -102,8 +104,6 @@ describe RevisionManager do
 
       rev = Revision::Root.all.first
 
-      status = RevisionStatusCalulator.new.global_status(rev)
-      expect(status).to eq({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
       ts = RevisionStatusCalulator.new.thread_statuses(rev)
       expect(ts).to eq(
           [{:name=>"completed_passed",
@@ -120,6 +120,8 @@ describe RevisionManager do
             :failed=>false}
           ]
       )
+      status = RevisionStatusCalulator.new.global_status(rev)
+      expect(status).to eq({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
     end
 
 
