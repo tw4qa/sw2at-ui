@@ -17,6 +17,8 @@ require Swat::Engine.root.join 'app/models/revision_status_calculator'
 # libs
 require Swat::Engine.root.join 'lib/swat/ui/rspec_commands'
 
+# Fixtures
+require  Swat::Engine.root.join 'fixtures/firebase_collection'
 
 RSpec.configure do |config|
 
