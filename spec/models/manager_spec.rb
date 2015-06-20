@@ -1,6 +1,31 @@
 require 'spec_helper'
 
 describe RevisionManager do
+
+  context 'Statuses' do
+    before :each do
+      Fire.connection.set(?/, data)
+    end
+
+    after :each do
+      Fire.drop!
+    end
+
+    it 'should set basic statuses' do
+      rev = Revision::Root.all.first
+      status = rev.nested_status
+
+      expect(status.value).to be_nil
+      status.value = 'passed'
+      status.save
+
+      expect(status.value).to eq('passed')
+    end
+
+
+
+  end
+
   context 'Fetching' do
 
     before :all do

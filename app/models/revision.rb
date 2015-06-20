@@ -1,9 +1,15 @@
-class Revision  < Fire::SingleNestedModel
+class Revision < Fire::SingleNestedModel
 
   class Root < Fire::Model
     in_collection 'Revision'
     has_path_keys :branch, :user
     set_id_key(:time)
+    require_relative './concerns/root_revision_ext'
+    include RootRevisionExt
+
+    def initialize(args)
+      super(extend_path_data(args))
+    end
   end
 
   nested_in Revision::Root, folder: 'main', parent_values: true
@@ -13,6 +19,10 @@ class Revision  < Fire::SingleNestedModel
     nested_in Revision::Root, folder: 'threads'
     set_id_key(:thread_id)
     has_path_keys
+  end
+
+  class Status < Fire::SingleNestedModel
+    nested_in Revision::Root, folder: 'status'
   end
 
   def collect_started_thread(rspec_notification, data)
