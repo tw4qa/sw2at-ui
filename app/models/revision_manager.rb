@@ -26,11 +26,13 @@ class RevisionManager
     end
 
     def prepare_fetch_params(all_params)
-      {
+      res = {
           branch: all_params[:branch],
           user: all_params[:user],
           time: all_params[:time],
       }
+      res[:time] = res[:time].to_i if res[:time]
+      res
     end
 
   end
