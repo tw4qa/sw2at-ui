@@ -7,7 +7,7 @@ describe Revision do
     @params = { branch: 'b', time: '1990-03-21T10:00', user: 'me' }
   end
 
-  it 'should have a colelction' do
+  it 'should have a collection' do
     expect(Revision.new.collection_name).to eq('Revision')
   end
 
@@ -25,11 +25,8 @@ describe Revision do
   end
 
   it 'should create a thread object' do
-    Revision.add(@params)
-
-    Revision::Thread.create(@params.merge(id: 2, status: 'failed'))
-
-    revision = Revision.take(@params)
+    revision = Revision.add(@params)
+    revision.add_to_threads(thread_id: 2, status: 'failed')
     expect(revision.threads.count).to eq(1)
   end
 
@@ -38,23 +35,25 @@ describe Revision do
 
     revision = Revision.take(@params)
 
-    revision.add_to_threads(id: 1, status: 'started')
-    revision.add_to_threads(id: 2, status: 'failed')
+    revision.add_to_threads(thread_id: 1, status: 'started')
+    revision.add_to_threads(thread_id: 2, status: 'failed')
 
     revision = Revision.take(@params)
 
-    expect(revision.nested_threads.count).to eq(2)
+    expect(revision.threads.count).to eq(2)
+    expect(revision.threads.map(&:thread_id)).to eq([1, 2])
+    expect(revision.threads.map(&:status)).to eq(['started', 'failed'])
 
-    expect(revision.nested_threads.map(&:id)).to eq([1, 2])
-    expect(revision.nested_threads.map(&:status)).to eq(['started', 'failed'])
+    revision.add_to_threads(thread_id: 1, status: 'passed')
 
-    revision.add_to_threads(id: 1, status: 'passed')
-    thread = revision.nested_threads.last
+    revision = Revision.take(@params)
+
+    thread = revision.threads.last
 
     thread.status = 'perfect'
     thread.save
 
-    expect(Revision.take(@params).nested_threads.map(&:status)).to eq(['passed', 'perfect'])
+    expect(Revision.take(@params).threads.map(&:status)).to eq(['passed', 'perfect'])
   end
 
 end

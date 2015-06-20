@@ -1,13 +1,31 @@
-class Revision < Fire::Model
+class Revision  < Fire::SingleNestedModel
 
-  has_path_keys :branch, :user
+  class Root < Fire::Model
+    in_collection 'Revision'
+    has_path_keys :branch, :user
+    set_id_key(:time)
+  end
+
+  nested_in Revision::Root, folder: 'main', parent_values: true
   set_id_key(:time)
 
+  class Thread < Fire::NestedModel
+    nested_in Revision::Root, folder: 'threads'
+    set_id_key(:thread_id)
+    has_path_keys
+  end
+
   def collect_started_thread(rspec_notification, data)
-    object = (data.merge({
-       total_examples: rspec_notification.count
-    }))
+    object = data.merge( total_examples: rspec_notification.count )
     add_to_threads(object)
+  end
+
+  def add_to_threads(data)
+    root.add_to_threads(data)
+  end
+
+  def threads
+    load_root.nested_threads || []
   end
 
   def collect_ended_thread(rspec_notification, data)
@@ -30,10 +48,20 @@ class Revision < Fire::Model
 
   end
 
-  class Thread < Fire::NestedModel
-    nested_in Revision, folder: 'threads'
-    set_id_key(:thread_id)
-    has_path_keys
+  private
+
+  def root
+    @root || Root.new(data)
+  end
+
+  def load_root
+    @root = Root.take(data)
+    return root unless @root
+    Root.all_path_keys.each do |k|
+      @root.send("#{k}=", self.send(k))
+    end
+    @root
   end
 
 end
+
