@@ -5,11 +5,13 @@ module Swat
         require 'swat/ui/rspec_commands'
 
         def initialize
-          @revision = Revision.add(current_namespace.merge(threads_count: current_threads_count, name: current_revision_name))
+          @revision = Revision.add(
+              current_namespace.merge(threads_count: current_threads_count, name: current_revision_name)
+          )
         end
 
         def collect_case(notification)
-          TestCase.collect(current_namespace, notification, thread_id: current_thread_id)
+          TestCase.collect(current_namespace, notification, thread_id: current_thread_id, time: @revision.time)
         end
 
         def collect_started_thread(notification)

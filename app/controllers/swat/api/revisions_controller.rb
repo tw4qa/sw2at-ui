@@ -9,17 +9,20 @@ module Swat
       end
 
       def show
-        render json: Revision.query_one(@options)
+        render json: RevisionManager.fetch_revision(@options)
       end
 
       private
 
       def revisions
-        Revision.all
+        RevisionManager.fetch_revisions
       end
 
       def parse_revision_options
         @options = params[:json_params] ? HashWithIndifferentAccess[JSON.parse(params[:json_params])] : params
+        if @options[:time]
+          @options[:time] = @options[:time].to_i
+        end
       end
 
     end

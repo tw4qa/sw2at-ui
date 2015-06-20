@@ -1,7 +1,7 @@
 angular.module("SWAT").factory "RevisionModel", ->
   class RevisionModel
     constructor: (@data) ->
-      @prepareThreads()
+      #@prepareThreads()
       console.log(@data)
 
     prepareThreads: ->

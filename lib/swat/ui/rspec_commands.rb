@@ -59,7 +59,7 @@ module Swat
 
         class << self
           def current_revision_time
-            env[ENV_VARS.revision_time] ? Time.parse(env[ENV_VARS.revision_time]) : now
+            env[ENV_VARS.revision_time] ? env[ENV_VARS.revision_time].to_i : now.to_i
           end
 
           def current_threads_count
@@ -152,7 +152,7 @@ module Swat
               ENV_VARS.db_env_number => index,
           })
 
-          [ env_params, rake_command('db:drop') ].join(' ')
+          [ env_params, rake_command('db:version') ].join(' ')
         end
 
         def build_params(params)
