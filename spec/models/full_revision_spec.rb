@@ -4,7 +4,7 @@ describe FullRevision do
 
   context 'Fetching' do
 
-    before :all do
+    before :each do
       Fire.reset_tree!(FIREBASE_DATA)
     end
 
@@ -155,7 +155,7 @@ describe FullRevision do
       ))
     end
 
-    it 'should update status after fetch' do
+    it 'should update status after fetch(completed passed)' do
 
       revision_root = Revision::Root.take(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: 1434818198)
       expect(revision_root.nested_status.name).to be_nil
@@ -166,6 +166,29 @@ describe FullRevision do
       revision_root.reload
       expect(revision_root.nested_status.name).to eq('completed_passed')
       expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_passed'])
+    end
+
+    it 'should update status after fetch(completed passed)' do
+      revision_root = Revision::Root.take(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: 1434818198)
+
+      th = revision_root.nested_threads.last
+      th.failed_examples = nil
+      th.save
+
+      test = TestCase.all.last
+      test.status = 'failed'
+      test.save
+
+      revision_root.reload
+
+      expect(revision_root.nested_status.name).to be_nil
+      expect(revision_root.nested_threads.map{|nt| nt.status }).to eq([nil, nil])
+
+      FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
+
+      revision_root.reload
+      expect(revision_root.nested_status.name).to eq('in_progress_failed')
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'in_progress_failed'])
     end
 
   end

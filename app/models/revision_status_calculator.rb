@@ -23,7 +23,7 @@ class RevisionStatusCalulator
   def calculate_and_update_thread_stats(thread)
     unless thread.failed_examples
       thread.in_progress = true
-      thread.failed_examples = 0
+      init_failed_examples(thread)
     end
     thread.total_runned = thread.total_examples - thread.pending_examples
     thread.status = thread_status(thread)
@@ -46,7 +46,7 @@ class RevisionStatusCalulator
   end
 
   def init_failed_examples(thread)
-
+    thread.failed_examples = (thread.tests||[]).select{|x|x.status == 'failed'}.count
   end
 
   STATUSES = {

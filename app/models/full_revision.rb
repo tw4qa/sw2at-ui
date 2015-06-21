@@ -40,7 +40,7 @@ class FullRevision
       main = revision.nested_main.data
       main[:threads] = revision.nested_threads.map do |th|
         data = clean_keys(th.data)
-        data[:tests].map!{|t| t.data }
+        data[:tests] = th.tests.map(&:data)
         data
       end
       main[:status] = clean_keys(revision.nested_status.data)
