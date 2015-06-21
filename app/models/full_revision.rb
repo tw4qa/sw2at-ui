@@ -31,6 +31,7 @@ class FullRevision
       revision.nested_threads.each do |th|
         th.tests = tests.select{|test| test.thread_id.to_s == th.thread_id.to_s }
       end
+
       revision
     end
 
