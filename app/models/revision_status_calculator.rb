@@ -50,7 +50,7 @@ class RevisionStatusCalulator
   def init_total_failed(thread)
     failed_tests =  (thread.tests||[]).select{|x|x.status == 'failed'}.count
     unless thread.failed_examples
-      if thread.tests.count == thread.total_examples
+      if (thread.tests||[]).count == thread.total_examples
         thread.failed_examples = thread.total_failed = failed_tests
       end
       thread.in_progress = true
