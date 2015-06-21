@@ -8,14 +8,14 @@ class RevisionStatusCalulator
     end
   end
 
-  def global_status(revision_root)
+  def set_status(revision_root)
     thread_statuses = thread_statuses(revision_root)
     threads_completed = thread_statuses.all?{|ts| ts[:completed] }
 
     completed = (thread_statuses.count == revision_root.threads_count && threads_completed )
     failed = thread_statuses.any?{|ts| ts[:failed] }
 
-    status(failed, completed)
+    revision_root.status = status(failed, completed)
   end
 
   private

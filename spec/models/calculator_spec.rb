@@ -37,7 +37,7 @@ describe FullRevision do
               :failed=>false}]
         )
 
-        status = RevisionStatusCalulator.new.global_status(rev)
+        status = RevisionStatusCalulator.new.set_status(rev)
         expect(status).to eq({name: "completed_passed", label: "Passed", completed: true, failed: false})
       end
 
@@ -62,7 +62,7 @@ describe FullRevision do
               :failed=>false}]
         )
 
-        status = RevisionStatusCalulator.new.global_status(rev)
+        status = RevisionStatusCalulator.new.set_status(rev)
         expect(status).to eq({name: "completed_failed", label: "Failed", completed: true, failed: true})
       end
 
@@ -90,7 +90,7 @@ describe FullRevision do
               :completed=>false,
               :failed=>false}]
         )
-        status = RevisionStatusCalulator.new.global_status(rev)
+        status = RevisionStatusCalulator.new.set_status(rev)
         expect(status).to eq({name: "in_progress_failed", label: "In Progress", completed: false, failed: true})
       end
 
@@ -119,7 +119,7 @@ describe FullRevision do
               :failed=>false}
             ]
         )
-        status = RevisionStatusCalulator.new.global_status(rev)
+        status = RevisionStatusCalulator.new.set_status(rev)
         expect(status).to eq({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
       end
 

@@ -32,17 +32,18 @@ class FullRevision
         th.tests = tests.select{|test| test.thread_id.to_s == th.thread_id.to_s }
       end
 
+      RevisionStatusCalulator.new.set_status(revision)
       revision
     end
 
     def to_json(revision)
       main = revision.nested_main.data
       main[:threads] = revision.nested_threads.map do |th|
-        data = th.data
-        [:branch, :user, :time].each{|k| data.delete(k)}
+        data = clean_keys(th.data)
         data[:tests].map!{|t| t.data }
         data
       end
+      main[:status] = clean_keys(revision.nested_status.data)
       main
     end
 
@@ -54,6 +55,11 @@ class FullRevision
       }
       res[:time] = res[:time].to_i if res[:time]
       res
+    end
+
+    def clean_keys(original_hash, keys=[:branch, :user, :time, :id])
+      keys.each{|k| original_hash.delete(k)}
+      original_hash
     end
 
   end
