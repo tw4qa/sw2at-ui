@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Revision do
 
   before :each do
-    Fire.drop!
+    Fire.reset_tree!
     @params = { branch: 'b', time: '1990-03-21T10:00', user: 'me' }
   end
 
