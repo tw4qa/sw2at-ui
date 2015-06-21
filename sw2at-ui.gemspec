@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.authors = ["Vitaly Tarasenko"]
   s.date = "2015-06-21"
-  s.description = "TODO: longer description of your gem"
+  s.description = " Control your tests, run them parallel. Check statuses of your revisions online. Share results to all team members. "
   s.email = "vetal.tarasenko@gmail.com"
   s.executables = ["rails"]
   s.extra_rdoc_files = [
@@ -409,7 +409,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/tw4qa/sw2at-ui"
   s.licenses = ["MIT"]
   s.rubygems_version = "2.2.2"
-  s.summary = "TODO: one-line summary of your gem"
+  s.summary = "Gem displays RSpec tests with a beatufil UI inside of your Rails application"
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
