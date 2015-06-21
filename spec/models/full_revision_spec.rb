@@ -23,6 +23,7 @@ describe FullRevision do
                 :thread_id=>0,
                 :thread_name=>"Group",
                 :total_examples=>2,
+                total_failed: 0,
                 :total_runtime=>6.864582575,
                 :tests=>[],
                 :total_runned=>2,
@@ -37,6 +38,7 @@ describe FullRevision do
                 :thread_id=>1,
                 :thread_name=>"Unit",
                 :total_examples=>2,
+                total_failed: 0,
                 :total_runtime=>7.09783131,
                 :tests=>[],
                 :total_runned=>2,
@@ -69,6 +71,7 @@ describe FullRevision do
               :thread_id=>0,
               :thread_name=>"Group",
               :total_examples=>2,
+              total_failed: 0,
               :total_runtime=>6.864582575,
               :tests=>
                   [{:branch=>"swat-edge-2",
@@ -111,6 +114,7 @@ describe FullRevision do
               :thread_id=>1,
               :thread_name=>"Unit",
               :total_examples=>2,
+              total_failed: 0,
               :total_runtime=>7.09783131,
               :tests=>
                   [{:branch=>"swat-edge-2",
@@ -168,7 +172,7 @@ describe FullRevision do
       expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_passed'])
     end
 
-    it 'should update status after fetch(completed passed)' do
+    it 'should update status after fetch(in_progress_failed)' do
       revision_root = Revision::Root.take(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: 1434818198)
 
       th = revision_root.nested_threads.last
@@ -189,6 +193,58 @@ describe FullRevision do
       revision_root.reload
       expect(revision_root.nested_status.name).to eq('in_progress_failed')
       expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'in_progress_failed'])
+    end
+
+    it 'should update status after fetch(in_progress_success -> in_progress_failed -> completed_failed )' do
+      revision_root = Revision::Root.take(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: 1434818198)
+
+      th1 = revision_root.nested_threads.first
+      th1.failed_examples = nil
+      th1.save
+
+      th2 = revision_root.nested_threads.last
+      th2.failed_examples = nil
+      th2.save
+
+      revision_root.reload
+
+      expect(revision_root.nested_status.name).to be_nil
+      expect(revision_root.nested_threads.map{|nt| nt.status }).to eq([nil, nil])
+
+      # Fetch
+      FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
+
+      revision_root.reload
+      expect(revision_root.nested_status.name).to eq('in_progress_success')
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_success'])
+
+
+      test = TestCase.query(id: 'g1zmqzjt').first
+      test.status = 'failed'
+      test.save
+
+      # Fetch
+      FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
+
+
+      revision_root.reload
+      expect(revision_root.nested_status.name).to eq('in_progress_failed')
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_failed'])
+
+
+
+      th1.failed_examples = 0
+      th1.save
+
+      th2.failed_examples = 2
+      th2.save
+
+      # Fetch
+      FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
+
+      revision_root.reload
+      #expect(revision_root.nested_status.name).to eq('completed_failed')
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_failed'])
     end
 
   end

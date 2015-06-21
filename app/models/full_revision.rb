@@ -71,7 +71,13 @@ class FullRevision
     end
 
     def update_status!(revision)
-      RevisionStatusCalulator.new.set_status(revision)
+      current_status = revision.nested_status.data.clone
+
+      return if current_status[:completed]
+
+      new_status = RevisionStatusCalulator.new.set_status(revision)
+      return if new_status[:passed] && current_status[:failed]
+
       revision.save
     end
 

@@ -21,16 +21,13 @@ class RevisionStatusCalulator
   private
 
   def calculate_and_update_thread_stats(thread)
-    unless thread.failed_examples
-      thread.in_progress = true
-      init_failed_examples(thread)
-    end
+    init_total_failed(thread)
     thread.total_runned = thread.total_examples - thread.pending_examples
     thread.status = thread_status(thread)
   end
 
   def thread_status(thread)
-    failed = thread.failed_examples > 0
+    failed = thread.total_failed > 0
     completed = !thread.in_progress
     status(failed, completed)
   end
@@ -45,8 +42,13 @@ class RevisionStatusCalulator
     OpenStruct.new(stub)
   end
 
-  def init_failed_examples(thread)
-    thread.failed_examples = (thread.tests||[]).select{|x|x.status == 'failed'}.count
+  def init_total_failed(thread)
+    unless thread.failed_examples
+      thread.in_progress = true
+      thread.total_failed = (thread.tests||[]).select{|x|x.status == 'failed'}.count
+    else
+      thread.total_failed = thread.failed_examples
+    end
   end
 
   STATUSES = {
