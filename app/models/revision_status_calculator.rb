@@ -4,7 +4,7 @@ class RevisionStatusCalulator
     threads = revision_root.nested_threads
     (0..(revision_root.threads_count-1)).map do |index|
       thread = threads.find{|t| t.thread_id == index }
-      calculate_and_update_thread_stats(thread || thread_result_stub)
+      calculate_and_modify_thread_status(thread || thread_result_stub)
     end
   end
 
@@ -20,15 +20,20 @@ class RevisionStatusCalulator
 
   private
 
-  def calculate_and_update_thread_stats(thread)
+  def calculate_and_modify_thread_status(thread)
     init_total_failed(thread)
     thread.total_runned = thread.total_examples - thread.pending_examples
+
     thread.status = thread_status(thread)
+    thread.status
   end
 
   def thread_status(thread)
-    failed = thread.total_failed > 0
-    completed = !thread.in_progress
+    failed_aleady =  thread[:status][:failed] rescue false
+    completed_already = thread[:status][:completed] rescue false
+
+    failed = (thread.total_failed > 0) || failed_aleady
+    completed = !thread.in_progress  || completed_already
     status(failed, completed)
   end
 

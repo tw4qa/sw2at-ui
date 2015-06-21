@@ -9,8 +9,8 @@ require 'swat_ui'
 # models
 require Swat::Engine.root.join 'app/models/revision'
 require Swat::Engine.root.join 'app/models/test_case'
-require Swat::Engine.root.join 'app/models/full_revision'
 require Swat::Engine.root.join 'app/models/revision_status_calculator'
+require Swat::Engine.root.join 'app/models/full_revision'
 
 # libs
 require Swat::Engine.root.join 'lib/swat/ui/rspec_commands'

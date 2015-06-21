@@ -1,4 +1,4 @@
-require 'revision_status_calculator'
+require Swat::Engine.root.join 'app/models/revision_status_calculator'
 
 class FullRevision
 

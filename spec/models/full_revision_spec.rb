@@ -211,13 +211,19 @@ describe FullRevision do
       expect(revision_root.nested_status.name).to be_nil
       expect(revision_root.nested_threads.map{|nt| nt.status }).to eq([nil, nil])
 
+      # List fetch shows correct result
+      expect(FullRevision.fetch_all.first.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_success'])
+
       # Fetch
       FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
 
       revision_root.reload
       expect(revision_root.nested_status.name).to eq('in_progress_success')
-      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_success'])
 
+      # Full fetch shows correct result
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_success'])
+      # List fetch shows correct result
+      expect(FullRevision.fetch_all.first.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_success'])
 
       test = TestCase.query(id: 'g1zmqzjt').first
       test.status = 'failed'
@@ -229,8 +235,10 @@ describe FullRevision do
 
       revision_root.reload
       expect(revision_root.nested_status.name).to eq('in_progress_failed')
+      # Full fetch shows correct result
       expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_failed'])
-
+      # List fetch shows correct result
+      expect(FullRevision.fetch_all.first.nested_threads.map{|nt| nt.status[:name] }).to eq(['in_progress_success', 'in_progress_failed'])
 
 
       th1.failed_examples = 0
@@ -243,8 +251,10 @@ describe FullRevision do
       FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
 
       revision_root.reload
-      #expect(revision_root.nested_status.name).to eq('completed_failed')
+      expect(revision_root.nested_status.name).to eq('completed_failed')
       expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_failed'])
+
+      expect(FullRevision.fetch_all.first.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_failed'])
     end
 
   end
