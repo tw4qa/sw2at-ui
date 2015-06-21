@@ -10,16 +10,16 @@
         th Name
         th Time
         th Status
-      tr.revision ng-repeat="revision in revisions | orderBy: 'data.time'" ui-sref="revision(revision.data)"
+      tr ng-repeat="revision in revisions | orderBy: 'data.time'" ui-sref="revision(revision.data)"
         td
           | {{ revision.data.branch }}
         td
           | {{ revision.data.user }}
         td
           strong
-            | {{ revision.data.name }}
+            | {{ revision.data.name || revision.data.time }}
         td
           | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
-        td
+        td.revision-status ng-class="revision.data.status.name"
           | {{ revision.data.status.label }}
 

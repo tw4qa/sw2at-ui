@@ -36,6 +36,16 @@ html, body
         .revision-name
           padding-left: 10px
           color: black
+
+        .revision-status
+          float: left
+          margin-left: 20px
+          &.in_progress_success, &.completed_passed
+            color: #43ee57
+          &.in_progress_failed,&.completed_failed
+            color: #ff5246
+
+
         .controls
           float: right
           .btn
