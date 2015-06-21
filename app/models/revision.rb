@@ -14,6 +14,7 @@ class Revision < Fire::SingleNestedModel
     def threads_count
       nested_main.threads_count.to_i
     end
+
   end
 
   nested_in Revision::Root, folder: 'main', parent_values: true
@@ -23,6 +24,7 @@ class Revision < Fire::SingleNestedModel
     nested_in Revision::Root, folder: 'threads'
     set_id_key(:thread_id)
     has_path_keys
+    attr_accessor :tests
   end
 
   class Status < Fire::SingleNestedModel

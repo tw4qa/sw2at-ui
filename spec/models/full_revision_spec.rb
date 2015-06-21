@@ -155,6 +155,19 @@ describe FullRevision do
       ))
     end
 
+    it 'should update status after fetch' do
+
+      revision_root = Revision::Root.take(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: 1434818198)
+      expect(revision_root.nested_status.name).to be_nil
+      expect(revision_root.nested_threads.map{|nt| nt.status }).to eq([nil, nil])
+
+      FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
+
+      revision_root.reload
+      expect(revision_root.nested_status.name).to eq('completed_passed')
+      expect(revision_root.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_passed'])
+    end
+
   end
 
 end

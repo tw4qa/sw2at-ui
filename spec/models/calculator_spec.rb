@@ -25,7 +25,7 @@ describe FullRevision do
       it 'should calculate basic status (completed_passed)' do
         rev = Revision::Root.all.first
 
-        ts = RevisionStatusCalulator.new.thread_statuses(rev)
+        ts = RevisionStatusCalulator.new.set_thread_statuses(rev)
         expect(ts).to eq(
             [{:name=>"completed_passed",
               :label=>"Passed",
@@ -38,7 +38,7 @@ describe FullRevision do
         )
 
         status = RevisionStatusCalulator.new.set_status(rev)
-        expect(status).to eq({name: "completed_passed", label: "Passed", completed: true, failed: false})
+        expect(status).to include({name: "completed_passed", label: "Passed", completed: true, failed: false})
       end
 
       it 'should calculate basic status (completed_failed)' do
@@ -50,7 +50,7 @@ describe FullRevision do
 
         rev = Revision::Root.all.first
 
-        ts = RevisionStatusCalulator.new.thread_statuses(rev)
+        ts = RevisionStatusCalulator.new.set_thread_statuses(rev)
         expect(ts).to eq(
             [{:name=>"completed_failed",
               :label=>"Failed",
@@ -63,7 +63,7 @@ describe FullRevision do
         )
 
         status = RevisionStatusCalulator.new.set_status(rev)
-        expect(status).to eq({name: "completed_failed", label: "Failed", completed: true, failed: true})
+        expect(status).to include({name: "completed_failed", label: "Failed", completed: true, failed: true})
       end
 
       it 'should calculate basic status (in_progress_failed)' do
@@ -79,7 +79,7 @@ describe FullRevision do
 
         rev = Revision::Root.all.first
 
-        ts = RevisionStatusCalulator.new.thread_statuses(rev)
+        ts = RevisionStatusCalulator.new.set_thread_statuses(rev)
         expect(ts).to eq(
             [{:name=>"completed_failed",
               :label=>"Failed",
@@ -91,7 +91,7 @@ describe FullRevision do
               :failed=>false}]
         )
         status = RevisionStatusCalulator.new.set_status(rev)
-        expect(status).to eq({name: "in_progress_failed", label: "In Progress", completed: false, failed: true})
+        expect(status).to include({name: "in_progress_failed", label: "In Progress", completed: false, failed: true})
       end
 
 
@@ -103,7 +103,7 @@ describe FullRevision do
 
         rev = Revision::Root.all.first
 
-        ts = RevisionStatusCalulator.new.thread_statuses(rev)
+        ts = RevisionStatusCalulator.new.set_thread_statuses(rev)
         expect(ts).to eq(
             [{:name=>"completed_passed",
               :label=>"Passed",
@@ -120,7 +120,7 @@ describe FullRevision do
             ]
         )
         status = RevisionStatusCalulator.new.set_status(rev)
-        expect(status).to eq({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
+        expect(status).to include({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
       end
 
     end
