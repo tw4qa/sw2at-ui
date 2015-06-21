@@ -9,13 +9,13 @@ module Swat
       end
 
       def show
-        render json: RevisionManager.revision_json(@options)
+        render json: FullRevision.revision_json(@options)
       end
 
       private
 
       def revisions
-        RevisionManager.revision_jsons
+        FullRevision.revision_jsons
       end
 
       def parse_revision_options

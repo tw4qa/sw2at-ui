@@ -11,7 +11,7 @@ require Swat::Engine.root.join 'app/models/concerns/converter'
 require Swat::Engine.root.join 'app/models/concerns/basic_stats_calculator'
 require Swat::Engine.root.join 'app/models/revision'
 require Swat::Engine.root.join 'app/models/test_case'
-require Swat::Engine.root.join 'app/models/revision_manager'
+require Swat::Engine.root.join 'app/models/full_revision'
 require Swat::Engine.root.join 'app/models/revision_status_calculator'
 
 # libs

@@ -1,26 +1,26 @@
-class RevisionManager
+class FullRevision
 
   class << self
 
-    def fetch_revision(all_params)
+    def fetch(all_params)
       params = prepare_fetch_params(all_params)
       revision = Revision::Root.take(params)
       tests = TestCase.query(params)
       merge(revision, tests)
     end
 
-    def fetch_revisions
+    def fetch_all
       Revision::Root.all.map do |rev|
         merge(rev, [])
       end
     end
 
     def revision_json(all_params)
-      to_json(fetch_revision(all_params))
+      to_json(fetch(all_params))
     end
 
     def revisions_json
-      fetch_revisions.map do |rev|
+      fetch_all.map do |rev|
         to_json(rev)
       end
     end

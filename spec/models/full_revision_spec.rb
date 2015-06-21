@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RevisionManager do
+describe FullRevision do
 
   context 'Fetching' do
 
@@ -9,7 +9,7 @@ describe RevisionManager do
     end
 
     it 'should fetch revisions' do
-      expect(RevisionManager.revisions_json).to eq(
+      expect(FullRevision.revisions_json).to eq(
         [{'branch'=>'swat-edge-2',
          'name'=>'1434818198',
          'threads_count'=>'2',
@@ -36,7 +36,7 @@ describe RevisionManager do
     end
 
     it 'should fetch a revision' do
-      expect(RevisionManager.revision_json(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')).to(
+      expect(FullRevision.revision_json(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')).to(
         eq(recursive_symbolize_keys!(
           {'branch'=>'swat-edge-2',
            'name'=>'1434818198',
