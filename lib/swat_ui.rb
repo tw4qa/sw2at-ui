@@ -1,4 +1,5 @@
 module Swat
+  require 'fire-model'
   require 'swat/engine'
 
   module UI
@@ -7,6 +8,7 @@ module Swat
 
     def self.setup(rspec_config, opts)
       @config = Config.new(rspec_config, opts)
+      Fire.setup(opts)
     end
 
     def self.config

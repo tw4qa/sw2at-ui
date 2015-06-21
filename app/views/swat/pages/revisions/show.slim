@@ -9,6 +9,7 @@
       button.btn.reload ng-click="reloadData()"
         | Refresh
 
+
   div
     tabset
       tab ng-repeat="tab in tabs"
@@ -35,5 +36,7 @@
             td.command clip-copy="'rspec ' + test.location" title="{{ 'rspec ' + test.location }}"
               input type="text" value="rspec {{ test.location }}" disabled="disabled"
               a.fa.fa-copy.copy-icon
+
+
 
 

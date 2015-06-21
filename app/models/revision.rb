@@ -1,117 +1,84 @@
-class Revision
-  include Fire
-  extend BasicStatsCalculator
-  extend Converter
+class Revision < Fire::SingleNestedModel
 
-  class << self
-    MAIN_FOLDER = 'main'
-    RESULTS_FOLDER = 'stats'
-    THREADS_FOLDER = 'threads'
+  class Root < Fire::Model
+    in_collection 'Revision'
+    has_path_keys :branch, :user
+    set_id_key(:time)
 
-    def query_one(revision_opts)
-      id = encrypt_namespace revision_opts
-      revision = prepare_response(get_from(id))
-      tests = test_cases(revision_opts).group_by{|t| t['thread_id'] }
-      revision[:tests] = tests
-      calculate_detailed_stats(revision)
-      revision
+    require Swat::Engine.root.join 'app/models/concerns/root_revision_ext'
+    include RootRevisionExt
+
+    def initialize(args)
+      super(extend_path_data(args))
     end
 
-    def all
-      resp = super()
-      resp.map do |x|
-        prepare_response(x)
-      end
+    def threads_count
+      nested_main.threads_count.to_i
     end
 
-    def test_cases(revision_opts)
-      TestCase.all_in_namespace(revision_opts)
-    end
+  end
 
-    def add(opts)
-      id = encrypt_namespace(opts)
-      path = inner_folder(id)
-      set_to(path, opts.merge(id: id))
-    end
+  nested_in Revision::Root, folder: 'main', parent_values: true
+  set_id_key(:time)
 
-    def add_thread_results(namspace_opts, rspec_notification, extras)
-      data = thread_stats(rspec_notification).merge(extras)
-      id = encrypt_namespace(namspace_opts)
-      path = inner_folder(id, RESULTS_FOLDER)
-      push_to(path, data)
-    end
+  class Thread < Fire::NestedModel
+    nested_in Revision::Root, folder: 'threads'
+    set_id_key(:thread_id)
+    has_path_keys
+    attr_accessor :tests
+  end
 
-    def add_revision_thread(namspace_opts, rspec_notification, extras)
-      data = thread_begining(rspec_notification).merge(extras)
-      id = encrypt_namespace(namspace_opts)
-      path = inner_folder(id, THREADS_FOLDER)
-      push_to(path, data)
-    end
+  class Status < Fire::SingleNestedModel
+    nested_in Revision::Root, folder: 'status'
+  end
 
-    def remove_by_time time
-      TestCase.remove_by(time: time)
-      remove_by{ |ns| ns[:time] == time }
-    end
+  def collect_started_thread(rspec_notification, data)
+    object = data.merge( total_examples: rspec_notification.count )
+    add_to_threads(object)
+  end
 
-    def remove_branch branch
-      TestCase.remove_by(branch: branch)
-      remove_by{ |ns| ns[:branch] == branch }
-    end
+  def add_to_threads(data)
+    root.add_to_threads(data)
+  end
 
-    def remove_user user
-      TestCase.remove_by(user: user)
-      remove_by{ |ns| ns[:user] == user }
-    end
+  def threads
+    load_root.nested_threads || []
+  end
 
-    def summary
-      all_revisions = all
-      [ :branch, :user, :time ].each_with_object({}) do |key, res|
-        res[key] = all_revisions.map{|r| r[key] }
-      end
-    end
-
-    private
-
-    def remove_by &condition
-      namespaces = all
-      namespaces.select{|ns|
-        condition.(ns)
-      }.each do |ns|
-        delete_from(inner_folder(encrypt_namespace(ns)))
-      end
-    end
-
-    def thread_stats(rspec_notification)
-      data = {
+  def collect_ended_thread(rspec_notification, data)
+    rspec_data = {
         total_examples: rspec_notification.examples.count,
         failed_examples: rspec_notification.failed_examples.count,
         pending_examples: rspec_notification.pending_examples.count,
         formatted_fails: rspec_notification.fully_formatted_failed_examples,
         total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.inject(:+)
-      }
-    end
+    }
+    object = rspec_data.merge(data)
+    add_to_threads(object)
+  end
 
-    def thread_begining(rspec_notification)
-      data = {
-          total_examples: rspec_notification.count,
-      }
-    end
+  class << self
 
-    def inner_folder(encrypted_namespace, folder = MAIN_FOLDER)
-      [ encrypted_namespace, folder ]*Fire::LEVEL_SEPARATOR
-    end
-
-    def prepare_response(resp)
-      results = resp[RESULTS_FOLDER].values rescue nil
-      threads = resp[THREADS_FOLDER].values rescue nil
-      main = resp[MAIN_FOLDER]
-      key = decrypt_namespace(main.delete('id'))
-      res = key.merge!(results: results, threads: threads, threads_count: main['threads_count'])
-      res[:name] = main['name'] if main['name']
-      calculate_basic_stats(res)
-      res
+    def add(params)
+      create(params)
     end
 
   end
 
+  private
+
+  def root
+    @root || Root.new(data)
+  end
+
+  def load_root
+    @root = Root.take(data)
+    return root unless @root
+    Root.all_path_keys.each do |k|
+      @root.send("#{k}=", self.send(k))
+    end
+    @root
+  end
+
 end
+
