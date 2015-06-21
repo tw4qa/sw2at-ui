@@ -32,7 +32,16 @@ RSpec.configure do |config|
   end
 
   def current_data
-    Fire.connection.get(?/).body
+    Fire.tree
+  end
+
+  def recursive_symbolize_keys! hash
+    hash.symbolize_keys!
+    hash.values.select{|v| v.is_a? Hash}.each{|h| recursive_symbolize_keys!(h)}
+    hash.values.select{|v| v.is_a? Array}.each{|child|
+      child.select{|v| v.is_a? Hash}.each{|h| recursive_symbolize_keys!(h)}
+    }
+    hash
   end
 
 end

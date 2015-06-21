@@ -6,23 +6,43 @@ class RevisionManager
       params = prepare_fetch_params(all_params)
       revision = Revision::Root.take(params)
       tests = TestCase.query(params)
-      construct(revision, tests)
+      merge(revision, tests)
     end
 
     def fetch_revisions
       Revision::Root.all.map do |rev|
-        construct(rev, [])
+        merge(rev, [])
+      end
+    end
+
+    def revision_json(all_params)
+      to_json(fetch_revision(all_params))
+    end
+
+    def revisions_json
+      fetch_revisions.map do |rev|
+        to_json(rev)
       end
     end
 
     private
 
-    def construct(revision, tests)
-      thread_values = (revision.threads || {}).values
-      thread_values.each do |th|
-        th[:tests] = tests.select{|test| test.thread_id.to_s == th[:thread_id].to_s }.map(&:data)
+    def merge(revision, tests)
+      revision.nested_threads.each do |th|
+        th.tests = tests.select{|test| test.thread_id.to_s == th.thread_id.to_s }
       end
-      revision.main.merge(threads: thread_values )
+      revision
+    end
+
+    def to_json(revision)
+      main = revision.nested_main.data
+      main[:threads] = revision.nested_threads.map do |th|
+        data = th.data
+        [:branch, :user, :time].each{|k| data.delete(k)}
+        data[:tests].map!{|t| t.data }
+        data
+      end
+      main
     end
 
     def prepare_fetch_params(all_params)

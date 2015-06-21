@@ -9,7 +9,7 @@ describe RevisionManager do
     end
 
     it 'should fetch revisions' do
-      expect(RevisionManager.fetch_revisions).to eq(
+      expect(RevisionManager.revisions_json).to eq(
         [{'branch'=>'swat-edge-2',
          'name'=>'1434818198',
          'threads_count'=>'2',
@@ -31,13 +31,13 @@ describe RevisionManager do
                'thread_name'=>'Unit',
                'total_examples'=>2,
                'total_runtime'=>7.09783131,
-               'tests'=>[]}]}]
+               'tests'=>[]}]}].map{|x| recursive_symbolize_keys!(x) }
         )
     end
 
-    it 'should fetch revision' do
-      expect(RevisionManager.fetch_revision(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')).to(
-        eq(
+    it 'should fetch a revision' do
+      expect(RevisionManager.revision_json(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')).to(
+        eq(recursive_symbolize_keys!(
           {'branch'=>'swat-edge-2',
            'name'=>'1434818198',
            'threads_count'=>'2',
@@ -115,7 +115,7 @@ describe RevisionManager do
                        'thread_id'=>1,
                        'threads_count'=>'2',
                        'time'=>1434818198,
-                       'user'=>'vitaliyt-pc'}]}]}))
+                       'user'=>'vitaliyt-pc'}]}]})))
     end
 
   end
