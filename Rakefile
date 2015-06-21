@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "sw2at-ui"
   gem.homepage = "http://github.com/tw4qa/sw2at-ui"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{ Gem displays RSpec tests with a beatufil UI inside of your Rails application }
+  gem.description = %Q{ Control your tests, run them parallel. Check statuses of your revisions online. Share results to all team members. }
   gem.email = "vetal.tarasenko@gmail.com"
   gem.authors = ["Vitaly Tarasenko"]
   # dependencies defined in Gemfile
