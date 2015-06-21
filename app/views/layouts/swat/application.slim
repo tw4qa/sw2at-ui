@@ -1,0 +1,36 @@
+doctype html
+html lang="en" ng-app="SWAT"
+  head
+    meta charset="utf-8"
+    title
+      - unless yield(:title).to_s.empty?
+        = yield(:title)
+      - else
+        | S.W.A.T.
+    = yield(:head)
+
+    = csrf_meta_tags
+
+    - unless request.xhr?
+      = stylesheet_link_tag 'swat/application'
+
+    meta name="viewport" content="width=device-width, initial-scale=1"
+
+  body
+    #swat ng-controller='RootCtrl'
+      #container
+        header
+          = render partial:  'swat/shared/header'
+          #subheader
+            = yield(:subheader)
+        nav
+          = yield(:nav)
+        #content
+          = yield
+          #ui-view ui-view="content"
+
+        div.push
+      footer#footer
+        = render partial:  'swat/shared/footer'
+
+  = javascript_include_tag 'swat/application'

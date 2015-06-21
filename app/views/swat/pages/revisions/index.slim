@@ -1,0 +1,25 @@
+#revisions-container
+  span.loader ng-class="{ true: 'invisible' }[(revisions && revisions.$resolved)]"
+  h2.revisions-header Revisions
+  .controls
+  .list ng-if="revisions"
+    table.revisions-table.table.table-bordered.table-hover
+      tr
+        th Branch
+        th User
+        th Name
+        th Time
+        th Status
+      tr ng-repeat="revision in revisions | orderBy: 'data.time'" ui-sref="revision(revision.data)"
+        td
+          | {{ revision.data.branch }}
+        td
+          | {{ revision.data.user }}
+        td
+          strong
+            | {{ revision.data.name || revision.data.time }}
+        td
+          | {{ revision.data.time | date: "yyyy/MM/dd h:mm:ss a" }}
+        td.revision-status ng-class="revision.data.status.name"
+          | {{ revision.data.status.label }}
+
