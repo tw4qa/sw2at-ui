@@ -15,7 +15,7 @@ module Swat
       private
 
       def revisions
-        FullRevision.revision_jsons
+        FullRevision.revisions_json
       end
 
       def parse_revision_options

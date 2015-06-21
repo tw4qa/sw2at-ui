@@ -1,10 +1,11 @@
+require_relative './concerns/root_revision_ext'
+
 class Revision < Fire::SingleNestedModel
 
   class Root < Fire::Model
     in_collection 'Revision'
     has_path_keys :branch, :user
     set_id_key(:time)
-    require_relative './concerns/root_revision_ext'
     include RootRevisionExt
 
     def initialize(args)

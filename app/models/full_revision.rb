@@ -1,3 +1,5 @@
+require 'revision_status_calculator'
+
 class FullRevision
 
   class << self
