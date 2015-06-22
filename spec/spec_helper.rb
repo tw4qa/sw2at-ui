@@ -1,10 +1,7 @@
-require 'bundler/setup'
-Bundler.setup
-
 require 'pry'
 require 'rails'
 require 'fire-model'
-require 'swat_ui'
+require 'sw2at-ui'
 
 # models
 require Swat::Engine.root.join 'app/models/revision'
