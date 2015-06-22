@@ -232,7 +232,6 @@ describe FullRevision do
       # Fetch
       FullRevision.fetch(branch: 'swat-edge-2', user: 'vitaliyt-pc', time: '1434818198')
 
-
       revision_root.reload
       expect(revision_root.nested_status.name).to eq('in_progress_failed')
       # Full fetch shows correct result

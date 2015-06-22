@@ -23,7 +23,6 @@ class RevisionStatusCalulator
   def calculate_and_modify_thread_status(thread)
     init_total_failed(thread)
     thread.total_runned = thread.total_examples.to_i - thread.pending_examples.to_i
-
     thread.status = thread_status(thread)
     thread.status
   end
@@ -56,6 +55,9 @@ class RevisionStatusCalulator
       thread.in_progress = true
       thread.total_failed = failed_tests
     else
+      if failed_tests > 0 && thread.failed_examples == 0
+        thread.failed_examples = failed_tests
+      end
       thread.total_failed = thread.failed_examples
     end
   end
