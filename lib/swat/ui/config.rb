@@ -7,20 +7,15 @@ module Swat
     class Config
 
       def initialize(rspec_config, opts = {})
-        print_debug if RSpecCommands::CommandsBuilder.debug_mode?
         @options = opts
-        rspec_config.extend RspecSetup
-        rspec_config.formatter = Swat::UI::RspecSetup::Formatter unless rspec_config.is_a?(Hash)
+        if rspec_config
+          rspec_config.extend RspecSetup
+          rspec_config.formatter = Swat::UI::RspecSetup::Formatter
+        end
       end
 
       def options
         @options
-      end
-
-      private
-
-      def print_debug
-        puts "SWAT UI version=#{Swat::UI::Version} initalized."
       end
 
     end
