@@ -18,8 +18,7 @@ require  Swat::Engine.root.join 'fixtures/firebase_collection'
 RSpec.configure do |config|
 
   config.before :all do
-    Swat::UI.setup({}, {firebase_path: ENV['TEST_FIREBASE_URL']})
-    Fire.setup(firebase_path: (Swat::UI.config.options[:firebase_path]))
+    Swat::UI.setup( firebase_path: ENV['TEST_FIREBASE_URL'] )
   end
 
   def clean_firebase!

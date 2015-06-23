@@ -6,12 +6,14 @@ module Swat
 
     class Config
 
-      def initialize(rspec_config, opts = {})
+      def rspec_config=(conf)
+        conf.extend RspecSetup
+        conf.formatter = Swat::UI::RspecSetup::Formatter
+      end
+
+      def options=(opts)
         @options = opts
-        if rspec_config
-          rspec_config.extend RspecSetup
-          rspec_config.formatter = Swat::UI::RspecSetup::Formatter
-        end
+        Fire.setup(opts)
       end
 
       def options

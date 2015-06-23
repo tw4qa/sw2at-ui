@@ -6,13 +6,16 @@ module Swat
     require 'swat/ui/config'
     require 'swat/ui/rspec_setup'
 
-    def self.setup(rspec_config, opts)
-      @config = Config.new(rspec_config, opts)
-      Fire.setup(opts)
+    def self.setup(opts)
+      config.options = opts
+    end
+
+    def self.rspec_config=(conf)
+      config.rspec_config = conf
     end
 
     def self.config
-      @config
+      @config ||= Config.new
     end
 
   end
