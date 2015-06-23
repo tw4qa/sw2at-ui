@@ -46,12 +46,14 @@ class Revision < Fire::SingleNestedModel
   end
 
   def collect_ended_thread(rspec_notification, data)
+    fails = rspec_notification.failure_notifications.map{|fn|fn.example.metadata[:execution_result].exception}
+    total_time = rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.inject(:+)
     rspec_data = {
         total_examples: rspec_notification.examples.count,
         failed_examples: rspec_notification.failed_examples.count,
         pending_examples: rspec_notification.pending_examples.count,
-        formatted_fails: rspec_notification.fully_formatted_failed_examples,
-        total_runtime: rspec_notification.examples.map{|ex| ex.metadata[:execution_result].run_time }.inject(:+)
+        failure_notifications: fails,
+        total_runtime: total_time,
     }
     object = rspec_data.merge(data)
     add_to_threads(object)
