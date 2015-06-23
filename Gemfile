@@ -8,6 +8,8 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'bootstrap-sass'
 
+gem 'tarvit-helpers'
+
 
 group :development do
   gem 'shoulda', '>= 0'

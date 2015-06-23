@@ -8,24 +8,42 @@ module Swat
           @revision = Revision.add(
               current_namespace.merge(threads_count: current_threads_count, name: current_revision_name)
           )
+          @logger = TarvitHelpers::ConditionalLogger.new do
+            !!ENV['SWAT_DEBUG']
+          end
+          @logger.puts 'Results Transferring in ON.'
+        end
+
+        def self.create
+          if collection_available?
+            new
+          else
+            Stub.new
+          end
         end
 
         def collect_case(notification)
+          @logger.print "test '#{notification.location}' #{ notification.metadata[:execution_result].status } -->.."
           TestCase.collect(current_namespace, notification, thread_id: current_thread_id, time: @revision.time)
+          @logger.print "..!"
         end
 
         def collect_started_thread(notification)
+          @logger.print "thread started -->.."
           @revision.collect_started_thread(notification,
                thread_id: current_thread_id,
                thread_name: current_thread_name
           )
+          @logger.print "..!"
         end
 
         def collect_ended_thread(notification)
+          @logger.print "thread ended -->.."
           @revision.collect_ended_thread(notification,
             thread_id: current_thread_id,
             thread_name: current_thread_name,
           )
+          @logger.print "..!"
         end
 
         def current_namespace
@@ -38,15 +56,20 @@ module Swat
           }
         end
 
+        def collection_available?
+          self.class.collection_available?
+        end
+
         private
 
-        def collection_available?
+        def self.collection_available?
           branch_valid?
         end
 
-        def branch_valid?
-          Swat::UI.config.options[:collect_branch].nil? ||
-              Swat::UI.config.options[:collect_branch] == current_branch
+        def self.branch_valid?
+          Swat::UI.config.options[:collect] &&
+          (Swat::UI.config.options[:collect_branch].nil? ||
+              Swat::UI.config.options[:collect_branch] == current_branch)
         end
 
         def current_branch
@@ -81,6 +104,10 @@ module Swat
 
         def current_thread_name
           RSpecCommands::CommandsBuilder.current_thread_name
+        end
+
+        class Stub
+          def method_missing *args; end
         end
 
       end

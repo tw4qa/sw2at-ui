@@ -12,7 +12,7 @@ module Swat
 
         def initialize(arg)
           super arg
-          @stats_collector = StatsCollector.new
+          @stats_collector = StatsCollector.create
         end
 
         def example_passed(notification)
