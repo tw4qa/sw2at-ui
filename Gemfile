@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'sw2at-capybara', '~> 0.0.0'
-gem 'rails'
+gem 'rails', '>= 3.1'
 
 gem 'fire-model', '~> 0.0.15'
 gem 'slim-rails'
