@@ -18,7 +18,7 @@ group :development, :test do
 end
 ```
 
-install RSpe c(skip this if you have rspec already)
+install RSpec(skip this if you have rspec already)
 ```
 bundle install
 rails generate rspec:install
@@ -28,16 +28,16 @@ add sw2at-ui gem  to your Gemfile
 ```ruby
 gem 'sw2at-ui', '0.0.6'
 ```
-Install sw2at-ui
+Install `sw2at-ui`
 ```
 bundle install
 rails g swat:ui:install
 ```
 Go to [firebase.com](firebase.com) and create a free acount there to get your https path.
 
-Insert it in Rails.root/initializers/swat_ui.rb. You can define your [parallelism settings](#) here.
+Insert it in `Rails.root/initializers/swat_ui.rb`. You can define your [parallelism settings](#) here.
 
-Edit yout Rails.root/config/routes.rb
+Edit yout `Rails.root/config/routes.rb`
 ```ruby
 Rails.application.routes.draw do
 
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   
 end
 ```
-Connect sw2at-ui to RSpec. Edit your Rails.root/spec/rails_helper.rb, add following lines
+Connect sw2at-ui to RSpec. Edit your `Rails.root/spec/rails_helper.rb`, add following lines
 ```ruby
 require 'rspec/core/formatters/base_text_formatter'
 config.formatter = RSpec::Core::Formatters::BaseTextFormatter # if you don't use any custom formatters.
