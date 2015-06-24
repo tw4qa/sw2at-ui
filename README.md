@@ -2,7 +2,7 @@
 ## SWAT(Simple Way to Automate Tests) - UI
 Gem helps in testing of Rails applications.
 * track your test revisions
-* easily confugure and reun tests in parallel
+* easily configure and run tests in parallel
 * share testing results with team members and customers
 
 ## How to install Rails app with sw2at-ui from scratch
