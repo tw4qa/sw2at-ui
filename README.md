@@ -70,8 +70,9 @@ or with a swat-ui runner
 SWAT_CURRENT_REVISION_NAME='Hello SWAT!' rake swat:ci:run
 ```
 
-Now you can check your results at [http://localhost:3000/swat](http://localhost:3000/swat). (don't forget to start the app with `rails s`)
-
+Now you can check your results at [http://localhost:3000/swat](http://localhost:3000/swat). 
+(don't forget to start the app with `rails s`)
+![alt tag](https://github.com/tw4qa/sw2at-ui/blob/master/docs/resources/swat-ui-example.png)
     
 
 ## Contributing to sw2at-ui
