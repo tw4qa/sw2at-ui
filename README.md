@@ -1,6 +1,9 @@
-# sw2at-tw
+# sw2at-ui
 ## SWAT(Simple Way to Automate Tests) - UI
-Gem for symplifying management of your tests results. Easily configure paralelism, run them, check results.
+Gem helps in testing of Rails applications.
+* track your test revisions
+* easily confugure and reun tests in parallel
+* share testing results with team members and customers
 
 ## How to install Rails app with sw2at-ui from scratch
 
