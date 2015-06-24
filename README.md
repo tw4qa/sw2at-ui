@@ -74,6 +74,9 @@ Now you can check your results at [http://localhost:3000/swat](http://localhost:
 (don't forget to start the app with `rails s`)
 ![alt tag](https://github.com/tw4qa/sw2at-ui/blob/master/docs/resources/swat-ui-example.png)
     
+    
+## Examples
+You can check a configured example [here](https://github.com/tw4qa/swat-ui-example).
 
 ## Contributing to sw2at-ui
  
