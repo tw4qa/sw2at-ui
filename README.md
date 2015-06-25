@@ -59,7 +59,7 @@ Swat::UI.rspec_config = config
 ```
 Add a test. For example 
 ```ruby
-it 'should chec math' do
+it 'should check math' do
   expect(2+2).to eq(4)
 end
 ```
