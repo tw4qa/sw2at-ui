@@ -28,7 +28,7 @@ Swat::Engine.routes.draw do
   # Angular Pages
   namespace :pages do
     namespace :revisions do
-      pages = [ :index, :show ]
+      pages = [ :index, :show, :summary ]
       pages.each do |p|
         get p, to: p
       end

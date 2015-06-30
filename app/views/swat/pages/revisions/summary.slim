@@ -8,20 +8,25 @@
     .controls
       button.btn.revisions ui-sref="revisions" title="See all revisions list"
         | Go to Revisions
-      button.btn.revisions ui-sref="summary(revision.data)" title="See this revision summary"
-        | Summary
+      button.btn.revisions ui-sref="revision(revision.data)" title="See this revision tests"
+        | Tests
       button.btn.reload ng-click="reloadData()" title="Refresh this revision"
         | Refresh
 
   div
     tabset
-      tab ng-repeat="tab in tabs"
+      tab
         tab-heading
-          span.label.status title=" {{ tab.thread.status.label }}" ng-class="tab.thread.status.name"
-            | {{ tab.thread.thread_name }}
-          span.label.total-examples
-            | {{ tab.thread.tests.length }} / {{ tab.thread.total_runned }}
-        = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'tab.thread.tests' }
+          span.label Graph
+        .tab-content
+          | graph
+      tab
+        tab-heading
+          span.label Fails
+        .tab-content
+          #fails
+            = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'summary.fails' }
+
 
 
 
