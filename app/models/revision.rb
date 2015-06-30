@@ -19,12 +19,10 @@ class Revision < Fire::SingleNestedModel
   end
 
   nested_in Revision::Root, folder: 'main', parent_values: true
-  set_id_key(:time)
 
   class Thread < Fire::NestedModel
     nested_in Revision::Root, folder: 'threads'
-    set_id_key(:thread_id)
-    has_path_keys
+    set_id_key :thread_id
     attr_accessor :tests
   end
 
