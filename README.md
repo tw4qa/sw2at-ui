@@ -1,6 +1,9 @@
-# sw2at-tw
+# sw2at-ui
 ## SWAT(Simple Way to Automate Tests) - UI
-Gem for symplifying management of your tests results. Easily configure paralelism, run them, check results.
+Gem helps in testing of Rails applications.
+* track your test revisions
+* easily configure and run tests in parallel
+* share testing results with team members and customers
 
 ## How to install Rails app with sw2at-ui from scratch
 
@@ -18,7 +21,7 @@ group :development, :test do
 end
 ```
 
-install RSpe c(skip this if you have rspec already)
+install RSpec(skip this if you have rspec already)
 ```
 bundle install
 rails generate rspec:install
@@ -28,16 +31,16 @@ add sw2at-ui gem  to your Gemfile
 ```ruby
 gem 'sw2at-ui', '0.0.6'
 ```
-Install sw2at-ui
+Install `sw2at-ui`
 ```
 bundle install
 rails g swat:ui:install
 ```
 Go to [firebase.com](firebase.com) and create a free acount there to get your https path.
 
-Insert it in Rails.root/initializers/swat_ui.rb. You can define your [parallelism settings](#) here.
+Insert it in `Rails.root/initializers/swat_ui.rb`. You can define your [parallelism settings](#) here.
 
-Edit yout Rails.root/config/routes.rb
+Edit yout `Rails.root/config/routes.rb`
 ```ruby
 Rails.application.routes.draw do
 
@@ -48,7 +51,7 @@ Rails.application.routes.draw do
   
 end
 ```
-Connect sw2at-ui to RSpec. Edit your Rails.root/spec/rails_helper.rb, add following lines
+Connect sw2at-ui to RSpec. Edit your `Rails.root/spec/rails_helper.rb`, add following lines
 ```ruby
 require 'rspec/core/formatters/base_text_formatter'
 config.formatter = RSpec::Core::Formatters::BaseTextFormatter # if you don't use any custom formatters.
@@ -56,7 +59,7 @@ Swat::UI.rspec_config = config
 ```
 Add a test. For example 
 ```ruby
-it 'should chec math' do
+it 'should check math' do
   expect(2+2).to eq(4)
 end
 ```
@@ -70,9 +73,13 @@ or with a swat-ui runner
 SWAT_CURRENT_REVISION_NAME='Hello SWAT!' rake swat:ci:run
 ```
 
-Now you can check your results at [http://localhost:3000/swat](http://localhost:3000/swat). (don't forget to start the app with `rails s`)
-
+Now you can check your results at [http://localhost:3000/swat](http://localhost:3000/swat). 
+(don't forget to start the app with `rails s`)
+![alt tag](https://github.com/tw4qa/sw2at-ui/blob/master/docs/resources/swat-ui-example.png)
     
+    
+## Examples
+You can check a configured example [here](https://github.com/tw4qa/swat-ui-example).
 
 ## Contributing to sw2at-ui
  
