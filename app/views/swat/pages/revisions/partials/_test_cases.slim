@@ -4,8 +4,8 @@ table#test-cases.table.table-bordered.table-hover
     th.duration Duration
     th.status Status
     th.command Location
+  - test_id = '{{ "full_"+test.id }}'
   tr ng-class="test.status" ng-repeat="test in #{ object }"
-    - test_id = '{{ test.id }}'
     td title="{{ test.full_description }}"
       .main-info.cell data-toggle="collapse" data-target="##{test_id}"
         strong

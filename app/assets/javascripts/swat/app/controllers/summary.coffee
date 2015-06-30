@@ -16,9 +16,25 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
     $scope.tests = _.flatten(_.map($scope.revision.data.threads, (thread)-> thread.tests || []))
     console.log($scope.tests)
     $scope.initFails()
+    $scope.initExceptions()
 
   $scope.initFails = ->
     $scope.summary.fails = _.select($scope.tests, (t)->(t.exception) )
+
+  $scope.initExceptions = ->
+    groups = _.groupBy($scope.summary.fails, (f)->(f.exception.message) )
+    console.log(groups)
+
+    result = []
+    for exMessage in _.keys(groups)
+      exception =
+        message: exMessage
+        backtrace: groups[exMessage][0].exception.backtrace
+        tests: groups[exMessage]
+      result.push(exception)
+
+    console.log(result)
+    $scope.summary.exceptions = result
 
   $scope.init()
 

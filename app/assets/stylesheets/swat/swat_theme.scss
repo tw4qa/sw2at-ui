@@ -113,6 +113,9 @@ html, body {
           &.duration {
             width: 100px;
           }
+          &.exception {
+            width: 400px;
+          }
         }
         td {
           &:hover {}
