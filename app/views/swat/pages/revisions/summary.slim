@@ -19,10 +19,19 @@
         tab-heading
           span.label Graph
         .tab-content
-          #charts-container
-            div ng-if="failsStats"
-              highchart id="fails_stats" config="failsStats"
+          #metrics-container
+            #global-stats-container
+              table#global-stats.table.table-bordered.table-hover
+                tr ng-repeat="metric in summary.metrics"
+                  td.name
+                    strong
+                      | {{ metric.name }}
+                  td.value
+                    | {{ metric.value }}
 
+            #charts-container
+              div ng-if="failsStats"
+                highchart id="fails_stats" config="failsStats"
       tab
         tab-heading
           span.label Fails
@@ -34,37 +43,7 @@
           span.label Exceptions
         .tab-content
           #exceptions
-            - test_id = '{{ "failed_"+test.id }}'
-            table#test-cases.table.table-bordered.table-hover
-              tr
-                th.exception Exception
-                th Tests
-                th.duration Count
-              tr.failed ng-repeat="exception in summary.exceptions"
-                td title="{{ exception.message }}"
-                  .cell
-                    strong
-                      | {{ $index+1 }}. &nbsp;
-                    | {{ exception.message }}
-                td.failed-tests
-                  span.cell
-                    .test ng-repeat="test in exception.tests"
-                      .main-info data-toggle="collapse" data-target="##{test_id}"
-                        strong
-                          | {{ test.full_description }}
-                        p
-                          | {{ test.location }}
-                      .detailed-info.collapse id="#{test_id}"
-                        span.message
-                          strong
-                            | {{ test.exception.message }}
-                        .backtrace
-                          p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
-                            | {{ line }}
-
-                th.count
-                  span.cell
-                    | {{ exception.tests.length }}
+            = render partial: 'swat/pages/revisions/partials/exceptions'
 
 
 

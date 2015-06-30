@@ -76,12 +76,26 @@ html, body {
         margin-left: 10px;
       }
 
-      #charts-container {
+      #metrics-container {
         background: white;
-        min-height: 500px;
         border: 1px solid rgb(228, 225, 225);
         border-top: none;
+        min-height: 500px;
+        overflow: hidden;
       }
+      #charts-container {
+        width: 500px;
+        float: left;
+      }
+      #global-stats-container {
+        padding: 30px;
+        width: 500px;
+        float: left;
+        table {
+
+        }
+      }
+
     }
     #revisions-container {
       .revisions-header {

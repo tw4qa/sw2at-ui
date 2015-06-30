@@ -1,5 +1,5 @@
 angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $stateParams
-  RevisionService, FailsGraph) ->
+  RevisionService, FailsGraph, SwatHelpers) ->
 
   $scope.init = ->
     $scope.summary = {}
@@ -17,6 +17,7 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
     window.Swat.log($scope.tests)
     $scope.initFails()
     $scope.initExceptions()
+    $scope.initMetrics()
     $scope.initFailsStatsGraph()
 
   $scope.initFails = ->
@@ -42,6 +43,29 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
     return
     $scope.failsStats =1
 
+  $scope.initMetrics = ->
+    result = []
+    totalTests = $scope.tests.length
+    totalFailedTests = $scope.summary.fails.length
+    totalDuration = _.sum($scope.tests, 'run_time')
+    totalThreadDuration = _.sum($scope.revision.data.threads, 'total_runtime')
+    successPercentage =  (($scope.tests.length - $scope.summary.fails.length) / $scope.tests.length*100)
+
+    result.push({ name: 'Revision Name', value: $scope.revision.data.name })
+    result.push({ name: 'Revision Status', value: $scope.revision.data.status.name })
+    result.push({ name: 'Revision Branch', value: $scope.revision.data.branch })
+    result.push({ name: 'Revisor', value: $scope.revision.data.user })
+    result.push({ name: 'Threads Count', value: $scope.revision.data.threads_count })
+
+    result.push({ name: 'Total Tests', value: totalTests })
+    result.push({ name: 'Total Failed Tests', value: totalFailedTests })
+
+    result.push({ name: 'Total Tests Duration', value: SwatHelpers.formatTime(totalDuration) })
+    result.push({ name: 'Total Threads Duration', value: SwatHelpers.formatTime(totalThreadDuration) })
+
+    result.push({ name: 'Success Percentage', value: (successPercentage.toFixed(2)+'%') })
+
+    $scope.summary.metrics = result
 
   $scope.init()
 
