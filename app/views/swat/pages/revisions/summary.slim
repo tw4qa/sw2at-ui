@@ -19,7 +19,10 @@
         tab-heading
           span.label Graph
         .tab-content
-          | graph
+          #charts-container
+            div ng-if="failsStats"
+              highchart id="fails_stats" config="failsStats"
+
       tab
         tab-heading
           span.label Fails

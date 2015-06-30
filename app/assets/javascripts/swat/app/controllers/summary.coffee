@@ -1,5 +1,5 @@
 angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $stateParams
-  RevisionService) ->
+  RevisionService, FailsGraph) ->
 
   $scope.init = ->
     $scope.summary = {}
@@ -14,16 +14,17 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
   $scope.initInformation = (revision)->
     $scope.revision = revision
     $scope.tests = _.flatten(_.map($scope.revision.data.threads, (thread)-> thread.tests || []))
-    console.log($scope.tests)
+    window.Swat.log($scope.tests)
     $scope.initFails()
     $scope.initExceptions()
+    $scope.initFailsStatsGraph()
 
   $scope.initFails = ->
     $scope.summary.fails = _.select($scope.tests, (t)->(t.exception) )
 
   $scope.initExceptions = ->
     groups = _.groupBy($scope.summary.fails, (f)->(f.exception.message) )
-    console.log(groups)
+    window.Swat.log(groups)
 
     result = []
     for exMessage in _.keys(groups)
@@ -33,8 +34,14 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
         tests: groups[exMessage]
       result.push(exception)
 
-    console.log(result)
+    window.Swat.log(result)
     $scope.summary.exceptions = result
+
+  $scope.initFailsStatsGraph = ->
+    $scope.failsStats = new FailsGraph($scope.tests, $scope.summary.fails)
+    return
+    $scope.failsStats =1
+
 
   $scope.init()
 
