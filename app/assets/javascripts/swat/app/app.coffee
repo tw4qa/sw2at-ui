@@ -4,6 +4,11 @@
 #= require_tree ./factories
 #= require_tree ./controllers
 
+window.Swat =
+  debug: true#false
+  log: (message)->
+    return unless window.Swat.debug
+    console.log(message)
 
 App = angular.module 'SWAT', [
   'ngResource'
@@ -11,6 +16,7 @@ App = angular.module 'SWAT', [
   'ui.router'
   'ui.bootstrap'
   'ngClipboard'
+  'highcharts-ng'
 ]
 
 App.config ($urlRouterProvider, $stateProvider) ->
@@ -28,6 +34,13 @@ App.config ($urlRouterProvider, $stateProvider) ->
       content:
         templateUrl:  "/swat/pages/revisions/show.html"
         controller: 'RevisionCtrl'
+  )
+  .state("summary",
+    url: "/swat/summary/revisions/:branch/:user/:time"
+    views:
+      content:
+        templateUrl:  "/swat/pages/revisions/summary.html"
+        controller: 'SummaryCtrl'
   )
 App.config(['ngClipProvider', (ngClipProvider)->
   ngClipProvider.setPath("/assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")

@@ -22,8 +22,7 @@ class Revision < Fire::SingleNestedModel
 
   class Thread < Fire::NestedModel
     nested_in Revision::Root, folder: 'threads'
-    set_id_key(:thread_id)
-    has_path_keys
+    set_id_key :thread_id
     attr_accessor :tests
   end
 

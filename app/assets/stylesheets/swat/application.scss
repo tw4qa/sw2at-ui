@@ -1,0 +1,55 @@
+//= require_tree .
+//= require_self
+
+@import "bootstrap";
+
+$greyBg: #9f9f9f;
+$greenMain: greenyellow;
+
+#swat {
+  font-size: 13px;
+  #header-label {
+    margin-top: 0;
+    padding: 12px;
+    a {
+      color: $greenMain;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .label {
+      width: 100%;
+      float: left;
+      font-size: 12px;
+      color: $greenMain;
+    }
+    &:hover .label {
+      display: inline !important;
+    }
+  }
+  h1, h2, h3 {
+    text-align: center;
+  }
+  header {
+    background-color: black;
+    color: white;
+    h2 {
+      color: $greenMain;
+      text-align: center;
+      sub {
+        font-size: 12px;
+      }
+    }
+  }
+  #subheader {
+    h3 {
+      margin: 5px;
+    }
+  }
+  #content {
+    background: rgb(240, 240, 240);
+  }
+  #container {
+    padding: 0px 15px 15px 15px;
+  }
+}

@@ -32,6 +32,9 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/swat/app/controllers/revision.coffee",
     "app/assets/javascripts/swat/app/controllers/revisions.coffee",
     "app/assets/javascripts/swat/app/controllers/root.coffee",
+    "app/assets/javascripts/swat/app/controllers/summary.coffee",
+    "app/assets/javascripts/swat/app/factories/fails_graph.coffee",
+    "app/assets/javascripts/swat/app/factories/helpers.coffee",
     "app/assets/javascripts/swat/app/factories/response.coffee",
     "app/assets/javascripts/swat/app/factories/revision_model.coffee",
     "app/assets/javascripts/swat/app/services/revision.coffee",
@@ -355,7 +358,9 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/swat/bower_components/zeroclipboard/dist/ZeroClipboard.js",
     "app/assets/javascripts/swat/bower_components/zeroclipboard/dist/ZeroClipboard.min.js",
     "app/assets/javascripts/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf",
-    "app/assets/stylesheets/swat/application.sass",
+    "app/assets/javascripts/swat/lib/highcharts-ng.js",
+    "app/assets/javascripts/swat/lib/highcharts.src.js",
+    "app/assets/stylesheets/swat/application.scss",
     "app/assets/stylesheets/swat/default-theme.css",
     "app/assets/stylesheets/swat/font-awesome.css",
     "app/assets/stylesheets/swat/fonts/FontAwesome.otf",
@@ -364,7 +369,7 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.ttf",
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.woff",
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.woff2",
-    "app/assets/stylesheets/swat/swat_theme.sass",
+    "app/assets/stylesheets/swat/swat_theme.scss",
     "app/controllers/swat/api/revisions_controller.rb",
     "app/controllers/swat/api/test_cases_controller.rb",
     "app/controllers/swat/application_controller.rb",
@@ -382,7 +387,10 @@ Gem::Specification.new do |s|
     "app/views/layouts/swat/page.slim",
     "app/views/swat/application/index.slim",
     "app/views/swat/pages/revisions/index.slim",
+    "app/views/swat/pages/revisions/partials/_exceptions.slim",
+    "app/views/swat/pages/revisions/partials/_test_cases.slim",
     "app/views/swat/pages/revisions/show.slim",
+    "app/views/swat/pages/revisions/summary.slim",
     "app/views/swat/shared/_footer.slim",
     "app/views/swat/shared/_header.slim",
     "bin/rails",
@@ -419,7 +427,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.1"])
-      s.add_runtime_dependency(%q<fire-model>, ["~> 0.0.15"])
+      s.add_runtime_dependency(%q<fire-model>, ["~> 0.0.17"])
       s.add_runtime_dependency(%q<slim-rails>, [">= 0"])
       s.add_runtime_dependency(%q<sass-rails>, [">= 0"])
       s.add_runtime_dependency(%q<coffee-rails>, [">= 0"])
@@ -434,7 +442,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
       s.add_dependency(%q<rails>, [">= 3.1"])
-      s.add_dependency(%q<fire-model>, ["~> 0.0.15"])
+      s.add_dependency(%q<fire-model>, ["~> 0.0.17"])
       s.add_dependency(%q<slim-rails>, [">= 0"])
       s.add_dependency(%q<sass-rails>, [">= 0"])
       s.add_dependency(%q<coffee-rails>, [">= 0"])
@@ -450,7 +458,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<rails>, [">= 3.1"])
-    s.add_dependency(%q<fire-model>, ["~> 0.0.15"])
+    s.add_dependency(%q<fire-model>, ["~> 0.0.17"])
     s.add_dependency(%q<slim-rails>, [">= 0"])
     s.add_dependency(%q<sass-rails>, [">= 0"])
     s.add_dependency(%q<coffee-rails>, [">= 0"])
