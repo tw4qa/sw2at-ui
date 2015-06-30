@@ -28,7 +28,7 @@
           tr ng-class="test.status" ng-repeat="test in tab.thread.tests"
             - test_id = '{{ test.id }}'
             td title="{{ test.full_description }}"
-              .main-info data-toggle="collapse" data-target="##{test_id}"
+              .main-info.cell data-toggle="collapse" data-target="##{test_id}"
                 strong
                   | {{ $index+1 }}. &nbsp;
                 | {{ test.full_description }}
@@ -40,9 +40,11 @@
                   p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
                     | {{ line }}
             td.duration
-              | {{ test.run_time |  number:0 }} sec
+              span.cell
+                | {{ test.run_time |  number:0 }} sec
             td.status
-              | {{ test.status }}
+              span.cell
+                | {{ test.status }}
             td.command clip-copy="'rspec ' + test.location" title="{{ 'rspec ' + test.location }}"
               input type="text" value="rspec {{ test.location }}" disabled="disabled"
               a.fa.fa-copy.copy-icon
