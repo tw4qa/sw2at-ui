@@ -15,10 +15,7 @@ class TestCase < Fire::Model
       }.merge!(revision_opts).merge!(extras)
 
       if rspec_example.exception
-        data[:exception] = {
-            message: rspec_example.exception.message,
-            backtrace: rspec_example.exception.backtrace,
-        }
+        data[:exception] = extract_exception(rspec_example)
       end
 
       if rspec_example.respond_to?(:swat_extras)
@@ -26,6 +23,19 @@ class TestCase < Fire::Model
       end
 
       create(data)
+    end
+
+    private
+
+    def extract_exception(rspec_example)
+      trace = rspec_example.exception.backtrace
+      if defined?(Rails)
+        trace = ([ trace.first ] + trace.select{|x| x.include?(Rails.root.to_s) } + [ trace.last ]).uniq
+      end
+      {
+          message: rspec_example.exception.message,
+          backtrace: trace,
+      }
     end
 
   end

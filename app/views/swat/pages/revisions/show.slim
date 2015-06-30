@@ -26,10 +26,19 @@
             th.status Status
             th.command Location
           tr ng-class="test.status" ng-repeat="test in tab.thread.tests"
+            - test_id = '{{ test.id }}'
             td title="{{ test.full_description }}"
-              strong
-                | {{ $index+1 }}. &nbsp;
-              | {{ test.full_description }}
+              .main-info data-toggle="collapse" data-target="##{test_id}"
+                strong
+                  | {{ $index+1 }}. &nbsp;
+                | {{ test.full_description }}
+              .detailed-info.collapse id="#{test_id}" ng-if="test.exception"
+                span.message
+                  strong
+                    | {{ test.exception.message }}
+                .backtrace
+                  p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
+                    | {{ line }}
             td.duration
               | {{ test.run_time |  number:0 }} sec
             td.status

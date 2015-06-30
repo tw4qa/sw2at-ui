@@ -92,8 +92,7 @@ html, body
     table#test-cases
       border-top: 0
       tr
-        &:hover
-          background: grey
+        cursor: default
         th
           border-top: 0
           background: #ffffff
@@ -103,7 +102,9 @@ html, body
             width: 100px
           &.duration
             width: 100px
-
+        td
+          &:hover
+            background-color: transparent
         td.status
           font-weight: bold
           text-transform: capitalize
@@ -127,6 +128,11 @@ html, body
         &.failed
           background: mistyrose
           color: red
+          .main-info
+            cursor: pointer
+            &:hover
+              background: #ffd7e5
+
           td.command
             input
               color: rgb(223, 96, 96)
