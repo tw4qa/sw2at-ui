@@ -1,0 +1,221 @@
+$footerSize: 45px;
+$negativeFooterSize: -$footerSize;
+
+$commandWidth: 400px;
+$copyIconWidth: 30px;
+$commandTextWidth: $commandWidth - $copyIconWidth;
+
+html, body {
+  height: 100% !important;
+  min-height: 100%;
+}
+
+#swat {
+  height: 100%;
+  min-height: 100%;
+  #container {
+    min-height: 100%;
+    .invisible {
+      opacity: 0;
+    }
+    .loader {
+      background: url("/assets/swat/loading-green.gif") no-repeat;
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      float: left;
+      margin-left: 16px;
+    }
+    #revision-info {
+      .revision {
+        color: grey;
+        padding-top: 9px;
+        float: left;
+        width: 100%;
+        .revision-name {
+          padding-left: 10px;
+          color: black;
+        }
+        .revision-status {
+          float: left;
+          margin-left: 20px;
+          &.in_progress_success, &.completed_passed {
+            color: #50ce5f;
+          }
+          &.in_progress_failed,&.completed_failed {
+            color: #ff5246;
+          }
+        }
+        .controls {
+          float: right;
+          .btn {
+            background-color: rgb(124, 222, 124);
+            color: green;
+            font-weight: bold;
+            margin-right: 10px;
+            &:hover {
+              background-color: rgb(169, 222, 157);
+            }
+          }
+          .revisions {
+            opacity: 1;
+          }
+          .reload {
+            opacity: 1;
+          }
+        }
+      }
+      .total-examples {
+        background: #e8e8e8;
+        display: inline-block;
+        padding: 6px;
+        border-radius: 30px;
+        color: #887171;
+        font-weight: bold;
+        text-align: center;
+        margin-left: 10px;
+      }
+    }
+    #revisions-container {
+      .revisions-header {
+        margin: 0;
+        padding-right: 50px;
+        padding-top: 8px;
+      }
+      .list {
+        padding: 13px;
+      }
+      table.revisions-table {
+        background: white;
+        tr {
+          cursor: pointer;
+        }
+      }
+    }
+    #revisions-container {
+      tr {
+        cursor: pointer;
+      }
+    }
+    table#test-cases {
+      border-top: 0;
+      tr {
+        cursor: default;
+        th {
+          border-top: 0;
+          background: white;
+          &.command {
+            width: $commandWidth;
+          }
+          &.status {
+            width: 100px;
+          }
+          &.duration {
+            width: 100px;
+          }
+        }
+        td {
+          &:hover {}
+          background-color: transparent;
+          padding: 0;
+          .cell {
+            padding: 8px;
+            display: block;
+          }
+          .detailed-info {
+            padding: 0 8px;
+          }
+        }
+        td.status {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+        td.command {
+          background: white;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          input {
+            width: $commandTextWidth;
+            margin-right: 5px;
+            height: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            border: none;
+            font-weight: bold;
+            background: black;
+            color: red;
+          }
+        }
+        &.failed {
+          background: mistyrose;
+          color: red;
+          .main-info {
+            cursor: pointer;
+            &:hover {
+              background: #ffd7e5;
+            }
+          }
+          td.command {
+            input {
+              color: rgb(223, 96, 96);
+            }
+          }
+        }
+        &.passed {
+          background: lightgreen;
+          color: green;
+          td.command {
+            input {
+              color: rgb(129, 192, 129);
+            }
+          }
+        }
+      }
+    }
+  }
+  .push {
+    height: $footerSize;
+  }
+  #footer {
+    height: $footerSize;
+    margin-top: $negativeFooterSize;
+    text-align: center;
+  }
+  .nav-tabs {
+    margin-left: 12px;
+    margin-right: 12px;
+    span.label {
+      color: black;
+      font-size: 15px;
+    }
+    span.status {
+      &.in_progress_success {
+        color: rgb(192, 175, 84);
+      }
+      &.in_progress_failed {
+        color: rgb(217, 140, 160);
+      }
+      &.completed_failed {
+        color: rgb(242, 40, 77);
+      }
+      &.completed_passed {
+        color: rgb(61, 168, 83);
+      }
+    }
+  }
+  .tab-content {
+    .tab-pane {
+      padding: 12px;
+      padding-top: 0;
+    }
+  }
+  .copy-icon {
+    font-size: 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    margin-left: 5px;
+  }
+}
