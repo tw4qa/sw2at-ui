@@ -4,6 +4,7 @@ angular.module("SWAT").controller "RevisionCtrl", ($rootScope, $scope, $state, $
   $scope.init = ->
     $scope.reloadData()
 
+
   $scope.reloadData = ->
     return if $scope.revisionPromise && !$scope.revisionPromise.$resolved
     params = { branch: $stateParams.branch, user: $stateParams.user, time: $stateParams.time }

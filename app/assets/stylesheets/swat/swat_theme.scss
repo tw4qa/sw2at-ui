@@ -258,6 +258,12 @@ html, body {
         }
       }
     }
+
+    .revision-name-content {
+      width: auto;
+      display: inline-block;
+    }
+
   }
   .push {
     height: $footerSize;

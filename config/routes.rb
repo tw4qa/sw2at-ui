@@ -8,6 +8,7 @@ Swat::Engine.routes.draw do
     resources :test_cases
     resources :revisions
     get 'revision', to: 'revisions#show'
+    put 'revision/name/:name', to: 'revisions#set_name'
   end
 
   # Helper Methods
@@ -28,7 +29,7 @@ Swat::Engine.routes.draw do
   # Angular Pages
   namespace :pages do
     namespace :revisions do
-      pages = [ :index, :show, :summary ]
+      pages = [ :index, :show, :summary, :name ]
       pages.each do |p|
         get p, to: p
       end

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '>= 3.1'
 
-gem 'fire-model', '~> 0.0.17'
+gem 'fire-model', '~> 0.0.18'
 gem 'slim-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
