@@ -3,10 +3,6 @@ angular.module("SWAT").factory "RevisionModel", ->
     constructor: (@data) ->
       window.Swat.log(@data)
 
-    prepareThreads: ->
-      for thread in @data.threads
-        thread.tests = @data.tests[thread.thread_id] if @data.tests
-
 angular.module("SWAT").factory "RevisionModelFactory", (RevisionModel, GlResponse)->
   (jsonResponse)->
     object = new GlResponse(jsonResponse)

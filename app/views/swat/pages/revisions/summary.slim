@@ -37,7 +37,7 @@
           span.label Fails
         .tab-content
           #fails
-            = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'summary.fails' }
+            = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'summary.fails', thread: true }
       tab
         tab-heading
           span.label Exceptions

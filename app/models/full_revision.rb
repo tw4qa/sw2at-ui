@@ -31,7 +31,7 @@ class FullRevision
 
     def merge(revision, tests, update_status=false)
       revision.nested_threads.each do |th|
-        th.tests = tests.select{|test| test.thread_id.to_s == th.thread_id.to_s }
+        th.tests = tests.select{|test| test.thread_id.to_s == th.thread_id.to_s }.map{|test| test.thread_name = th.thread_name; test }
       end
 
       assign_status(revision, update_status)

@@ -1,6 +1,8 @@
 table#test-cases.table.table-bordered.table-hover
   tr
     th Test
+    - if thread
+      th Thread
     th.duration Duration
     th.status Status
     th.command Location
@@ -18,6 +20,10 @@ table#test-cases.table.table-bordered.table-hover
         .backtrace
           p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
             | {{ line }}
+    - if thread
+      td.thread
+        span.cell
+          | {{ test.thread_name }}
     td.duration
       span.cell
         | {{ test.run_time |  number:0 }} sec

@@ -21,7 +21,7 @@
             | {{ tab.thread.thread_name }}
           span.label.total-examples
             | {{ tab.thread.tests.length }} / {{ tab.thread.total_runned }}
-        = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'tab.thread.tests' }
+        = render partial: 'swat/pages/revisions/partials/test_cases', locals: { object: 'tab.thread.tests', thread: false }
 
 
 
