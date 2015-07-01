@@ -1,0 +1,102 @@
+#swat {
+  $greenMain: greenyellow;
+
+  header {
+    background-color: black;
+    color: white;
+    h2 {
+      color: $greenMain;
+      text-align: center;
+      margin: 6px 0px 0px 0px;
+    }
+  }
+
+  #header-label {
+    margin-top: 0;
+    padding: 12px;
+
+    a {
+      color: $greenMain;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    .header-label {
+      a {
+        display: inline-block;
+      }
+      .S, .W, .to, .A, .T {
+        overflow: hidden;
+        display: inline-block;
+        transition: width 0.1s linear;
+      }
+
+      .S {
+        width: 20px;
+        &:after {
+          content: 'S'
+        }
+      }
+      .W {
+        width: 29px;
+        &:after {
+          content: 'W'
+        }
+      }
+      .to {
+        width: 12px;
+        font-size: 14px;
+        margin-right: 3px;
+        &:after {
+          content: '2'
+        }
+      }
+      .A {
+        width: 20px;
+        &:after {
+          content: 'A'
+        }
+      }
+      .T {
+        width: 20px;
+        &:after {
+          content: 'T'
+        }
+      }
+    }
+    .header-label a:hover {
+      .S {
+        width: 100px;
+        &:after {
+          content: 'Simple'
+        }
+      }
+      .W {
+        width: 70px;
+        &:after {
+          content: 'Way'
+        }
+      }
+      .to {
+        width: 31px;
+        font-size: 30px;
+        &:after {
+          content: 'to'
+        }
+      }
+      .A {
+        width: 140px;
+        &:after {
+          content: 'Automate'
+        }
+      }
+      .T {
+        width: 83px;
+        &:after {
+          content: 'Tests'
+        }
+      }
+    }
+  }
+}
