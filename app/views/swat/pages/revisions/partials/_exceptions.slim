@@ -5,6 +5,10 @@
       th.exception Exception
       th Tests
       th.duration Count
+    tr ng-if="(summary.exceptions && summary.exceptions.length == 0)"
+      td colspan="4"
+        .cell
+          | No Exceptions
     tr.failed ng-repeat="exception in summary.exceptions"
       td title="{{ exception.message }}"
         .cell

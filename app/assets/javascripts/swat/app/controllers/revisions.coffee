@@ -7,4 +7,7 @@ angular.module("SWAT").controller "RevisionsCtrl", ($rootScope, $scope, $state, 
   $scope.initRevisions = ->
     $scope.revisions = RevisionService.query()
 
+  $scope.testsProgress = (revision)->
+    _.sum(revision.threads, (t)->t )
+
   $scope.init()

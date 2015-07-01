@@ -2,7 +2,7 @@
   span.loader ng-class="{ true: 'invisible' }[(revisions && revisions.$resolved)]"
   h2.revisions-header Revisions
   .controls
-  .list ng-if="revisions"
+  .list ng-if="revisions && (revisions.length > 0)"
     table.revisions-table.table.table-bordered.table-hover
       tr
         th Name

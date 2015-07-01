@@ -40,8 +40,6 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
 
   $scope.initFailsStatsGraph = ->
     $scope.failsStats = new FailsGraph($scope.tests, $scope.summary.fails)
-    return
-    $scope.failsStats =1
 
   $scope.initMetrics = ->
     result = []
