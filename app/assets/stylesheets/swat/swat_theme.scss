@@ -13,18 +13,34 @@ html, body {
 #swat {
   height: 100%;
   min-height: 100%;
+
   #container {
 
     .has-status {
 
-      &.in_progress_failed, &.completed_failed {
+      &.in_progress_failed {
+        color: rgb(242, 40, 77);
+        background: #F2FFBA;
+      }
+
+      &.in_progress_success {
+        color: rgb(59, 153, 78);
+        background: #F2FFBA;
+      }
+
+      &.completed_failed {
         color: rgb(242, 40, 77);
         background: rgba(252, 226, 222, 0.49);
       }
 
-      &.in_progress_success, &.completed_passed {
+      &.completed_passed {
         color: rgb(59, 153, 78);
         background: rgba(134, 252, 148, 0.49);
+      }
+
+      &.terminated {
+        color: rgba(78, 73, 71, 0.68);
+        background: rgba(205, 202, 201, 0.36);
       }
 
     }

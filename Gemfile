@@ -8,6 +8,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'bootstrap-sass'
 gem 'tarvit-helpers'
+gem 'time_difference'
 
 group :development do
   gem 'shoulda', '>= 0'

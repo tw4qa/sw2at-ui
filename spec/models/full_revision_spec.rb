@@ -6,6 +6,7 @@ describe FullRevision do
 
     before :each do
       Fire.reset_tree!(FIREBASE_DATA)
+      allow_any_instance_of(RevisionStatusCalulator).to receive(:old_build?).and_return(false)
     end
 
     it 'should fetch revisions' do

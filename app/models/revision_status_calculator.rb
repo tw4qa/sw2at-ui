@@ -21,7 +21,14 @@ class RevisionStatusCalulator
     completed = (thread_statuses.count == revision_root.threads_count && threads_completed )
     failed = thread_statuses.any?{|ts| ts[:failed] }
 
-    revision_root.nested_status.set(status(failed, completed))
+    revision_root.nested_status.set(status(failed, completed, old_build?))
+  end
+
+  TERMINATION_TIME = 2 # days
+
+  def old_build?
+    diff = TimeDifference.between(Time.now.utc, Time.at(revision_root.time)).in_hours
+    diff >= TERMINATION_TIME
   end
 
   private
@@ -94,14 +101,25 @@ class RevisionStatusCalulator
           completed: true,
           failed: false,
       },
+      terminated: {
+          name: 'terminated',
+          label: 'Terminated',
+          completed: true,
+          failed: true,
+      }
   }
 
-  def status(failed, completed)
+  def status(failed, completed, old_build=false)
     id = if completed
            failed ? :completed_failed : :completed_passed
          else
            failed ? :in_progress_failed : :in_progress_success
          end
-    STATUSES[id]
+    status_candidate = STATUSES[id]
+
+    return STATUSES[:terminated] if (old_build && !status_candidate[:completed])
+
+    status_candidate
   end
+
 end

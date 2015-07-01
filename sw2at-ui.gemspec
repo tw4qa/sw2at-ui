@@ -369,6 +369,7 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.ttf",
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.woff",
     "app/assets/stylesheets/swat/fonts/fontawesome-webfont.woff2",
+    "app/assets/stylesheets/swat/header.scss",
     "app/assets/stylesheets/swat/swat_theme.scss",
     "app/controllers/swat/api/revisions_controller.rb",
     "app/controllers/swat/api/test_cases_controller.rb",
@@ -433,6 +434,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<coffee-rails>, [">= 0"])
       s.add_runtime_dependency(%q<bootstrap-sass>, [">= 0"])
       s.add_runtime_dependency(%q<tarvit-helpers>, [">= 0"])
+      s.add_runtime_dependency(%q<time_difference>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<rspec>, ["~> 3.2"])
@@ -448,6 +450,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<coffee-rails>, [">= 0"])
       s.add_dependency(%q<bootstrap-sass>, [">= 0"])
       s.add_dependency(%q<tarvit-helpers>, [">= 0"])
+      s.add_dependency(%q<time_difference>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<rspec>, ["~> 3.2"])
@@ -464,6 +467,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<coffee-rails>, [">= 0"])
     s.add_dependency(%q<bootstrap-sass>, [">= 0"])
     s.add_dependency(%q<tarvit-helpers>, [">= 0"])
+    s.add_dependency(%q<time_difference>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<rspec>, ["~> 3.2"])

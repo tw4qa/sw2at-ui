@@ -4,7 +4,8 @@ module Swat
   require 'coffee-rails'
   require 'bootstrap-sass'
 
-  gem 'tarvit-helpers'
+  require 'time_difference'
+  require 'tarvit-helpers'
 
   class Engine < ::Rails::Engine
     isolate_namespace Swat
