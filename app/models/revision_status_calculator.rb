@@ -1,6 +1,12 @@
 class RevisionStatusCalulator
 
-  def set_thread_statuses(revision_root)
+  attr_reader :revision_root
+
+  def initialize(revision_root)
+    @revision_root = revision_root
+  end
+
+  def set_thread_statuses
     threads = revision_root.nested_threads
     (0..(revision_root.threads_count-1)).map do |index|
       thread = threads.find{|t| t.thread_id == index }
@@ -8,8 +14,8 @@ class RevisionStatusCalulator
     end
   end
 
-  def set_status(revision_root)
-    thread_statuses = set_thread_statuses(revision_root)
+  def set_status
+    thread_statuses = set_thread_statuses
     threads_completed = thread_statuses.all?{|ts| ts[:completed] }
 
     completed = (thread_statuses.count == revision_root.threads_count && threads_completed )

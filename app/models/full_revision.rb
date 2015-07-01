@@ -68,7 +68,7 @@ class FullRevision
       if update
         update_status!(revision)
       else
-        RevisionStatusCalulator.new.set_status(revision)
+        RevisionStatusCalulator.new(revision).set_status
       end
     end
 
@@ -77,7 +77,7 @@ class FullRevision
 
       return if current_status[:completed]
 
-      new_status = RevisionStatusCalulator.new.set_status(revision)
+      new_status = RevisionStatusCalulator.new(revision).set_status
       return if new_status[:passed] && current_status[:failed]
 
       revision.save
