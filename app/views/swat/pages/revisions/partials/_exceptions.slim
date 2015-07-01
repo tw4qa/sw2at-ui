@@ -17,7 +17,7 @@
             .main-info data-toggle="collapse" data-target="##{test_id}"
               .test-case
                 strong
-                  | {{ test.full_description }}
+                  | {{ '#' + test.full_description }}
                 p
                   | {{ 'rspec '+test.location }}
             .detailed-info.collapse id="#{test_id}"
@@ -25,7 +25,7 @@
                 strong
                   | {{ test.exception.message }}
               .backtrace
-                p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
+                p.trace-line class="{{ isSpecTraceLine(line) ? 'spec' : '' }}" ng-repeat="line in test.exception.backtrace track by $index"
                   | {{ line }}
 
       th.count

@@ -67,6 +67,9 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
 
     $scope.summary.metrics = result
 
+  $scope.isSpecTraceLine = (line)->
+    _.include(line, 'spec')
+
   $scope.init()
 
 

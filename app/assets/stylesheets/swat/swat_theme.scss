@@ -116,9 +116,10 @@ html, body {
     #exceptions-groups {
       .failed-tests {
         .test-case {
-          color: rgb(68, 64, 64);
+          color: #3F3F3F;
           margin-top: 3px;
         }
+
       }
     }
 
@@ -162,6 +163,9 @@ html, body {
           &.exception {
             width: 400px;
           }
+          &.thread {
+            width: 250px;
+          }
         }
         td {
           &:hover {}
@@ -181,7 +185,11 @@ html, body {
               border-radius: 3px;
               p {
                 margin-bottom: 0;
+                &.spec {
+                  color: #ff5860;
+                }
               }
+
             }
           }
         }
