@@ -9,6 +9,7 @@
         th Branch
         th User
         th Time
+        th Progress
         th Status
       tr.has-status ng-class="revision.data.status.name" ng-repeat="revision in revisions | orderBy: '-data.time'" ui-sref="revision(revision.data)"
         td
@@ -20,6 +21,10 @@
           | {{ revision.data.user }}
         td
           | {{ revision.data.time * 1000 | date: "yyyy/MM/dd h:mm:ss a" }}
+          strong style="float:right;"
+            | {{ revision.data.time * 1000 | date: "yyyy/MM/dd h:mm:ss a" | timeago }}
+        td
+          | {{ testsProgress(revision) }}
         td.revision-status ng-class="revision.data.status.name" title="{{ revision.data.status.name }}"
           | {{ revision.data.status.label }}
 

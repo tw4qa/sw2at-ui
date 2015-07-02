@@ -16,3 +16,4 @@
 
 #= require swat/lib/highcharts.src.js
 #= require swat/lib/highcharts-ng.js
+#= require swat/lib/ngtimeago.js

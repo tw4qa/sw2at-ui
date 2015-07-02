@@ -10,7 +10,7 @@ table#test-cases.table.table-bordered.table-hover
   tr ng-if="(#{object} && #{object}.length == 0)"
     td colspan="#{ thread ? 5 : 4 }"
       .cell
-        | No Failed Examples
+        | No Examples
   tr ng-class="test.status" ng-repeat="test in #{ object }"
     td title="{{ test.full_description }}"
       .main-info.cell data-toggle="collapse" data-target="##{test_id}"
