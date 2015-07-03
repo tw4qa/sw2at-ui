@@ -25,9 +25,12 @@ html lang="en" ng-app="SWAT"
             = yield(:subheader)
         nav
           = yield(:nav)
-        #content
-          = yield
-          #ui-view ui-view="content"
+        #content.wrapper ng-class="globalControl.status"
+          .left-menu ng-contoller="GlobalNavController"
+            = render partial: 'swat/shared/nav'
+          .main-view
+            = yield
+            #ui-view ui-view="content"
 
         div.push
       footer#footer

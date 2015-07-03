@@ -15,6 +15,39 @@
     margin-top: 0;
     padding: 12px;
 
+    .control {
+      float: left;
+      color: $greenMain;
+      padding: 14px;
+      border-radius: 24px;
+      width: 43px;
+      height: 40px;
+      font-size: 27px;
+      line-height: 15px;
+      cursor: pointer;
+      margin-left: 0;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.31);
+      }
+
+      &.closed {
+        &:after { content: '>' }
+      }
+      &.opened {
+        &:after { content: '<' }
+      }
+      &.refresh {
+        float: right;
+        width: 40px;
+        font-size: 21px;
+        margin-top: -3px;
+        padding: 7px;
+        line-height: 25px;
+        &:after { content: 'F5' }
+      }
+    }
+
     a {
       color: $greenMain;
       &:hover {

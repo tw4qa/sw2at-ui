@@ -3,7 +3,7 @@ angular.module("SWAT").controller "RevisionCtrl", ($rootScope, $scope, $state, $
 
   $scope.init = ->
     $scope.reloadData()
-
+    $rootScope.globalControl.setReloader($scope.reloadData)
 
   $scope.reloadData = ->
     return if $scope.revisionPromise && !$scope.revisionPromise.$resolved

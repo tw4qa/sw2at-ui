@@ -1,0 +1,11 @@
+h1.revision
+  revision-name revision="revision" ng-if="(revisionPromise && revisionPromise.$resolved)"
+
+  span.revision-status ng-class="revision.data.status.name"
+    | {{  '   '+revision.data.status.label  }}
+  span.loader ng-class="{ true: 'invisible' }[(revisionPromise && revisionPromise.$resolved)]"
+  .controls
+    button.btn.revisions ui-sref="summary(revision.data)" title="See this revision summary" ng-disabled="!revision"
+      | Summary
+    button.btn.revisions ui-sref="revision(revision.data)" title="See this revision tests" ng-disabled="!revision"
+      | Tests

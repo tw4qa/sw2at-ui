@@ -3,6 +3,7 @@ angular.module("SWAT").controller "RevisionsCtrl", ($rootScope, $scope, $state, 
   $scope.init = ->
     window.Swat.log('Revisions Controller initalized!')
     $scope.initRevisions()
+    $rootScope.globalControl.setReloader($scope.initRevisions)
 
   $scope.initRevisions = ->
     $scope.revisions = RevisionService.query()

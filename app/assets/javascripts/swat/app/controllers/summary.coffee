@@ -4,6 +4,7 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
   $scope.init = ->
     $scope.summary = {}
     $scope.reloadData()
+    $rootScope.globalControl.setReloader($scope.reloadData)
 
   $scope.reloadData = ->
     return if $scope.revisionPromise && !$scope.revisionPromise.$resolved

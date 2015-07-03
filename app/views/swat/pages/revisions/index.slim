@@ -13,8 +13,9 @@
         th Status
       tr.has-status ng-class="revision.data.status.name" ng-repeat="revision in revisions | orderBy: '-data.time'" ui-sref="revision(revision.data)"
         td
-          strong
-            | {{ revision.data.name || revision.data.time }}
+          a.has-status ui-sref="revision(revision.data)" ng-class="revision.data.status.name"
+            strong
+              | {{ revision.data.name || revision.data.time }}
         td
           | {{ revision.data.branch }}
         td
