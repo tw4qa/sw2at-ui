@@ -22,7 +22,7 @@ table#test-cases.table.table-bordered.table-hover
           strong
             | {{ test.exception.message }}
         .backtrace
-          p.trace-line ng-repeat="line in test.exception.backtrace track by $index"
+          p.trace-line class="{{ helpers.isSpecTraceLine(line) ? 'spec' : '' }}" ng-repeat="line in test.exception.backtrace track by $index"
             | {{ line }}
     - if thread
       td.thread title="{{ test.thread_name }}"

@@ -29,7 +29,7 @@
                 strong
                   | {{ test.exception.message }}
               .backtrace
-                p.trace-line class="{{ isSpecTraceLine(line) ? 'spec' : '' }}" ng-repeat="line in test.exception.backtrace track by $index"
+                p.trace-line class="{{ helpers.isSpecTraceLine(line) ? 'spec' : '' }}" ng-repeat="line in test.exception.backtrace track by $index"
                   | {{ line }}
 
       th.count

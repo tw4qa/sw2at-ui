@@ -45,6 +45,19 @@ html, body {
 
     }
 
+    .backtrace {
+      background-color: #400e30;
+      padding: 10px;
+      margin-bottom: 5px;
+      color: #f8f8f8;
+      border-radius: 3px;
+      p {
+        margin-bottom: 0;
+        &.spec {
+          color: #ff5860;
+        }
+      }
+    }
 
     min-height: 100%;
     .invisible {
@@ -195,20 +208,6 @@ html, body {
           }
           .detailed-info {
             padding: 0 8px;
-            .backtrace {
-              background-color: #400e30;
-              padding: 10px;
-              margin-bottom: 5px;
-              color: #f8f8f8;
-              border-radius: 3px;
-              p {
-                margin-bottom: 0;
-                &.spec {
-                  color: #ff5860;
-                }
-              }
-
-            }
           }
         }
         td.status {

@@ -5,3 +5,7 @@ angular.module("SWAT").factory "SwatHelpers", ->
       mm = Math.floor(seconds / 60) % 60
       ss = Math.floor(seconds) % 60
       (if hh then (if hh < 10 then '0' else '') + hh + ':' else '') + (if mm < 10 and hh then '0' else '') + mm + ':' + (if ss < 10 then '0' else '') + ss
+
+    isSpecTraceLine: (line)->
+      _.include(line, 'spec')
+
