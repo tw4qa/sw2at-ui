@@ -79,13 +79,13 @@ class RevisionStatusCalulator
   STATUSES = {
       in_progress_success: {
           name: 'in_progress_success',
-          label: 'In Progress',
+          label: 'Started',
           completed: false,
           failed: false,
       },
       in_progress_failed: {
           name: 'in_progress_failed',
-          label: 'In Progress',
+          label: 'Started',
           completed: false,
           failed: true,
       },

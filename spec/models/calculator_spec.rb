@@ -33,7 +33,7 @@ describe FullRevision do
                             :completed=>true,
                             :failed=>true},
                            {:name=>"in_progress_success",
-                            :label=>"In Progress",
+                            :label=>"Started",
                             :completed=>false,
                             :failed=>false}]
                       )
@@ -125,12 +125,12 @@ describe FullRevision do
               :completed=>true,
               :failed=>true},
              {:name=>"in_progress_success",
-              :label=>"In Progress",
+              :label=>"Started",
               :completed=>false,
               :failed=>false}]
         )
         status = RevisionStatusCalulator.new(rev).set_status
-        expect(status).to include({name: "in_progress_failed", label: "In Progress", completed: false, failed: true})
+        expect(status).to include({name: "in_progress_failed", label: "Started", completed: false, failed: true})
       end
 
 
@@ -153,13 +153,13 @@ describe FullRevision do
               :completed=>true,
               :failed=>false},
              {:name=>"in_progress_success",
-              :label=>"In Progress",
+              :label=>"Started",
               :completed=>false,
               :failed=>false}
             ]
         )
         status = RevisionStatusCalulator.new(rev).set_status
-        expect(status).to include({name: "in_progress_success", label: "In Progress", completed: false, failed: false})
+        expect(status).to include({name: "in_progress_success", label: "Started", completed: false, failed: false})
       end
 
     end
