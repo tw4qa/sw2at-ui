@@ -43,9 +43,9 @@ $sidebar-width-negative: -$sidebar-width;
             color: lighten($successTitleColor, 10);
           }
           &[disabled] {
-            color: $terminatedColor;
+            color: $disabledLinkColor;
             &:hover {
-              color: $terminatedColor;
+              color: $disabledLinkColor;
             }
           }
         }
