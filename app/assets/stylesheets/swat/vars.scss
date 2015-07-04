@@ -1,0 +1,48 @@
+$greyBg: #9f9f9f;
+$greenMain: greenyellow;
+$footerSize: 45px;
+$negativeFooterSize: -$footerSize;
+
+$commandWidth: 400px;
+$copyIconWidth: 30px;
+$commandTextWidth: $commandWidth - $copyIconWidth;
+
+$greenBtnBg: rgb(124, 222, 124);
+$greenBtnBgHover: rgb(169, 222, 157);
+$greenBtnColor: green;
+
+$containerBg: rgb(240, 240, 240);
+$containerBorder: rgb(215, 215, 215);
+
+$failedColor: rgb(242, 40, 77);
+$inProgressBg: #F2FFBA;
+$successColor: rgb(59, 153, 78);
+$successBg: rgba(134, 252, 148, 0.49);
+$failedBg: rgba(252, 226, 222, 0.49);
+$terminatedColor: rgba(78, 73, 71, 0.68);
+$terminatedBg: rgba(205, 202, 201, 0.36);
+
+$backtraceBg: #400e30;
+$backtraceColor: #f8f8f8;
+$backtraceSpecColor: #ff5860;
+
+$successTitleColor: #50ce5f;
+$failedTitleColor: #ff5246;
+
+$failedCaseColor: #3F3F3F;
+
+$blackColor: black;
+$commandBg: $blackColor;
+
+$failedTestCaseCommandColor: rgb(223, 96, 96);
+$failedTestCaseBg: mistyrose;
+$failedTestCaseColor: red;
+$failedTestCaseBgHover: #ffd7e5;
+
+$passedTestCaseCommandColor: rgb(129, 192, 129);
+$passedTestCaseBg: lightgreen;
+$passedTestCaseColor: green;
+$passedTestCaseBgHover: #ffd7e5;
+
+
+

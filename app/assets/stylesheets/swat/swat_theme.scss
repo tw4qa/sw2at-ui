@@ -1,10 +1,4 @@
-$footerSize: 45px;
-$negativeFooterSize: -$footerSize;
-
-$commandWidth: 400px;
-$copyIconWidth: 30px;
-$commandTextWidth: $commandWidth - $copyIconWidth;
-$greenMain: greenyellow;
+@import "vars";
 
 html, body {
   height: 100% !important;
@@ -22,60 +16,62 @@ body {
   .controls {
     float: right;
     .btn {
-      background-color: rgb(124, 222, 124);
-      color: green;
+
+
+      background-color: $greenBtnBg;
+      color: $greenBtnColor;
       font-weight: bold;
       margin-right: 10px;
       &:hover {
-        background-color: rgb(169, 222, 157);
+        background-color: $greenBtnBgHover;
       }
     }
   }
 
-  #container {
-    background: rgb(240, 240, 240);//rgb(216, 216, 216);
 
+  #container {
+    background: $containerBg;
     margin: 0px 15px 0 15px;
-    border: 1px solid rgb(215, 215, 215);
+    border: 1px solid $containerBorder;
 
     .has-status {
       &.in_progress_failed {
-        color: rgb(242, 40, 77);
-        background: #F2FFBA;
+        color: $failedColor;
+        background: $inProgressBg;
       }
 
       &.in_progress_success {
-        color: rgb(59, 153, 78);
-        background: #F2FFBA;
+        color: $successColor;
+        background: $inProgressBg;
       }
 
       &.completed_failed {
-        color: rgb(242, 40, 77);
-        background: rgba(252, 226, 222, 0.49);
+        color: $failedColor;
+        background: $failedBg;
       }
 
       &.completed_passed {
-        color: rgb(59, 153, 78);
-        background: rgba(134, 252, 148, 0.49);
+        color: $successColor;
+        background: $successBg;
       }
 
       &.terminated {
-        color: rgba(78, 73, 71, 0.68);
-        background: rgba(205, 202, 201, 0.36);
+        color: $terminatedColor;
+        background: $terminatedBg;
       }
 
     }
 
     .backtrace {
-      background-color: #400e30;
+      background-color: $backtraceBg;
       padding: 10px;
       margin-bottom: 5px;
-      color: #f8f8f8;
+      color: $backtraceColor;
       border-radius: 3px;
       p {
         margin-bottom: 0;
         &.spec {
-          color: #ff5860;
+          color: $backtraceSpecColor;
         }
       }
     }
@@ -106,10 +102,10 @@ body {
           float: left;
           margin-left: 20px;
           &.in_progress_success, &.completed_passed {
-            color: #50ce5f;
+            color: $successTitleColor;
           }
           &.in_progress_failed,&.completed_failed {
-            color: #ff5246;
+            color: $failedTitleColor;
           }
         }
       }
@@ -126,7 +122,7 @@ body {
 
       #metrics-container {
         background: white;
-        border: 1px solid rgb(228, 225, 225);
+        border: 1px solid $containerBorder;
         border-top: none;
         min-height: 500px;
         overflow: hidden;
@@ -148,7 +144,7 @@ body {
     #exceptions-groups {
       .failed-tests {
         .test-case {
-          color: #3F3F3F;
+          color: $failedCaseColor;
           margin-top: 3px;
         }
 
@@ -232,31 +228,30 @@ body {
             margin: 0;
             border: none;
             font-weight: bold;
-            background: black;
-            color: red;
+            background: $commandBg;
           }
         }
         &.failed {
-          background: mistyrose;
-          color: red;
+          background: $failedTestCaseBg;
+          color: $failedTestCaseColor;
           .main-info {
             cursor: pointer;
             &:hover {
-              background: #ffd7e5;
+              background: $failedTestCaseBgHover;
             }
           }
           td.command {
             input {
-              color: rgb(223, 96, 96);
+              color: $failedTestCaseCommandColor;
             }
           }
         }
         &.passed {
-          background: lightgreen;
-          color: green;
+          background: $passedTestCaseBg;
+          color: $passedTestCaseColor;
           td.command {
             input {
-              color: rgb(129, 192, 129);
+              color: $passedTestCaseCommandColor;
             }
           }
         }
@@ -278,7 +273,7 @@ body {
     text-align: center;
 
 
-    background-color: black;
+    background-color: $blackColor;
     color: $greenMain;
     padding-top: 15px;
     margin-left: 15px;
@@ -288,22 +283,8 @@ body {
     margin-left: 12px;
     margin-right: 12px;
     span.label {
-      color: black;
+      color: $blackColor;
       font-size: 15px;
-    }
-    span.status {
-      &.in_progress_success {
-        color: rgb(192, 175, 84);
-      }
-      &.in_progress_failed {
-        color: rgb(217, 140, 160);
-      }
-      &.completed_failed {
-        color: rgb(242, 40, 77);
-      }
-      &.completed_passed {
-        color: rgb(61, 168, 83);
-      }
     }
   }
   .tab-content {
@@ -316,7 +297,7 @@ body {
     font-size: 20px;
     display: inline-block;
     text-decoration: none;
-    color: black;
+    color: $blackColor;
     margin-left: 5px;
   }
 }
