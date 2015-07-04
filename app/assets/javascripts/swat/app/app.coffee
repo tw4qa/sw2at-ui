@@ -44,6 +44,14 @@ App.config ($urlRouterProvider, $stateProvider) ->
         templateUrl:  "/swat/pages/revisions/summary.html"
         controller: 'SummaryCtrl'
   )
+  .state("configuration",
+    url: "/swat/configuration"
+    views:
+      content:
+        templateUrl:  "/swat/pages/management/configuration.html"
+        controller: 'SummaryCtrl'
+
+  )
 App.config(['ngClipProvider', (ngClipProvider)->
   ngClipProvider.setPath("/assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")
 ])

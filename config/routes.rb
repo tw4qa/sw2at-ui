@@ -34,6 +34,13 @@ Swat::Engine.routes.draw do
         get p, to: p
       end
     end
+
+    namespace :management do
+      pages = [ :console, :configuration, :about ]
+      pages.each do |p|
+        get p, to: p
+      end
+    end
   end
 
 end
