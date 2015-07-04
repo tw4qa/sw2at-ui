@@ -35,9 +35,10 @@ $greenMain: greenyellow;
           display: inline-block;
           padding: 9px 0px;
           color: rgb(59, 171, 99);
+          text-decoration: none;
+
           &:hover {
             color: rgb(83, 206, 83);
-            text-decoration: none;
           }
         }
       }

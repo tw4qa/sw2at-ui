@@ -1,5 +1,5 @@
 #revisions-container
-  span.loader ng-class="{ true: 'invisible' }[(revisions && revisions.$resolved)]"
+  span.loader ng-class="{ true: 'invisible' }[(revisionsPromise && revisionsPromise.$resolved)]"
   h2.revisions-header Revisions
   .controls
   .list ng-if="revisions && (revisions.length > 0)"
