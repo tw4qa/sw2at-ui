@@ -1,4 +1,24 @@
 #configuration
+  span.loader ng-class="{ true: 'invisible' }[(configPromise && configPromise.$resolved)]"
   h1.title Configuration
   #configuration-info
-    | {{ config }}
+    h2 Firebase
+    table.firebase ng-if="config"
+      tr
+        td.name
+          | Firebase Path
+        td.value
+          | {{ config.firebase_path }}
+
+    h2 Threads
+    table.threads
+      tr ng-repeat="thread in config.threads"
+        td.name
+          .cell
+            | {{ thread.name }}
+        td.options
+          .cell
+            .pattern
+              | {{ thread.file_pattern }}
+            .tags
+              | {{ thread.tag }} {{ thread.tags.join(',') }}

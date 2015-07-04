@@ -1,6 +1,8 @@
+@import "vars";
+
 $sidebar-width: 200px;
 $sidebar-width-negative: -$sidebar-width;
-$greenMain: greenyellow;
+
 
 #swat {
 
@@ -34,11 +36,17 @@ $greenMain: greenyellow;
           height: 100%;
           display: inline-block;
           padding: 9px 0px;
-          color: rgb(59, 171, 99);
+          color: $successColor;
           text-decoration: none;
 
           &:hover {
-            color: rgb(83, 206, 83);
+            color: lighten($successColor, 10);
+          }
+          &[disabled] {
+            color: $terminatedColor;
+            &:hover {
+              color: $terminatedColor;
+            }
           }
         }
       }
