@@ -1,7 +1,7 @@
 angular.module("SWAT").controller "ConfigurationCtrl", ($rootScope, $scope, $state, $stateParams
                                                         ConfigurationService) ->
   $scope.init = ->
-    $scope.reloadConfig()
+    setTimeout($scope.reloadConfig, 1000);
     $rootScope.globalControl.setReloader($scope.reloadConfig)
 
   $scope.reloadConfig = ->

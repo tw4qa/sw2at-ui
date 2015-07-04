@@ -2,8 +2,7 @@
 //= require_self
 
 @import "bootstrap";
-
-
+@import "vars";
 
 #swat {
   font-size: 13px;
@@ -21,6 +20,25 @@
   #content {
 
   }
+
+
+  table.info {
+    font-size: 14px;
+    background: $greyBg;
+    width: 100%;
+    tr {
+      border-bottom: 1px solid $whiteColor;
+      td {
+        padding: 12px;
+        &.name {
+          width: 200px;
+          padding-left: 21px;
+          color: $lightBlueColor;
+        }
+      }
+    }
+  }
+
 }
 
 

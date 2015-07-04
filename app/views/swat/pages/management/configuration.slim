@@ -3,25 +3,26 @@
   h1.title Configuration
   .configuration-info-container
     #configuration-info
-      h2.heading Firebase
-      table.firebase ng-if="config"
-        tbody
-          tr
-            td.name
-              | Firebase Path
-            td.value
-              | {{ config.firebase_path }}
+      div ng-if="config"
+        h2.heading Firebase
+        table.info.firebase
+          tbody
+            tr
+              td.name
+                | Firebase Path
+              td.value
+                | {{ config.firebase_path }}
 
-      h2.heading Threads
-      table.threads
-        tbody
-          tr ng-repeat="thread in config.threads"
-            td.name
-              .cell
-                | {{ thread.name }}
-            td.options
-              .cell
-                .pattern
-                  | {{ thread.file_pattern }}
-                .tags
-                  | {{ thread.tag }} {{ thread.tags.join(',') }}
+        h2.heading Threads
+        table.info.threads
+          tbody
+            tr ng-repeat="thread in config.threads"
+              td.name
+                .cell
+                  | {{ thread.name }}
+              td.options
+                .cell
+                  .pattern
+                    | {{ thread.file_pattern }}
+                  .tags
+                    | {{ thread.tag }} {{ thread.tags.join(',') }}

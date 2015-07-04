@@ -5,15 +5,14 @@
     tabset
       tab
         tab-heading
-          span.label Graph
+          span.label Statistics
         .tab-content
           #metrics-container
             #global-stats-container
-              table#global-stats.table.table-bordered.table-hover
+              table#global-stats.info
                 tr ng-repeat="metric in summary.metrics"
                   td.name
-                    strong
-                      | {{ metric.name }}
+                    | {{ metric.name }}
                   td.value
                     | {{ metric.value }}
 
