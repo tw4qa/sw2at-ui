@@ -2,6 +2,7 @@ angular.module("SWAT").controller "RevisionCtrl", ($rootScope, $scope, $state, $
   RevisionService) ->
 
   $scope.init = ->
+    $scope.currentState = $state.current.name
     $scope.reloadData()
     $rootScope.globalControl.setReloader($scope.reloadData)
 
