@@ -1,23 +1,76 @@
+$sidebar-width: 200px;
+$sidebar-width-negative: -$sidebar-width;
+$greenMain: greenyellow;
+
 #swat {
 
   #global-nav {
+    //background: grey;
 
-    background: grey;
+    width: $sidebar-width;
+    overflow: hidden;
+    padding: 0px 0px 10px 14px;
+    //border-right: 1px solid rgb(204, 200, 200);
+
+    h2.menu {
+      margin-top: 33px;
+      text-align: left;
+    }
+
     ul {
       margin: 0;
       padding: 0;
 
       li {
         list-style: none;
+        font-size: 20px;
+        //border-top: 1px solid #d5d5d5;
+        margin-right: 20px;
 
-        button {
+
+        a {
           background: none;
           width: 100%;
+          height: 100%;
+          display: inline-block;
+          padding: 9px 0px;
+          color: rgb(59, 171, 99);
+          &:hover {
+            color: rgb(83, 206, 83);
+            text-decoration: none;
+          }
         }
       }
     }
-
   }
+}
 
+.left-menu {
+  float: left;
+  width: 0;
+  margin-left: 0;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.wrapper {
+  min-width: 100px;
+  margin-left: 0;
+  transition: all 0.3s;
+}
+
+.main-view {
+  display: inline-block;
+  width: 100%;
+  background: rgb(240, 240, 240);
+  padding: 0 5px;
+}
+
+.opened {
+  margin-left: $sidebar-width;
+  .left-menu {
+    width: $sidebar-width;
+    margin-left: $sidebar-width-negative;
+  }
 }
 

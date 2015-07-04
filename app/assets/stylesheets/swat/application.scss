@@ -25,33 +25,3 @@ $greenMain: greenyellow;
 }
 
 
-.left-menu {
-  background: green;
-  float: left;
-  width: 0px;
-  margin-left: 0px;
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
-.wrapper {
-  min-width: 100px;
-  margin-left: 0px;
-  transition: all 0.3s;
-}
-
-.main-view {
-
-}
-
-$sidebar-width: 200px;
-$sidebar-width-negative: -$sidebar-width;
-
-.opened {
-  margin-left: $sidebar-width;
-  .left-menu {
-    width: $sidebar-width;
-    margin-left: $sidebar-width-negative;
-  }
-}
-
