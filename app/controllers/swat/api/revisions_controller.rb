@@ -27,6 +27,7 @@ module Swat
       def parse_revision_options
         @options = params[:json_params] ? HashWithIndifferentAccess[JSON.parse(params[:json_params])] : params
         @options[:time] = @options[:time].to_i if @options[:time]
+        @options[:branch] = URI.unescape(@options[:branch].to_s) if @options[:branch]
       end
 
     end
