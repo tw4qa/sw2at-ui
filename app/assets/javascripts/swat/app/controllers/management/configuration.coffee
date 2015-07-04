@@ -1,1 +1,6 @@
-angular.module("SWAT").controller "CongigurationCtrl", ($rootScope, $scope, $state, $stateParams) ->
+angular.module("SWAT").controller "ConfigurationCtrl", ($rootScope, $scope, $state, $stateParams
+                                                        ConfigurationService) ->
+  $scope.init = ->
+    $scope.config = ConfigurationService.get()
+
+  $scope.init()

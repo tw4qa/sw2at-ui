@@ -49,7 +49,7 @@ App.config ($urlRouterProvider, $stateProvider) ->
     views:
       content:
         templateUrl:  "/swat/pages/management/configuration.html"
-        controller: 'SummaryCtrl'
+        controller: 'ConfigurationCtrl'
 
   )
 App.config(['ngClipProvider', (ngClipProvider)->

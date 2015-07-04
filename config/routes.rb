@@ -7,8 +7,11 @@ Swat::Engine.routes.draw do
   namespace :api do
     resources :test_cases
     resources :revisions
+
     get 'revision', to: 'revisions#show'
     put 'revision/name/:name', to: 'revisions#set_name'
+
+    get 'configuration', to: 'configuration#show'
   end
 
   # Helper Methods
