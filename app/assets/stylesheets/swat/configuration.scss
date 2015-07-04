@@ -7,11 +7,45 @@
     .title {
 
     }
-
+    .configuration-info-container {
+      display: block;
+      width: 100%;
+    }
     #configuration-info {
       background: $whiteColor;
       border: 1px solid $containerBorder;
       margin: 20px;
+      padding: 28px 38px;
+      width: 800px;
+      margin: auto;
+
+      .heading {
+        text-align: left;
+        margin: 0;
+        color: $successColor
+      }
+
+      table {
+        font-size: 14px;
+        background: $backtraceBg;
+        color: $whiteColor;
+        width: 100%;
+
+        margin-bottom: 18px;
+
+        tr {
+          border-bottom: 1px solid $whiteColor;
+          td {
+            padding: 12px;
+            &.name {
+              width: 200px;
+              padding-left: 10px;
+              color: $lightBlueColor;
+            }
+          }
+        }
+      }
+
     }
   }
 

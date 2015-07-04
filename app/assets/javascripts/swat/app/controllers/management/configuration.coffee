@@ -10,6 +10,4 @@ angular.module("SWAT").controller "ConfigurationCtrl", ($rootScope, $scope, $sta
       $scope.config = resp
     )
 
-
-
   $scope.init()

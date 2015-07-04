@@ -36,11 +36,11 @@ $sidebar-width-negative: -$sidebar-width;
           height: 100%;
           display: inline-block;
           padding: 9px 0px;
-          color: $successColor;
+          color: darken($successTitleColor,5);
           text-decoration: none;
 
           &:hover {
-            color: lighten($successColor, 10);
+            color: lighten($successTitleColor, 10);
           }
           &[disabled] {
             color: $terminatedColor;
