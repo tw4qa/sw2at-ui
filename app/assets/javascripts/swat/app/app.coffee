@@ -19,6 +19,7 @@ App = angular.module 'SWAT', [
   'ngClipboard'
   'highcharts-ng'
   'ngtimeago'
+  'ngCookies'
 ]
 
 App.config ($urlRouterProvider, $stateProvider) ->
