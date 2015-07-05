@@ -12,5 +12,5 @@
             td.input
               input.form-control type='text' placeholder="Branch name" ng-model="clean.branch.name"
             td.action
-              button.btn.action.btn-danger ng-disabled="helpers.isEmpty(clean.branch.name)"
+              button.btn.action.btn-danger ng-disabled="helpers.isEmpty(clean.branch.name)" ng-click="removeByBranch()"
                 | Remove

@@ -1,0 +1,12 @@
+#confirmation-modal
+  h4.modal-title
+    | Confirmation
+    .close ng-click="cancel()"
+
+  .modal-body
+    span.message ng-bind-html="renderHtml(message)"
+
+    .confirmation-modal-footer
+      .controls
+        button.btn.btn-success.yes ng-click="ok()" Yes
+        button.btn.btn-default.no ng-click="cancel()" No

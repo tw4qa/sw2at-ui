@@ -1,0 +1,50 @@
+@import "vars";
+
+.modal-content {
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+#confirmation-modal {
+
+  margin: 50px;
+  border: 1px solid rgb(219, 217, 217);
+  border-radius: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+  .modal-title {
+    padding: 10px;
+    margin: 0;
+    color: rgb(209, 66, 66);
+    background-color: rgb(242, 206, 206);
+    text-align: center;
+  }
+
+  .modal-body {
+    padding: 20px;
+    background: #f0f0f0;
+    display: inline-block;
+    width: 100%;
+
+    .message {
+      display: inline-block;
+      margin: 0 0px 15px 0;
+      font-size: 19px;
+      color: rgb(88, 81, 81);
+      width: 100%;
+    }
+
+    .confirmation-modal-footer {
+      button {
+        width: 200px;
+        &.yes {
+          float: left;
+        }
+        &.no {
+          float: right;
+        }
+      }
+    }
+  }
+}

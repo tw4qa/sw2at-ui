@@ -1,6 +1,6 @@
 @import "boostrap_vars";
 
-//--Application Vars
+// Application Colors
 
 $greenMain: greenyellow;
 
@@ -8,13 +8,6 @@ $blackColor: black;
 $whiteColor: white;
 
 $disabledLinkColor: rgba(198, 198, 197, 0.68);
-
-$footerSize: 45px;
-$negativeFooterSize: -$footerSize;
-
-$commandWidth: 400px;
-$copyIconWidth: 30px;
-$commandTextWidth: $commandWidth - $copyIconWidth;
 
 $greenBtnBg: rgb(124, 222, 124);
 $greenBtnBgHover: rgb(169, 222, 157);
@@ -37,7 +30,6 @@ $backtraceSpecColor: #ff5860;
 
 $successTitleColor: #50ce5f;
 $failedTitleColor: #ff5246;
-
 $failedCaseColor: #3F3F3F;
 
 $commandBg: $blackColor;
@@ -57,5 +49,14 @@ $lightGreyBg: #F4F3F3;
 $lightBlueColor: #5967AB;
 $infoLabelColor: #46B444;
 
-$input-border-focus: $lightBlueColor;
+// Sizes
+$footerSize: 45px;
+$negativeFooterSize: -$footerSize;
+
+$commandWidth: 400px;
+$copyIconWidth: 30px;
+$commandTextWidth: $commandWidth - $copyIconWidth;
+
+// Boostrap Overrides
+$input-border-focus: $infoLabelColor;
 
