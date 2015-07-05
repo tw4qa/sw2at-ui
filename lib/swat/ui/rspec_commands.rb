@@ -19,6 +19,7 @@ module Swat
             revision_time: 'SWAT_CURRENT_REVISION_TIME',
 
             debug_mode: 'SWAT_DBG',
+            user: 'SWAT_USER_NAME',
         })
 
         def initialize(conf_options, time, name=nil)
@@ -95,7 +96,7 @@ module Swat
           end
 
           def current_user
-            call_command(current_user_command) rescue 'undefined'
+            (env[ENV_VARS.user] || call_command(current_user_command)) rescue 'undefined'
           end
 
           def env
