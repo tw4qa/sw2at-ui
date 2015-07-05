@@ -1,0 +1,29 @@
+@import "vars";
+
+#swat {
+
+  #console {
+
+    table.info {
+      tr {
+        td.name {
+          width: 340px;
+        }
+        td.input {
+          input {
+
+          }
+        }
+        td.action {
+
+        }
+      }
+
+      button.action {
+        width: 100%;
+      }
+    }
+
+  }
+
+}

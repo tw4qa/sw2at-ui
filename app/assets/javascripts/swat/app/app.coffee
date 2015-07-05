@@ -51,7 +51,13 @@ App.config ($urlRouterProvider, $stateProvider) ->
       content:
         templateUrl:  "/swat/pages/management/configuration.html"
         controller: 'ConfigurationCtrl'
-
+  )
+  .state("console",
+    url: "/swat/console"
+    views:
+      content:
+        templateUrl:  "/swat/pages/management/console.html"
+        controller: 'ConsoleCtrl'
   )
 App.config(['ngClipProvider', (ngClipProvider)->
   ngClipProvider.setPath("/assets/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf")
