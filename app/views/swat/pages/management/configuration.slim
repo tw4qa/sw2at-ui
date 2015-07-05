@@ -1,9 +1,9 @@
 #configuration
   span.loader ng-class="{ true: 'invisible' }[(configPromise && configPromise.$resolved)]"
   h1.title Configuration
-  .configuration-info-container.info-widget-container
+  .configuration-info-container.info-widget-container ng-if="config"
     #configuration-info.info-widget
-      div ng-if="config"
+      div
         h2.heading Firebase
         table.info.firebase
           tbody
