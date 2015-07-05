@@ -91,11 +91,11 @@ module Swat
           end
 
           def current_branch
-            call_command(current_branch_command)
+            call_command(current_branch_command) rescue 'undefined'
           end
 
           def current_user
-            call_command(current_user_command)
+            call_command(current_user_command) rescue 'undefined'
           end
 
           def env
