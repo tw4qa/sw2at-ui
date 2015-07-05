@@ -1,8 +1,8 @@
 //= require_tree .
 //= require_self
 
-@import "bootstrap";
 @import "vars";
+@import "bootstrap";
 
 #swat {
   font-size: 13px;
@@ -24,16 +24,17 @@
 
   table.info {
     font-size: 14px;
-    background: $greyBg;
+    background: $lightGreyBg;
     width: 100%;
     tr {
       border-bottom: 1px solid $whiteColor;
       td {
         padding: 12px;
         &.name {
+          font-size: 16px;
           width: 200px;
           padding-left: 21px;
-          color: $lightBlueColor;
+          color: $infoLabelColor;
         }
       }
     }
@@ -62,6 +63,7 @@
     }
 
   }
+
 
 }
 

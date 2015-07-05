@@ -1,9 +1,11 @@
-$greyBg: #9f9f9f;
+@import "boostrap_vars";
+
+//--Application Vars
+
 $greenMain: greenyellow;
 
 $blackColor: black;
 $whiteColor: white;
-$lightBlueColor: #C2CAF2;
 
 $disabledLinkColor: rgba(198, 198, 197, 0.68);
 
@@ -51,4 +53,9 @@ $passedTestCaseColor: green;
 $passedTestCaseBgHover: #ffd7e5;
 
 $greyBg: rgb(236, 236, 236);
+$lightGreyBg: #F4F3F3;
 $lightBlueColor: #5967AB;
+$infoLabelColor: #46B444;
+
+$input-border-focus: $lightBlueColor;
+
