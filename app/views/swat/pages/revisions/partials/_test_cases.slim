@@ -17,7 +17,7 @@ table#test-cases.table.table-bordered.table-hover
         strong
           | {{ $index+1 }}. &nbsp;
         | {{ test.full_description }}
-      .detailed-info.collapse id="#{test_id}" ng-if="test.exception"
+      .detailed-info id="#{test_id}" ng-if="test.exception"
         span.message
           strong
             | {{ test.exception.message }}

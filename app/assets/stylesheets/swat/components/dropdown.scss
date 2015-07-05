@@ -48,6 +48,11 @@
       height: 37px;
       width: 37px;
       padding: 10px 13px;
+
+      .value {
+        height: 24px;
+        overflow: hidden;
+      }
     }
 
     select:focus + label.selected {

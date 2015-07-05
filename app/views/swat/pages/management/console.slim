@@ -2,27 +2,5 @@
   span.loader ng-class="{ true: 'invisible' }[(consoleDataPromise && consoleDataPromise.$resolved)]"
   h1.title Console
   .info-widget-container
-    tabset ng-if="(consoleDataPromise && consoleDataPromise.$resolved)"
-      tab
-        tab-heading
-          span.label
-            | Revision Statistics
-        .tab-content
-          .info-widget
-            = render partial: 'swat/pages/management/partials/stats'
-      tab
-        tab-heading
-          span.label
-            | Clean Database
-        .tab-content
-          .info-widget
-            table.info
-              tbody
-                tr
-                  td.name
-                    | Remove Revisions by Branch
-                  td.input
-                    input.form-control type='text' placeholder="Branch name" ng-model="clean.branch.name"
-                  td.action
-                    button.btn.action.btn-danger ng-disabled="helpers.isEmpty(clean.branch.name)" ng-click="removeByBranch()"
-                      | Remove
+    .info-widget ng-if="(consoleDataPromise && consoleDataPromise.$resolved)"
+      = render partial: 'swat/pages/management/partials/stats'

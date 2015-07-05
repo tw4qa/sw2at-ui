@@ -15,10 +15,40 @@
     }
 
     .info-widget {
-      border-top: 0;
+      .heading {
+        padding-bottom: 5px;
+
+        &:not(:first-child) {
+          margin-top: 17px;
+          border-top: 1px solid lightgray;
+          padding-top: 12px;
+        }
+
+        span {
+          cursor: pointer;
+        }
+      }
+
+      .action-bar {
+
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5px;
+
+        .custom-dropdown {
+          width: 250px;
+          float: left;
+          margin-right: 20px;
+        }
+
+        button {
+          height: 38px;
+        }
+      }
     }
 
     table.info {
+      margin-bottom: 0;
       tr {
         td.name {
           width: 340px;
@@ -32,12 +62,7 @@
 
         }
       }
-
-      button.action {
-        width: 100%;
-      }
     }
-
   }
 
 }

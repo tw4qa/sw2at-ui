@@ -1,29 +1,4 @@
-h3.heading Branches
-table.info
-  tr ng-repeat="(metric, count) in consoleData.stats.branches"
-    td.name
-      | {{ metric }}
-    td.value
-      strong
-        | {{ consoleData.stats.branches[metric] }}
-      | &nbsp; revisions
+- [ [ :branch, :branches ], [ :user, :users ], [ :period, :periods ] ].each do |(object, objects)|
+  = render partial: 'swat/pages/management/partials/action_bar', locals: { object: object, objects: objects }
 
-h3.heading Users
-table.info
-  tr ng-repeat="(metric, count) in consoleData.stats.users"
-    td.name
-      | {{ metric }}
-    td.value
-      strong
-        | {{ consoleData.stats.users[metric] }}
-      | &nbsp; revisions
 
-h3.heading Periods
-table.info
-  tr ng-repeat="(metric, count) in consoleData.stats.periods"
-    td.name
-      | {{ metric }}
-    td.value
-      strong
-        | {{ consoleData.stats.periods[metric] }}
-      | &nbsp; revisions

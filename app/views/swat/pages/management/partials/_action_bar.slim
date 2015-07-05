@@ -1,0 +1,26 @@
+h3.heading
+  span (data-toggle="collapse" data-target="##{objects}-stats")
+    | Clean #{ objects }
+
+.action-bar(class=object)
+  custom-dropdown(model="clean.#{object}.name" options="consoleData.#{objects}")
+  button.btn.action.btn-danger(ng-disabled="helpers.isEmpty(clean.#{object}.name)" ng-click="remove('#{object}')")
+    | Remove revisions by #{ object }
+
+.in(id="#{objects}-stats")
+  table.info
+    tr ng-repeat="(metric, count) in consoleData.stats.#{objects}"
+      td.name
+        | {{ metric }}
+      td.value
+        strong
+          | {{ consoleData.stats.#{objects}[metric] }}
+        | &nbsp; revisions
+    tr
+      td.name
+        strong
+          | Total
+      td.value
+        strong
+          | {{ consoleData.#{objects}.length }} #{ objects }, {{ sum(consoleData.stats.#{objects}) }}
+          | &nbsp; revisions
