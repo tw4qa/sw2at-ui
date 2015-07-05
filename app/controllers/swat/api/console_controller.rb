@@ -4,7 +4,7 @@ module Swat
 
 
       def show
-        render json: { stats: Revision::Root.stats }
+        render json: Revision::Root.stats
       end
 
     end

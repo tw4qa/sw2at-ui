@@ -6,6 +6,7 @@ angular.module("SWAT").controller "ConsoleCtrl", ($rootScope, $scope, $state, $s
       branch: { name: '' }
 
     $scope.loadConsoleData()
+    $rootScope.globalControl.setReloader($scope.loadConsoleData)
 
 
   $scope.loadConsoleData = ->

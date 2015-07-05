@@ -4,6 +4,20 @@
 
   #console {
 
+    .nav-tabs {
+      width: $infoWidgetWidth;
+      margin: auto;
+
+      span.label {
+        padding: 9px 15px 0px 21px;
+        display: inline-block;
+      }
+    }
+
+    .info-widget {
+      border-top: 0;
+    }
+
     table.info {
       tr {
         td.name {

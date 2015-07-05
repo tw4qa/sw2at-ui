@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Vitaly Tarasenko"]
-  s.date = "2015-07-04"
+  s.date = "2015-07-05"
   s.description = " Control your tests, run them parallel. Check statuses of your revisions online. Share results to all team members. "
   s.email = "vetal.tarasenko@gmail.com"
   s.executables = ["rails"]
@@ -31,11 +31,14 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/swat/app/app.coffee",
     "app/assets/javascripts/swat/app/controllers/global_nav.coffee",
     "app/assets/javascripts/swat/app/controllers/management/configuration.coffee",
+    "app/assets/javascripts/swat/app/controllers/management/confirmation.coffee",
+    "app/assets/javascripts/swat/app/controllers/management/console.coffee",
     "app/assets/javascripts/swat/app/controllers/revision.coffee",
     "app/assets/javascripts/swat/app/controllers/revisions.coffee",
     "app/assets/javascripts/swat/app/controllers/root.coffee",
     "app/assets/javascripts/swat/app/controllers/summary.coffee",
     "app/assets/javascripts/swat/app/directives/revision_name.coffee",
+    "app/assets/javascripts/swat/app/factories/configuration/confirmation_dialog.coffee",
     "app/assets/javascripts/swat/app/factories/global_control.coffee",
     "app/assets/javascripts/swat/app/factories/helpers.coffee",
     "app/assets/javascripts/swat/app/factories/response.coffee",
@@ -44,6 +47,7 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/swat/app/factories/summary/fails_graph.coffee",
     "app/assets/javascripts/swat/app/factories/summary/revision_metrics.coffee",
     "app/assets/javascripts/swat/app/services/configuration.coffee",
+    "app/assets/javascripts/swat/app/services/console.coffee",
     "app/assets/javascripts/swat/app/services/revision.coffee",
     "app/assets/javascripts/swat/app/services/test_case.coffee",
     "app/assets/javascripts/swat/application.coffee",
@@ -366,11 +370,15 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/swat/bower_components/zeroclipboard/dist/ZeroClipboard.min.js",
     "app/assets/javascripts/swat/bower_components/zeroclipboard/dist/ZeroClipboard.swf",
     "app/assets/javascripts/swat/lib/angular-cookies.js",
+    "app/assets/javascripts/swat/lib/highcharts-exporting.js",
     "app/assets/javascripts/swat/lib/highcharts-ng.js",
     "app/assets/javascripts/swat/lib/highcharts.src.js",
     "app/assets/javascripts/swat/lib/ngtimeago.js",
     "app/assets/stylesheets/swat/application.scss",
+    "app/assets/stylesheets/swat/boostrap_vars.scss",
     "app/assets/stylesheets/swat/configuration.scss",
+    "app/assets/stylesheets/swat/confirmation.scss",
+    "app/assets/stylesheets/swat/console.scss",
     "app/assets/stylesheets/swat/default-theme.css",
     "app/assets/stylesheets/swat/font-awesome.css",
     "app/assets/stylesheets/swat/fonts/FontAwesome.otf",
@@ -384,6 +392,7 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/swat/swat_theme.scss",
     "app/assets/stylesheets/swat/vars.scss",
     "app/controllers/swat/api/configuration_controller.rb",
+    "app/controllers/swat/api/console_controller.rb",
     "app/controllers/swat/api/revisions_controller.rb",
     "app/controllers/swat/api/test_cases_controller.rb",
     "app/controllers/swat/application_controller.rb",
@@ -401,6 +410,9 @@ Gem::Specification.new do |s|
     "app/views/layouts/swat/page.slim",
     "app/views/swat/application/index.slim",
     "app/views/swat/pages/management/configuration.slim",
+    "app/views/swat/pages/management/confirmation.slim",
+    "app/views/swat/pages/management/console.slim",
+    "app/views/swat/pages/management/partials/_stats.slim",
     "app/views/swat/pages/revisions/index.slim",
     "app/views/swat/pages/revisions/name.slim",
     "app/views/swat/pages/revisions/partials/_exceptions.slim",
@@ -429,6 +441,7 @@ Gem::Specification.new do |s|
     "spec/models/calculator_spec.rb",
     "spec/models/full_revision_spec.rb",
     "spec/models/revision_spec.rb",
+    "spec/models/revision_stats_spec.rb",
     "spec/models/testcase_spec.rb",
     "spec/spec_helper.rb",
     "sw2at-ui.gemspec",
@@ -450,7 +463,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<sass-rails>, [">= 0"])
       s.add_runtime_dependency(%q<coffee-rails>, [">= 0"])
       s.add_runtime_dependency(%q<bootstrap-sass>, [">= 0"])
-      s.add_runtime_dependency(%q<tarvit-helpers>, [">= 0"])
+      s.add_runtime_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
       s.add_runtime_dependency(%q<time_difference>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
@@ -466,7 +479,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sass-rails>, [">= 0"])
       s.add_dependency(%q<coffee-rails>, [">= 0"])
       s.add_dependency(%q<bootstrap-sass>, [">= 0"])
-      s.add_dependency(%q<tarvit-helpers>, [">= 0"])
+      s.add_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
       s.add_dependency(%q<time_difference>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
@@ -483,7 +496,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sass-rails>, [">= 0"])
     s.add_dependency(%q<coffee-rails>, [">= 0"])
     s.add_dependency(%q<bootstrap-sass>, [">= 0"])
-    s.add_dependency(%q<tarvit-helpers>, [">= 0"])
+    s.add_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
     s.add_dependency(%q<time_difference>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
