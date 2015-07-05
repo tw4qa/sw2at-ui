@@ -9,6 +9,7 @@ class FailsGraph
           plotBorderWidth: null
           plotShadow: false
           type: 'pie'
+      credits: enabled: 'true'
       title:
         text: 'Fail Rate'
 

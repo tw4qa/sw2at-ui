@@ -15,6 +15,7 @@
 #= require swat/bower_components/zeroclipboard/dist/ZeroClipboard.js
 
 #= require swat/lib/highcharts.src.js
+#  require swat/lib/highcharts-exporting.js
 #= require swat/lib/highcharts-ng.js
 #= require swat/lib/ngtimeago.js
 #= require swat/lib/angular-cookies.js
