@@ -20,6 +20,7 @@ App = angular.module 'SWAT', [
   'highcharts-ng'
   'ngtimeago'
   'ngCookies'
+  'SWAT.components'
 ]
 
 App.config ($urlRouterProvider, $stateProvider) ->

@@ -23,6 +23,14 @@ Swat::Engine.routes.draw do
     end
   end
 
+  def declare_namespace(name, pages)
+    namespace name do
+      pages.each do |p|
+        get p, to: p
+      end
+    end
+  end
+
   # Angular States
   namespace :info do
     level_paths.each do |path|
@@ -32,19 +40,9 @@ Swat::Engine.routes.draw do
 
   # Angular Pages
   namespace :pages do
-    namespace :revisions do
-      pages = [ :index, :show, :summary, :name ]
-      pages.each do |p|
-        get p, to: p
-      end
-    end
-
-    namespace :management do
-      pages = [ :console, :configuration, :about, :confirmation ]
-      pages.each do |p|
-        get p, to: p
-      end
-    end
+    declare_namespace :revisions, [ :index, :show, :summary, :name ]
+    declare_namespace :management, [ :console, :configuration, :about, :confirmation ]
+    declare_namespace :components, [ :custom_dropdown ]
   end
 
 end

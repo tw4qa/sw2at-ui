@@ -15,6 +15,8 @@ angular.module("SWAT").controller "ConsoleCtrl", ($rootScope, $scope, $state, $s
       $scope.consoleData = resp
     )
 
+  $scope.sum = (data)->
+   _.sum(_.values(data))
 
   $scope.removeByBranch = ->
     message = 'Are you sure you want to remove branch <strong>' + $scope.clean.branch.name + '<strong>?'

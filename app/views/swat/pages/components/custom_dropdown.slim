@@ -1,0 +1,16 @@
+.custom-dropdown dropdown=""
+  select.form-control [
+    name="{{id}}"
+    id="{{id}}"
+    ng-class="{'gl-disabled': glDisabled}"
+    ng-disabled="glDisabled"
+    ng-model="model"
+    ng-options="value as value for value in selectOptions"
+    ng-change="selectOption(model)"
+    tabindex="{{glTabIndex}}"
+    ]
+    option ng-if="!placeholder && !!emptyOption"
+  label.selected.form-control for="{{id}}"
+    i.icon.fa.fa-angle-down
+    .value
+      | {{ model }}
