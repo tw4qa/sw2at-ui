@@ -1,5 +1,6 @@
 #confirmation-modal
   h4.modal-title
+    span.loader ng-class="{ true: 'invisible' }[(consoleDataPromise && consoleDataPromise.$resolved)]"
     | Confirmation
     .close ng-click="cancel()"
 

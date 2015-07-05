@@ -12,6 +12,7 @@ Swat::Engine.routes.draw do
     put 'revision/name/:name', to: 'revisions#set_name'
 
     get 'configuration', to: 'configuration#show'
+    get 'console', to: 'console#show'
   end
 
   # Helper Methods

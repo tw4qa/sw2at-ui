@@ -16,6 +16,14 @@ class Revision < Fire::SingleNestedModel
       nested_main.threads_count.to_i
     end
 
+    class << self
+
+      def stats
+        all
+      end
+
+    end
+
   end
 
   nested_in Revision::Root, folder: 'main', parent_values: true
