@@ -11,4 +11,31 @@ module RootRevisionExt
     attrs
   end
 
+  module ClassMethods
+
+    def stats
+      all_revisions = all.map(&:main)
+
+      branches_stats = all.count_by_rule{|x| x.branch }
+      users_stats = all.count_by_rule{|x| x.user }
+      periods_stats = all.count_by_rule{|x| Time.at(x.time).strftime('%m/%d/%Y') }
+
+      branches = branches_stats.keys
+      users = users_stats.keys
+      periods = periods_stats.keys
+
+      {
+          branches: branches,
+          users: users,
+          periods: periods,
+          stats: {
+              branches: branches_stats,
+              users: users_stats,
+              periods: periods_stats,
+          }
+      }
+    end
+
+  end
+
 end

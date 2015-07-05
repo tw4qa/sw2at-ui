@@ -261,6 +261,18 @@ describe FullRevision do
       expect(FullRevision.fetch_all.first.nested_threads.map{|nt| nt.status[:name] }).to eq(['completed_passed', 'completed_failed'])
     end
 
+    it 'should calculate stats' do
+      expect(Revision::Root.stats).to eq(
+        {:branches=>["swat-edge-2"],
+        :users=>["vitaliyt-pc"],
+        :periods=>["06/20/2015"],
+        :stats=>
+            {:branches=>{"swat-edge-2"=>1},
+             :users=>{"vitaliyt-pc"=>1},
+             :periods=>{"06/20/2015"=>1}}}
+      )
+    end
+
   end
 
 end

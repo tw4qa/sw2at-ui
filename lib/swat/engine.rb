@@ -7,6 +7,8 @@ module Swat
   require 'time_difference'
   require 'tarvit-helpers'
 
+  require 'tarvit-helpers/extensions/counter'
+
   class Engine < ::Rails::Engine
     isolate_namespace Swat
   end

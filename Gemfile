@@ -7,7 +7,7 @@ gem 'slim-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'bootstrap-sass'
-gem 'tarvit-helpers'
+gem 'tarvit-helpers', '~> 0.0.9'
 gem 'time_difference'
 
 group :development do
