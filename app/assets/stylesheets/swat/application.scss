@@ -39,6 +39,30 @@
     }
   }
 
+  .info-widget-container {
+    display: block;
+    width: 100%;
+  }
+  .info-widget {
+    background: $whiteColor;
+    border: 1px solid $containerBorder;
+    margin: 20px;
+    padding: 28px 38px;
+    width: 800px;
+    margin: auto;
+
+    .heading {
+      text-align: left;
+      margin: 0;
+      color: rgba(60, 56, 55, 0.68);
+    }
+
+    table {
+      margin-bottom: 18px;
+    }
+
+  }
+
 }
 
 
