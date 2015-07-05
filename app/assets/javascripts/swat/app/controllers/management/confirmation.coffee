@@ -1,10 +1,8 @@
-angular.module("SWAT").controller "ConfirmationCtrl", ($rootScope, $scope, $sce, $modalInstance, action, message)->
+angular.module("SWAT").controller "ConfirmationCtrl", ($rootScope, $scope, $modalInstance, action, message, SwatHelpers)->
   $scope.init = ->
     $scope.action = action
     $scope.message = message
-
-  $scope.renderHtml = (htmlCode)->
-    $sce.trustAsHtml(htmlCode)
+    $scope.helpers = SwatHelpers
 
   $scope.ok = ->
     $scope.action()

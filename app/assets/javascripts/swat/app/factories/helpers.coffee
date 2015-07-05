@@ -1,4 +1,4 @@
-angular.module("SWAT").factory "SwatHelpers", ->
+angular.module("SWAT").factory "SwatHelpers", ($sce)->
   Helpers =
     formatTime: (seconds) ->
       hh = Math.floor(seconds / 3600)
@@ -11,4 +11,8 @@ angular.module("SWAT").factory "SwatHelpers", ->
 
     isEmpty: (string)->
       _.isEmpty(string)
+
+    renderHtml: (htmlCode)->
+      $sce.trustAsHtml(htmlCode)
+
 

@@ -7,5 +7,4 @@ angular.module("SWAT").factory "ConfirmationDialog", ($modal)->
       resolve:
         action: -> action
         message: -> message
-
     )
