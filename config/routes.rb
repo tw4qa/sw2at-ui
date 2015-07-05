@@ -12,6 +12,8 @@ Swat::Engine.routes.draw do
     put 'revision/name/:name', to: 'revisions#set_name'
 
     get 'configuration', to: 'configuration#show'
+
+    delete 'console/clean/:attribute/:value', to: 'console#clean'
     get 'console', to: 'console#show'
   end
 

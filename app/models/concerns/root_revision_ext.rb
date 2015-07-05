@@ -16,9 +16,9 @@ module RootRevisionExt
     def stats
       all_revisions = all
 
-      branches_stats = all_revisions.count_by_rule{|x| x.branch }
-      users_stats = all_revisions.count_by_rule{|x| x.user }
-      periods_stats = all_revisions.count_by_rule{|x| Time.at(x.time).strftime('%m/%d/%Y') }
+      branches_stats = all_revisions.count_by_rule(&:branch)
+      users_stats = all_revisions.count_by_rule(&:user)
+      periods_stats = all_revisions.count_by_rule{|x| period(x.time) }
 
       branches = branches_stats.keys
       users = users_stats.keys
@@ -34,6 +34,10 @@ module RootRevisionExt
               periods: periods_stats,
           }
       }
+    end
+
+    def period(timestamp)
+      Time.at(timestamp).strftime('%m/%d/%Y')
     end
 
   end

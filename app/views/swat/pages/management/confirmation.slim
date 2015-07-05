@@ -7,6 +7,7 @@
     span.message ng-bind-html="helpers.renderHtml(message)"
 
     .confirmation-modal-footer
-      .controls
-        button.btn.btn-success.yes ng-click="ok()" Yes
-        button.btn.btn-default.no ng-click="cancel()" No
+      span.loader ng-if="waitingAction"
+      .controls ng-if="!waitingAction"
+        button.btn.btn-success.yes ng-click="ok()" ng-disabled="waitingAction" Yes
+        button.btn.btn-default.no ng-click="cancel()" ng-disabled="waitingAction" No

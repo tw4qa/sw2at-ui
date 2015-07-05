@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FullRevision do
+describe RevisionStatusCalulator do
 
   context 'Calculations' do
 

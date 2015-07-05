@@ -23,7 +23,11 @@ angular.module("SWAT").controller "ConsoleCtrl", ($rootScope, $scope, $state, $s
 
   $scope.remove = (attribute)->
     message = 'Are you sure you want to remove revisions of ' + attribute + ' <strong>' + $scope.clean[attribute].name + '<strong>?'
-    action =  -> alert('Wow')
+    action =  ->
+      promise = ConsoleService.clean(attribute: attribute, value: $scope.clean[attribute].name)
+      promise.$promise.then($scope.loadConsoleData)
+      promise
+
     new ConfirmationDialog(message, action)
 
   $scope.init()

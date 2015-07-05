@@ -5,8 +5,15 @@ angular.module("SWAT").controller "ConfirmationCtrl", ($rootScope, $scope, $moda
     $scope.helpers = SwatHelpers
 
   $scope.ok = ->
-    $scope.action()
-    $modalInstance.close()
+    result = $scope.action()
+    unless result.$promise
+      $modalInstance.close()
+    else
+      $scope.waitingAction = true
+      result.$promise.then(->
+        $scope.waitingAction = false
+        $modalInstance.close()
+      )
 
   $scope.cancel = ->
     $modalInstance.dismiss('cancel')
