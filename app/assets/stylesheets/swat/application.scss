@@ -63,8 +63,37 @@
     }
 
   }
-
-
 }
 
+#swat, #confirmation-modal {
+
+  .btn {
+    border: none;
+    font-weight: bold;
+    margin-right: 10px;
+
+    background-color: $greenBtnBg;
+    color: $greenBtnColor;
+    &:hover {
+      background-color: $greenBtnBgHover;
+    }
+
+    &.grey {
+      background-color: rgb(212, 209, 210);
+      color: #7f807d;
+      &:hover {
+        background-color: rgb(188, 186, 186);
+      }
+    }
+
+    &.red {
+      background-color: #F29FA4;
+      color: #AE4659;
+      &:hover {
+        background-color: #FAB9BD;
+      }
+    }
+  }
+
+}
 

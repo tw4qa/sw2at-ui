@@ -13,17 +13,6 @@ html, body {
 
   .controls {
     float: right;
-    .btn {
-
-
-      background-color: $greenBtnBg;
-      color: $greenBtnColor;
-      font-weight: bold;
-      margin-right: 10px;
-      &:hover {
-        background-color: $greenBtnBgHover;
-      }
-    }
   }
 
   #container {

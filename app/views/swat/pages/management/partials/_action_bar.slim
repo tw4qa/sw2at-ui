@@ -4,7 +4,7 @@ h3.heading
 
 .action-bar(class=object)
   custom-dropdown(model="clean.#{object}.name" options="consoleData.#{objects}")
-  button.btn.action.btn-danger(ng-disabled="helpers.isEmpty(clean.#{object}.name)" ng-click="remove('#{object}')")
+  button.btn.action.red(ng-disabled="helpers.isEmpty(clean.#{object}.name)" ng-click="remove('#{object}')")
     | Remove revisions by #{ object }
 
 .in(id="#{objects}-stats")

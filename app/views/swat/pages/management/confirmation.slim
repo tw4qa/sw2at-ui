@@ -9,5 +9,5 @@
     .confirmation-modal-footer
       span.loader ng-if="waitingAction"
       .controls ng-if="!waitingAction"
-        button.btn.btn-success.yes ng-click="ok()" ng-disabled="waitingAction" Yes
-        button.btn.btn-default.no ng-click="cancel()" ng-disabled="waitingAction" No
+        button.btn.yes.red ng-click="ok()" ng-disabled="waitingAction" Yes
+        button.btn.no.grey ng-click="cancel()" ng-disabled="waitingAction" No
