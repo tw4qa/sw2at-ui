@@ -458,7 +458,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/tw4qa/sw2at-ui"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.2.2"
+  s.rubygems_version = "2.4.8"
   s.summary = "Gem displays RSpec tests with a beatufil UI inside of your Rails application"
 
   if s.respond_to? :specification_version then
@@ -473,6 +473,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<bootstrap-sass>, [">= 0"])
       s.add_runtime_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
       s.add_runtime_dependency(%q<time_difference>, [">= 0"])
+      s.add_runtime_dependency(%q<daemons>, ["~> 1.2.3"])
+      s.add_runtime_dependency(%q<daemons-rails>, ["~> 1.2.1"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<rspec>, ["~> 3.2"])
@@ -489,6 +491,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bootstrap-sass>, [">= 0"])
       s.add_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
       s.add_dependency(%q<time_difference>, [">= 0"])
+      s.add_dependency(%q<daemons>, ["~> 1.2.3"])
+      s.add_dependency(%q<daemons-rails>, ["~> 1.2.1"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<rspec>, ["~> 3.2"])
@@ -506,6 +510,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bootstrap-sass>, [">= 0"])
     s.add_dependency(%q<tarvit-helpers>, ["~> 0.0.9"])
     s.add_dependency(%q<time_difference>, [">= 0"])
+    s.add_dependency(%q<daemons>, ["~> 1.2.3"])
+    s.add_dependency(%q<daemons-rails>, ["~> 1.2.1"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<rspec>, ["~> 3.2"])

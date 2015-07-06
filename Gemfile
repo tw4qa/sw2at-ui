@@ -10,6 +10,9 @@ gem 'bootstrap-sass'
 gem 'tarvit-helpers', '~> 0.0.9'
 gem 'time_difference'
 
+gem 'daemons', '~> 1.2.3'
+gem 'daemons-rails', '~> 1.2.1'
+
 group :development do
   gem 'shoulda', '>= 0'
   gem 'rdoc', '~> 3.12'

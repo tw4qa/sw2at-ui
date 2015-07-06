@@ -30,6 +30,14 @@ namespace :swat do
     def run_command(scenario, command)
       `#{scenario[command]}`
     end
+
+    namespace :daemon do
+      desc 'start daemon'
+      task start: :environment do
+        file = "#{Swat::Engine.root}/lib/daemons/swat_process_ctl"
+        `#{file} start`
+      end
+    end
   end
 
 end
