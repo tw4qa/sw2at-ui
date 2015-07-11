@@ -3,14 +3,15 @@ angular.module("SWAT").controller "RevisionCtrl", ($rootScope, $scope, $state, $
 
   $scope.init = ->
     $scope.currentState = $state.current.name
-    $scope.reloadData()
     $rootScope.globalControl.setReloader($scope.reloadData)
+    $rootScope.globalControl.reload()
 
   $scope.reloadData = ->
     return if $scope.revisionPromise && !$scope.revisionPromise.$resolved
     params = { branch: decodeURI($stateParams.branch), user: $stateParams.user, time: $stateParams.time }
     $scope.revisionPromise = RevisionService.get(params)
     $scope.revisionPromise.$promise.then($scope.initTabs)
+    $scope.revisionPromise
 
   $scope.initTabs = (revision)->
     $scope.revision = revision

@@ -3,7 +3,6 @@ h1.revision
 
   span.revision-status ng-class="revision.data.status.name"
     | {{  '   '+revision.data.status.label  }}
-  span.loader ng-class="{ true: 'invisible' }[(revisionPromise && revisionPromise.$resolved)]"
   .controls
     button.btn.revisions ui-sref="revisions" title="See all revisions list" ng-disabled="(currentState == 'revisions')"
       | Revisions

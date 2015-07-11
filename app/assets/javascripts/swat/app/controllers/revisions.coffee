@@ -2,14 +2,15 @@ angular.module("SWAT").controller "RevisionsCtrl", ($rootScope, $scope, $state, 
 
   $scope.init = ->
     window.Swat.log('Revisions Controller initalized!')
-    $scope.initRevisions()
     $rootScope.globalControl.setReloader($scope.initRevisions)
+    $rootScope.globalControl.reload()
 
   $scope.initRevisions = ->
     $scope.revisionsPromise = RevisionService.query()
     $scope.revisionsPromise.$promise.then((resp)->
       $scope.revisions = resp
     )
+    $scope.revisionsPromise
 
   $scope.testsProgress = (revision)->
 

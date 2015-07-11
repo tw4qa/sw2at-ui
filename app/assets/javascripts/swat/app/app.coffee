@@ -6,7 +6,7 @@
 #= require_tree ./directives
 
 window.Swat =
-  debug: true#false
+  debug: false
   log: (message)->
     return unless window.Swat.debug
     console.log(message)

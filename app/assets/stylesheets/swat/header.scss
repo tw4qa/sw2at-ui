@@ -46,7 +46,12 @@
         margin-top: -3px;
         padding: 7px;
         line-height: 25px;
-        &:after { content: 'F5' }
+        background-image: url("/assets/swat/preloader-black-bg-static.png");
+        background-size: 39px;
+        &.loading {
+          background-image: url("/assets/swat/preloader-black-bg.gif");
+        }
+        //&:after { content: 'F5' }
       }
     }
 

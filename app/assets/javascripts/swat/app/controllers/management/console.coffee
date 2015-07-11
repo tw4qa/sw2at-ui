@@ -7,9 +7,8 @@ angular.module("SWAT").controller "ConsoleCtrl", ($rootScope, $scope, $state, $s
       user: { name: '' }
       period: { name: '' }
       revision: { name: '' }
-
-    $scope.loadConsoleData()
     $rootScope.globalControl.setReloader($scope.loadConsoleData)
+    $rootScope.globalControl.reload()
 
 
   $scope.loadConsoleData = ->
@@ -17,6 +16,7 @@ angular.module("SWAT").controller "ConsoleCtrl", ($rootScope, $scope, $state, $s
     $scope.consoleDataPromise.$promise.then((resp)->
       $scope.consoleData = resp
     )
+    $scope.consoleDataPromise
 
   $scope.sum = (data)->
    _.sum(_.values(data))

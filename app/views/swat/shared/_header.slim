@@ -7,4 +7,9 @@
       .to
       .A
       .T
-    .control.refresh ng-click="globalControl.reload()" title="Refresh"
+    .control.refresh[
+      title="Refresh"
+      ng-click="globalControl.reload()"
+      ng-class="{'loading': globalControl.isLoading()}"
+      ng-disabled="globalControl.isLoading()"
+    ]

@@ -4,14 +4,15 @@ angular.module("SWAT").controller "SummaryCtrl", ($rootScope, $scope, $state, $s
   $scope.init = ->
     $scope.currentState = $state.current.name
     $scope.summary = {}
-    $scope.reloadData()
     $rootScope.globalControl.setReloader($scope.reloadData)
+    $rootScope.globalControl.reload()
 
   $scope.reloadData = ->
-    return if $scope.revisionPromise && !$scope.revisionPromise.$resolved
+    return $scope.revisionPromise if $scope.revisionPromise && !$scope.revisionPromise.$resolved
     params = { branch: $stateParams.branch, user: $stateParams.user, time: $stateParams.time }
     $scope.revisionPromise = RevisionService.get(params)
     $scope.revisionPromise.$promise.then($scope.initInformation)
+    $scope.revisionPromise
 
   $scope.initInformation = (revision)->
     $scope.revision = revision

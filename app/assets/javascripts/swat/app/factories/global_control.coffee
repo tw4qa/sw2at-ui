@@ -24,5 +24,8 @@ angular.module("SWAT").factory "GlobalControl", ($cookies)->
       @reloader = func
 
     reload: ->
-      @reloader()
+      @promise = @reloader()
+
+    isLoading: ->
+      @promise && @promise.$promise && !@promise.$resolved
 
