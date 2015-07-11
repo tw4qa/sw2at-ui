@@ -16,9 +16,15 @@
     margin-top: 0;
     padding: 12px;
 
+    .control-button {
+      float: right;
+      width: 1px;
+      height: 1px;
+      margin-left: 0;
+    }
     .control {
-      float: left;
       color: $greenMain;
+      float: left;
       padding: 14px;
       border-radius: 24px;
       width: 43px;
@@ -40,18 +46,25 @@
         &:after { content: '<' }
       }
       &.refresh {
-        float: right;
-        width: 40px;
+        background-color: $greenMain;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
         font-size: 21px;
         margin-top: -3px;
-        padding: 7px;
+        padding: 4px;
         line-height: 25px;
-        background-image: url("/assets/swat/preloader-black-bg-static.png");
-        background-size: 39px;
+        background-image: url("/assets/swat/preloader-green-bg.gif");
+        background-repeat: no-repeat;
+        background-size: 56px;
+        position: absolute;
+        background-position: 3px 3px;
+        top: 39px;
+        right: 41px;
+
         &.loading {
-          background-image: url("/assets/swat/preloader-black-bg.gif");
+          background-image: url("/assets/swat/preloader-green-bg.gif");
         }
-        //&:after { content: 'F5' }
       }
     }
 
