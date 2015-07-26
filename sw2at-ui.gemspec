@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Vitaly Tarasenko"]
-  s.date = "2015-07-06"
+  s.date = "2015-07-26"
   s.description = " Control your tests, run them parallel. Check statuses of your revisions online. Share results to all team members. "
   s.email = "vetal.tarasenko@gmail.com"
   s.executables = ["rails"]
@@ -27,6 +27,9 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/assets/images/swat/loading-green.gif",
+    "app/assets/images/swat/preloader-black-bg-static.png",
+    "app/assets/images/swat/preloader-black-bg.gif",
+    "app/assets/images/swat/preloader-trans-bg.gif",
     "app/assets/javascripts/swat/.bowerrc",
     "app/assets/javascripts/swat/app/app.coffee",
     "app/assets/javascripts/swat/app/controllers/global_nav.coffee",
